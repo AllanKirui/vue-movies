@@ -56,6 +56,10 @@ p {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Flex box styles */
 .flex {
   display: flex;
