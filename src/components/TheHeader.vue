@@ -18,3 +18,24 @@
     <!-- Import the SearchHandler component here -->
   </nav>
 </template>
+
+<style scoped>
+nav {
+  width: 100%;
+  height: 80px;
+  background-color: var(--color-jet-black);
+}
+
+.logo h1 {
+  font-size: var(--font-size-24);
+}
+
+.nav-options {
+  list-style: none;
+}
+
+.logo h1,
+.nav-options a {
+  color: var(--color-clouds);
+}
+</style>
