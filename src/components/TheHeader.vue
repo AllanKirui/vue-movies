@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="flex flex-ai-c">
     <button class="burger">
       <span></span>
       <span></span>
@@ -10,7 +10,7 @@
       <h1>VueMovies</h1>
     </div>
 
-    <ul class="nav-options">
+    <ul class="nav-options flex">
       <li><a href="#">Movies</a></li>
       <li><a href="#">TV Shows</a></li>
     </ul>
@@ -37,5 +37,9 @@ nav {
 .logo h1,
 .nav-options a {
   color: var(--color-clouds);
+}
+
+.nav-options a {
+  font-size: var(--font-size-18);
 }
 </style>
