@@ -10,7 +10,7 @@
     </button>
 
     <div class="logo">
-      <h1>VueMovies</h1>
+      <img src="../assets/logo.svg" width="191" height="71" />
     </div>
 
     <ul class="nav-options flex">
@@ -93,20 +93,18 @@ nav {
   transform: rotateZ(-45deg);
 }
 
-.logo h1 {
-  font-size: var(--font-size-24);
-}
-
 .nav-options {
   list-style: none;
-}
-
-.logo h1,
-.nav-options a {
-  color: var(--color-clouds);
+  padding: 0;
 }
 
 .nav-options a {
   font-size: var(--font-size-18);
+  color: var(--color-clouds);
+}
+
+.nav-options li:not(:last-child),
+.logo {
+  margin-right: 2.5rem;
 }
 </style>
