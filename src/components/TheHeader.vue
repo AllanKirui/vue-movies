@@ -1,6 +1,9 @@
 <template>
   <nav class="flex flex-ai-c">
-    <button class="burger" @click="setActiveStatus">
+    <button
+      :class="[isMenuOpen ? 'open' : '', 'burger']"
+      @click="setActiveStatus"
+    >
       <span></span>
       <span></span>
       <span></span>
@@ -18,6 +21,21 @@
     <!-- Import the SearchHandler component here -->
   </nav>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isMenuOpen: false,
+    };
+  },
+  methods: {
+    setActiveStatus() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+  },
+};
+</script>
 
 <style scoped>
 nav {
