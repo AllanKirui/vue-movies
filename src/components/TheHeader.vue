@@ -18,6 +18,101 @@
       <li><a href="#">TV Shows</a></li>
     </ul>
 
+    <form class="search-form">
+      <label for="search">Search</label>
+      <input
+        name="search"
+        type="text"
+        placeholder="Search for movies or TV shows..."
+      />
+      <button title="search" class="search-btn">
+        <!-- <img src="../assets/search-icon.svg" alt="search icon" /> -->
+        <svg
+          xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:cc="http://creativecommons.org/ns#"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+          xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+          width="21"
+          height="21"
+          viewBox="0 0 5.5562499 5.5562502"
+          version="1.1"
+          id="svg1839"
+          inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)"
+          sodipodi:docname="search-icon.svg"
+        >
+          <defs id="defs1833" />
+          <sodipodi:namedview
+            id="base"
+            pagecolor="#ffffff"
+            bordercolor="#666666"
+            borderopacity="1.0"
+            inkscape:pageopacity="0.0"
+            inkscape:pageshadow="2"
+            inkscape:zoom="7.9195959"
+            inkscape:cx="4.2522744"
+            inkscape:cy="21.326222"
+            inkscape:document-units="px"
+            inkscape:current-layer="layer1"
+            inkscape:document-rotation="0"
+            showgrid="false"
+            units="px"
+            inkscape:window-width="1267"
+            inkscape:window-height="728"
+            inkscape:window-x="83"
+            inkscape:window-y="0"
+            inkscape:window-maximized="0"
+          />
+          <metadata id="metadata1836">
+            <rdf:RDF>
+              <cc:Work rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type
+                  rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+                />
+                <dc:title></dc:title>
+              </cc:Work>
+            </rdf:RDF>
+          </metadata>
+          <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+            <g
+              id="g2499"
+              transform="matrix(0.99256808,0,0,0.99256808,-633.03941,-286.23689)"
+              style="display: inline; stroke: #090909; stroke-opacity: 1"
+            >
+              <circle
+                style="
+                  fill: none;
+                  fill-opacity: 1;
+                  stroke: #090909;
+                  stroke-width: 0.40755;
+                  stroke-opacity: 1;
+                "
+                id="circle2495"
+                cx="640.03369"
+                cy="290.65128"
+                r="2.0451832"
+              />
+              <path
+                style="
+                  fill: none;
+                  stroke: #090909;
+                  stroke-width: 0.396875;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-opacity: 1;
+                "
+                d="m 641.51906,292.13667 1.72321,1.7232"
+                id="path2497"
+              />
+            </g>
+          </g>
+        </svg>
+      </button>
+    </form>
+
     <!-- Import the SearchHandler component here -->
   </nav>
 </template>
@@ -107,5 +202,58 @@ nav {
 .nav-options li:not(:last-child),
 .logo {
   margin-right: 2.5rem;
+}
+
+.search-form {
+  position: absolute;
+  right: 30px;
+}
+
+.search-form label {
+  display: none;
+}
+
+.search-form input {
+  width: 400px;
+  max-width: 100%;
+  padding: 14px 55px 14px 22px;
+  border-radius: 50px;
+  outline: none;
+  border: 1px solid var(--color-clouds);
+  background: var(--color-jet-black);
+  font-family: "PT Sans", sans-serif;
+  font-size: var(--font-size-16);
+}
+
+.search-form input,
+.search-form input::placeholder {
+  color: var(--color-clouds);
+}
+
+.search-form input:focus {
+  background-color: var(--color-clouds);
+  color: var(--color-jet-black);
+}
+
+.search-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.search-btn svg circle,
+.search-btn svg path {
+  stroke: var(--color-clouds) !important;
+  transition: stroke 0.2s ease-in-out;
+}
+
+.search-form input:focus + .search-btn svg circle,
+.search-form input:focus + .search-btn svg path {
+  stroke: var(--color-jet-black) !important;
 }
 </style>
