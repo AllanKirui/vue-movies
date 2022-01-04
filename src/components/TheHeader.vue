@@ -18,12 +18,14 @@
       <li><a href="#">TV Shows</a></li>
     </ul>
 
-    <form class="search-form">
+    <form class="search-form" @submit.prevent="getMovies(searchLink)">
       <label for="search">Search</label>
       <input
         name="search"
         type="text"
         placeholder="Search for movies or TV shows..."
+        v-model.trim="searchTerm"
+        :class="searchTerm ? 'active-search' : ''"
       />
       <button title="search" class="search-btn">
         <!-- <img src="../assets/search-icon.svg" alt="search icon" /> -->
@@ -118,15 +120,34 @@
 </template>
 
 <script>
+import apiKey from "../../config.js";
+const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
 export default {
   data() {
     return {
       isMenuOpen: false,
+      searchTerm: "",
+      searchLink: searchAPI,
     };
   },
   methods: {
     setActiveStatus() {
       this.isMenuOpen = !this.isMenuOpen;
+    },
+    getMovies(url) {
+      if (this.searchTerm === "") {
+        // show no results, change routes
+        window.location.reload();
+        return;
+      } else {
+        fetch(url + this.searchTerm)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+          });
+      }
     },
   },
 };
@@ -234,7 +255,10 @@ nav {
   background-color: var(--color-clouds);
   color: var(--color-jet-black);
 }
-
+.search-form input.active-search {
+  background-color: var(--color-clouds);
+  color: var(--color-jet-black);
+}
 .search-btn {
   position: absolute;
   right: 20px;
