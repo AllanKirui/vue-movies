@@ -100,6 +100,7 @@ nav {
 
 .nav-options a {
   font-size: var(--font-size-18);
+  font-weight: bold;
   color: var(--color-clouds);
 }
 
