@@ -156,7 +156,7 @@ export default {
 <style scoped>
 nav {
   width: 100%;
-  height: 80px;
+  height: 5rem;
   background-color: var(--color-jet-black);
 }
 
@@ -227,7 +227,7 @@ nav {
 
 .search-form {
   position: absolute;
-  right: 30px;
+  right: 1.875rem;
 }
 
 .search-form label {
@@ -235,9 +235,9 @@ nav {
 }
 
 .search-form input {
-  width: 400px;
+  width: 25rem;
   max-width: 100%;
-  padding: 14px 55px 14px 22px;
+  padding: 0.875rem 3.4375rem 0.875rem 1.375rem;
   border-radius: 50px;
   outline: none;
   border: 1px solid var(--color-clouds);
@@ -251,17 +251,15 @@ nav {
   color: var(--color-clouds);
 }
 
+.search-form input.active-search,
 .search-form input:focus {
   background-color: var(--color-clouds);
   color: var(--color-jet-black);
 }
-.search-form input.active-search {
-  background-color: var(--color-clouds);
-  color: var(--color-jet-black);
-}
+
 .search-btn {
   position: absolute;
-  right: 20px;
+  right: 1.25rem;
   top: 50%;
   transform: translateY(-50%);
   border: none;
@@ -277,7 +275,9 @@ nav {
 }
 
 .search-form input:focus + .search-btn svg circle,
-.search-form input:focus + .search-btn svg path {
+.search-form input:focus + .search-btn svg path,
+.search-form input.active-search + .search-btn svg circle,
+.search-form input.active-search + .search-btn svg path {
   stroke: var(--color-jet-black) !important;
 }
 </style>
