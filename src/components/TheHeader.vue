@@ -116,7 +116,7 @@
     </form>
 
     <!-- Import the SearchHandler component here -->
-    <search-handler></search-handler>
+    <search-handler :search-results="searchResults"></search-handler>
   </nav>
 </template>
 
