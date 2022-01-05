@@ -169,6 +169,7 @@ nav {
   width: 100%;
   height: 5rem;
   background-color: var(--color-jet-black);
+  position: relative;
 }
 
 .burger {
