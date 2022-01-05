@@ -134,20 +134,23 @@ export default {
     setActiveStatus() {
       this.isMenuOpen = !this.isMenuOpen;
     },
-    getMovies(url) {
+    async getMovies(url) {
       if (this.searchTerm === "") {
         // show no results, change routes
         window.location.reload();
+        console.log("blank entered");
         return;
-      } else {
-        fetch(url + this.searchTerm)
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-          });
       }
+      // fetch(url + this.searchTerm)
+      //   .then((response) => {
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     console.log(data);
+      //   });
+      const response = await fetch(url + this.searchTerm);
+      const data = await response.json();
+      console.log(data.results);
     },
   },
 };
