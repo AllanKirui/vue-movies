@@ -116,18 +116,25 @@
     </form>
 
     <!-- Import the SearchHandler component here -->
+    <search-handler></search-handler>
   </nav>
 </template>
 
 <script>
 import apiKey from "../../config.js";
+import SearchHandler from "./SearchHandler.vue";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
+
 export default {
+  components: {
+    "search-handler": SearchHandler,
+  },
   data() {
     return {
       isMenuOpen: false,
       searchTerm: "",
       searchLink: searchAPI,
+      searchResults: null,
     };
   },
   methods: {
@@ -151,6 +158,7 @@ export default {
       const response = await fetch(url + this.searchTerm);
       const data = await response.json();
       console.log(data.results);
+      this.searchResults = data.results;
     },
   },
 };
