@@ -34,4 +34,36 @@ export default {
   background-color: #ececec;
   overflow-y: scroll;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result {
+  padding: 0.625rem 0.8125rem;
+  background-color: #212429;
+  border-radius: 8px;
+  margin-bottom: 0.8125rem;
+}
+
+.result__info {
+  color: var(--color-white);
+  width: 100%;
+}
+
+.result__info-date,
+.result__info-rating {
+  color: var(--color-clouds);
+}
+
+.result__info-title {
+  font-size: var(--font-size-18);
+}
+
+.result__info-overview {
+  font-size: var(--font-size-16);
+  margin-bottom: 0.625rem;
+}
 </style>
