@@ -1,6 +1,18 @@
 <template>
   <div class="results-wrapper">
-    <ul></ul>
+    <ul v-for="result in searchResults" :key="result.id">
+      <li class="result flex">
+        <div class="result__poster"></div>
+        <div class="result__info flex flex-fd-c">
+          <h3 class="result__info-title">{{ result.title }}</h3>
+          <p class="result__info-overview">{{ result.overview }}</p>
+          <div class="flex">
+            <p class="result__info-date">{{ result.release_date }}</p>
+            <p class="result__info-rating">{{ result.vote_average }}</p>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
