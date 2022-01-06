@@ -1,6 +1,6 @@
 <template>
   <div class="results-wrapper">
-    <ul v-for="result in searchResults" :key="result.id">
+    <ul v-for="result in searchResults[0]" :key="result.id">
       <li class="result flex">
         <div class="result__poster">
           <img
@@ -25,6 +25,7 @@
         </div>
       </li>
     </ul>
+    <button v-if="searchResults[1]">Show More</button>
   </div>
 </template>
 
