@@ -4,6 +4,13 @@
   </div>
 </template>
 
+<script>
+export default {
+  props: ["searchResults"],
+  name: "SearchHandler",
+};
+</script>
+
 <style scoped>
 .results-wrapper {
   position: absolute;
