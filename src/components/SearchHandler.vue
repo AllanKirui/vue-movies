@@ -2,7 +2,19 @@
   <div class="results-wrapper">
     <ul v-for="result in searchResults" :key="result.id">
       <li class="result flex">
-        <div class="result__poster"></div>
+        <div class="result__poster">
+          <img
+            v-if="result.poster_path"
+            :src="setPath(result.poster_path)"
+            alt=""
+          />
+          <img
+            v-else
+            src="../assets/no-poster-img.svg"
+            alt=""
+            class="no-poster-img"
+          />
+        </div>
         <div class="result__info flex flex-fd-c">
           <h3 class="result__info-title">{{ result.title }}</h3>
           <p class="result__info-overview">{{ result.overview }}</p>
@@ -17,9 +29,16 @@
 </template>
 
 <script>
+const imgPath = "https://image.tmdb.org/t/p/w1280";
+
 export default {
   props: ["searchResults"],
   name: "SearchHandler",
+  methods: {
+    setPath(poster_path) {
+      return imgPath + poster_path;
+    },
+  },
 };
 </script>
 
