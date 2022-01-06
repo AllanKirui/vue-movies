@@ -68,11 +68,11 @@ export default {
 <style scoped>
 .results-wrapper {
   position: absolute;
-  top: 120%;
+  top: 100%;
   right: 0.9375rem;
   width: 100%;
   max-width: 33.125rem;
-  height: 500px;
+  height: 29.375rem;
   padding: 0.8125rem 0.625rem;
   background-color: var(--color-jet-black);
   opacity: 0.9;
@@ -90,6 +90,7 @@ ul {
   background-color: #212429;
   border-radius: 8px;
   margin-bottom: 0.8125rem;
+  position: relative;
 }
 
 .result__poster {
@@ -119,8 +120,8 @@ ul {
 }
 
 .result__info > div {
-  position: relative;
-  bottom: -8px;
+  position: absolute;
+  bottom: 8px;
   gap: 15px;
 }
 .result__info > div p > img {
