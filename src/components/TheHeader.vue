@@ -134,7 +134,8 @@ export default {
       isMenuOpen: false,
       searchTerm: "",
       searchLink: searchAPI,
-      searchResults: null,
+      searchResults: [],
+      isMoreResults: false,
     };
   },
   methods: {
@@ -142,23 +143,33 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
     },
     async getMovies(url) {
+      // perform resets before a new fetch request
+      this.searchResults = [];
+      this.isMoreResults = false;
+
       if (this.searchTerm === "") {
         // show no results, change routes
         window.location.reload();
         console.log("blank entered");
         return;
       }
-      // fetch(url + this.searchTerm)
-      //   .then((response) => {
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     console.log(data);
-      //   });
+
       const response = await fetch(url + this.searchTerm);
       const data = await response.json();
-      console.log(data.results);
-      this.searchResults = data.results;
+      this.checkResults(data.results);
+    },
+    checkResults(results) {
+      // check if search results are more or less than five
+      if (results.length <= 5) {
+        this.searchResults.push(results, this.isMoreResults);
+      } else {
+        this.isMoreResults = !this.isMoreResults;
+        const minResults = [];
+        for (let i = 0; i < 5; i++) {
+          minResults.push(results[i]);
+        }
+        this.searchResults.push(minResults, this.isMoreResults);
+      }
     },
   },
 };
