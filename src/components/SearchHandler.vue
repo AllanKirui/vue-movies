@@ -19,7 +19,9 @@
         </div>
         <div class="result__info flex flex-fd-c">
           <h3 class="result__info-title">{{ result.title }}</h3>
-          <p class="result__info-overview">{{ result.overview }}</p>
+          <p class="result__info-overview">
+            {{ adjustOverviewLength(result.overview) }}
+          </p>
           <div class="flex">
             <p class="result__info-date">{{ result.release_date }}</p>
             <p class="result__info-rating flex flex-ai-c">
@@ -47,6 +49,17 @@ export default {
   methods: {
     setPath(poster_path) {
       return imgPath + poster_path;
+    },
+    adjustOverviewLength(overview) {
+      if (overview.length <= 150) {
+        return overview;
+      }
+
+      let shortOverview = "";
+      for (let i = 0; i <= 150; i++) {
+        shortOverview += overview[i];
+      }
+      return shortOverview + "...";
     },
   },
 };
