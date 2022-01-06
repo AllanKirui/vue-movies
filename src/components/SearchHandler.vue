@@ -67,6 +67,27 @@ ul {
   margin-bottom: 0.8125rem;
 }
 
+.result__poster {
+  width: 5.625rem;
+  height: 7.5rem;
+  margin-right: 0.625rem;
+  background-color: var(--color-jet-black);
+}
+
+.result__poster img,
+.result__poster img.no-poster-img {
+  width: 100%;
+  height: 100%;
+}
+
+.result__poster img {
+  object-fit: cover;
+}
+
+.result__poster img.no-poster-img {
+  object-fit: contain;
+}
+
 .result__info {
   color: var(--color-white);
   width: 100%;
