@@ -11,6 +11,8 @@
           <img
             v-else
             src="../assets/no-poster-img.svg"
+            width="70"
+            height="35.3"
             alt=""
             class="no-poster-img"
           />
@@ -20,7 +22,14 @@
           <p class="result__info-overview">{{ result.overview }}</p>
           <div class="flex">
             <p class="result__info-date">{{ result.release_date }}</p>
-            <p class="result__info-rating">{{ result.vote_average }}</p>
+            <p class="result__info-rating flex flex-ai-c">
+              <img
+                src="../assets/rating-icon.svg"
+                width="15"
+                height="14.4"
+                alt="star icon"
+              />{{ result.vote_average }}
+            </p>
           </div>
         </div>
       </li>
@@ -48,10 +57,12 @@ export default {
   position: absolute;
   top: 120%;
   right: 0.9375rem;
-  width: 33.125rem;
-  height: 250px;
+  width: 100%;
+  max-width: 33.125rem;
+  height: 500px;
   padding: 0.8125rem 0.625rem;
-  background-color: #ececec;
+  background-color: var(--color-jet-black);
+  opacity: 0.9;
   overflow-y: scroll;
 }
 
@@ -92,6 +103,15 @@ ul {
 .result__info {
   color: var(--color-white);
   width: 100%;
+}
+
+.result__info > div {
+  position: relative;
+  bottom: -8px;
+  gap: 15px;
+}
+.result__info > div p > img {
+  margin-right: 3px;
 }
 
 .result__info-date,
