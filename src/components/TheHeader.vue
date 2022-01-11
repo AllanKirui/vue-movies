@@ -119,17 +119,20 @@
       :search-results="searchResults"
       v-if="!isLoading"
     ></search-handler>
+    <search-placeholder v-else></search-placeholder>
   </nav>
 </template>
 
 <script>
 import apiKey from "../../config.js";
 import SearchHandler from "./SearchHandler.vue";
+import SearchPlaceholder from "./SearchPlaceholder.vue";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
 
 export default {
   components: {
     "search-handler": SearchHandler,
+    "search-placeholder": SearchPlaceholder,
   },
   data() {
     return {
