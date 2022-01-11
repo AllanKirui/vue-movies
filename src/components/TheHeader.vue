@@ -115,6 +115,7 @@ export default {
       this.isMoreResults = false;
 
       if (this.searchTerm === "") {
+        this.isLoading = false;
         // show no results, change routes
         window.location.reload();
         return;
