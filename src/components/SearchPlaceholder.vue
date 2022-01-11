@@ -6,8 +6,8 @@
         <div class="result__poster animated-bg"></div>
         <div class="result__info flex flex-fd-c">
           <h3 class="result__info-title animated-bg animated-bg-text"></h3>
-          <p class="animated-bg animated-bg-text"></p>
-          <p class="animated-bg animated-bg-text"></p>
+          <p class="first animated-bg animated-bg-text"></p>
+          <p class="second animated-bg animated-bg-text"></p>
           <div class="flex">
             <p class="result__info-date animated-bg animated-bg-text"></p>
             <p
@@ -33,6 +33,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .result__info {
   width: 100%;
@@ -45,24 +46,24 @@ export default {
   height: 0.9375rem !important;
 }
 
-.result__info p:nth-child(1) {
+.result__info div {
+  position: absolute;
+  bottom: 0;
+  gap: 0.9375rem;
+}
+
+.result__info p.first {
   position: absolute;
   top: 35px;
 }
 
-.result__info p:nth-child(2) {
+.result__info p.second {
   position: absolute;
   top: 55px;
 }
 
 .result__info-overview p:first-child {
   margin-bottom: 1.25rem;
-}
-
-.result__info > div:last-child {
-  position: absolute;
-  bottom: 0;
-  gap: 0.9375rem;
 }
 
 .result__info-date.animated-bg-text {

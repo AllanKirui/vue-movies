@@ -183,7 +183,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 nav {
   width: 100%;
   height: 5rem;
@@ -324,18 +324,6 @@ nav {
   background-color: var(--color-jet-black);
   opacity: 0.9;
   overflow-y: scroll;
-}
-
-.results-wrapper::-webkit-scrollbar {
-  width: 1vw;
-}
-
-.results-wrapper::-webkit-scrollbar-thumb {
-  background-color: var(--color-clouds);
-}
-
-.results-wrapper::-webkit-scrollbar-track {
-  background-color: var(--color-charleston-green);
 }
 
 ul {

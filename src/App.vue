@@ -93,6 +93,23 @@ a {
   max-width: 87.5rem; /* 1400px */
 }
 
+/* start of scrollbar styles */
+html::-webkit-scrollbar,
+.results-wrapper::-webkit-scrollbar {
+  width: 1vw;
+}
+
+html::-webkit-scrollbar-thumb,
+.results-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-clouds);
+}
+
+html::-webkit-scrollbar-track,
+.results-wrapper::-webkit-scrollbar-track {
+  background-color: var(--color-charleston-green);
+}
+/* end of scrollbar styles */
+
 /* global styling for placeholders */
 .animated-bg {
   background-image: linear-gradient(
