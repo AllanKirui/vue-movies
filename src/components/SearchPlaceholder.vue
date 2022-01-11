@@ -1,5 +1,5 @@
 <template>
-  <div class="results-wrapper">
+  <div class="placeholder-wrapper">
     <!-- <ul v-for="result in searchResults[1]" :key="result.id"> -->
     <ul v-for="item in searchItems" :key="item">
       <li class="result flex">
