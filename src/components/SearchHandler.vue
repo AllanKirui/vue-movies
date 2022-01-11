@@ -40,7 +40,9 @@
         </div>
       </li>
     </ul>
-    <button v-if="isMoreResults">View More Results</button>
+    <button v-if="isMoreResults" class="view-more-btn">
+      View More Results
+    </button>
   </div>
 </template>
 
@@ -117,5 +119,26 @@ export default {
 .result__info-overview {
   font-size: var(--font-size-16);
   margin-bottom: 0.625rem;
+}
+
+.view-more-btn {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 1.25rem;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-smokey-black);
+  color: var(--color-clouds);
+  font-family: inherit;
+  font-size: var(--font-size-16);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.view-more-btn:hover {
+  color: var(--color-smokey-black);
+  background-color: var(--color-clouds);
 }
 </style>
