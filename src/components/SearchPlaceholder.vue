@@ -73,33 +73,4 @@ export default {
 .result__info-rating.animated-bg-text {
   width: 3.125rem;
 }
-
-.animated-bg {
-  background-image: linear-gradient(
-    to right,
-    #1a1a1a 0%,
-    #272727 10%,
-    #1a1a1a 15%,
-    #1a1a1a 100%
-  );
-  background-size: 200% 100%;
-  animation: bgPos 1.2s linear infinite;
-}
-
-.animated-bg-text {
-  border-radius: 50px;
-  display: inline-block;
-  margin: 0;
-  height: 0.75rem;
-  width: 100%;
-}
-
-@keyframes bgPos {
-  0% {
-    background-position: 50% 0;
-  }
-  100% {
-    background-position: -150% 0;
-  }
-}
 </style>
