@@ -311,4 +311,51 @@ nav {
 .search-form input.active-search + .search-btn svg path {
   stroke: var(--color-jet-black) !important;
 }
+
+/* styling for registered components */
+.results-wrapper {
+  position: absolute;
+  top: 100%;
+  right: 0.9375rem;
+  width: 100%;
+  max-width: 33.125rem;
+  height: 29.375rem;
+  padding: 0.8125rem 0.625rem;
+  background-color: var(--color-jet-black);
+  opacity: 0.9;
+  overflow-y: scroll;
+}
+
+.results-wrapper::-webkit-scrollbar {
+  width: 1vw;
+}
+
+.results-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-clouds);
+}
+
+.results-wrapper::-webkit-scrollbar-track {
+  background-color: var(--color-charleston-green);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result {
+  padding: 0.625rem 0.8125rem;
+  background-color: var(--color-smokey-black);
+  border-radius: 8px;
+  margin-bottom: 0.8125rem;
+  position: relative;
+}
+
+.result__poster {
+  width: 5.625rem;
+  height: 7.5rem;
+  margin-right: 0.625rem;
+  background-color: var(--color-jet-black);
+}
 </style>
