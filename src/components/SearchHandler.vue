@@ -79,6 +79,14 @@ export default {
 </script>
 
 <style scoped>
+.result {
+  cursor: pointer;
+}
+
+.result:hover {
+  outline: 1px solid var(--color-clouds);
+}
+
 .result__poster img,
 .result__poster img.no-poster-img {
   width: 100%;
