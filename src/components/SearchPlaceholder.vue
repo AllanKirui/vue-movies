@@ -33,3 +33,73 @@ export default {
   },
 };
 </script>
+<style scoped>
+.result__info {
+  width: 100%;
+  position: relative;
+}
+
+.result__info-title {
+  position: absolute;
+  top: 5px;
+  height: 15px !important;
+}
+
+.result__info p:nth-child(1) {
+  position: absolute;
+  top: 35px;
+}
+
+.result__info p:nth-child(2) {
+  position: absolute;
+  top: 55px;
+}
+
+.result__info-overview p:first-child {
+  margin-bottom: 20px;
+}
+
+.result__info > div:last-child {
+  position: absolute;
+  bottom: 0;
+  gap: 15px;
+}
+
+.result__info-date.animated-bg-text {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.result__info-rating.animated-bg-text {
+  width: 50px;
+}
+
+.animated-bg {
+  background-image: linear-gradient(
+    to right,
+    #1a1a1a 0%,
+    #272727 10%,
+    #1a1a1a 15%,
+    #1a1a1a 100%
+  );
+  background-size: 200% 100%;
+  animation: bgPos 1.2s linear infinite;
+}
+
+.animated-bg-text {
+  border-radius: 50px;
+  display: inline-block;
+  margin: 0;
+  height: 12px;
+  width: 100%;
+}
+
+@keyframes bgPos {
+  0% {
+    background-position: 50% 0;
+  }
+  100% {
+    background-position: -150% 0;
+  }
+}
+</style>
