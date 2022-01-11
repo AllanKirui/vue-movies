@@ -42,7 +42,7 @@ export default {
 .result__info-title {
   position: absolute;
   top: 5px;
-  height: 15px !important;
+  height: 0.9375rem !important;
 }
 
 .result__info p:nth-child(1) {
@@ -56,22 +56,22 @@ export default {
 }
 
 .result__info-overview p:first-child {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .result__info > div:last-child {
   position: absolute;
   bottom: 0;
-  gap: 15px;
+  gap: 0.9375rem;
 }
 
 .result__info-date.animated-bg-text {
-  width: 100px;
-  margin-right: 20px;
+  width: 6.25rem;
+  margin-right: 1.25rem;
 }
 
 .result__info-rating.animated-bg-text {
-  width: 50px;
+  width: 3.125rem;
 }
 
 .animated-bg {
@@ -90,7 +90,7 @@ export default {
   border-radius: 50px;
   display: inline-block;
   margin: 0;
-  height: 12px;
+  height: 0.75rem;
   width: 100%;
 }
 
