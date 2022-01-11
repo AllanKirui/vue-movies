@@ -139,6 +139,7 @@ export default {
       isMenuOpen: false,
       searchTerm: "",
       searchLink: searchAPI,
+      isSearchActive: false,
       searchResults: [],
       isMoreResults: false,
       isLoading: false,
@@ -149,9 +150,11 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
     },
     async getMovies(url) {
+      this.isSearchActive = true;
       this.isLoading = true;
       // perform resets before a new fetch request
       this.searchResults = [];
+      this.searchResults.push(this.isSearchActive);
       this.isMoreResults = false;
 
       if (this.searchTerm === "") {
@@ -168,7 +171,7 @@ export default {
     checkResults(results) {
       // check if search results are more or less than five
       if (results.length <= 5) {
-        this.searchResults.push(results, this.isMoreResults, this.isLoading);
+        this.searchResults.push(results, this.isMoreResults);
       } else {
         this.isMoreResults = !this.isMoreResults;
         // show a maximum of 8 results in the search box
@@ -176,7 +179,7 @@ export default {
         for (let i = 0; i < 8; i++) {
           minResults.push(results[i]);
         }
-        this.searchResults.push(minResults, this.isMoreResults, this.isLoading);
+        this.searchResults.push(minResults, this.isMoreResults);
       }
     },
   },
@@ -313,7 +316,8 @@ nav {
 }
 
 /* styling for registered components */
-.results-wrapper {
+.results-wrapper,
+.placeholder-wrapper {
   position: absolute;
   top: 100%;
   right: 0.9375rem;
@@ -324,6 +328,14 @@ nav {
   background-color: var(--color-jet-black);
   opacity: 0.9;
   overflow-y: scroll;
+}
+
+.results-wrapper {
+  visibility: hidden;
+}
+
+.results-wrapper.active {
+  visibility: visible;
 }
 
 ul {
