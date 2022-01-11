@@ -115,8 +115,10 @@
       </button>
     </form>
 
-    <!-- Import the SearchHandler component here -->
-    <search-handler :search-results="searchResults"></search-handler>
+    <search-handler
+      :search-results="searchResults"
+      v-if="!isLoading"
+    ></search-handler>
   </nav>
 </template>
 
@@ -136,6 +138,7 @@ export default {
       searchLink: searchAPI,
       searchResults: [],
       isMoreResults: false,
+      isLoading: false,
     };
   },
   methods: {
@@ -143,6 +146,7 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
     },
     async getMovies(url) {
+      this.isLoading = true;
       // perform resets before a new fetch request
       this.searchResults = [];
       this.isMoreResults = false;
@@ -150,25 +154,26 @@ export default {
       if (this.searchTerm === "") {
         // show no results, change routes
         window.location.reload();
-        console.log("blank entered");
         return;
       }
 
       const response = await fetch(url + this.searchTerm);
       const data = await response.json();
+      this.isLoading = false;
       this.checkResults(data.results);
     },
     checkResults(results) {
       // check if search results are more or less than five
       if (results.length <= 5) {
-        this.searchResults.push(results, this.isMoreResults);
+        this.searchResults.push(results, this.isMoreResults, this.isLoading);
       } else {
         this.isMoreResults = !this.isMoreResults;
+        // show a maximum of 8 results in the search box
         const minResults = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 8; i++) {
           minResults.push(results[i]);
         }
-        this.searchResults.push(minResults, this.isMoreResults);
+        this.searchResults.push(minResults, this.isMoreResults, this.isLoading);
       }
     },
   },
