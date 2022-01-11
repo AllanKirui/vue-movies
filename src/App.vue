@@ -20,6 +20,9 @@ export default {
   --color-clouds: #ececec;
   --color-smokey-black: #111111;
   --color-jet-black: #090909;
+  --color-white: #ffffff;
+  --color-black-blue: #212429;
+  --color-charleston-green: #272727;
 
   /* Font sizes */
   --font-size-16: 1rem;
@@ -88,5 +91,35 @@ a {
 .wrapper {
   /* max-width: 83.125rem; 1330px */
   max-width: 87.5rem; /* 1400px */
+}
+
+/* global styling for placeholders */
+.animated-bg {
+  background-image: linear-gradient(
+    to right,
+    #1a1a1a 0%,
+    #272727 10%,
+    #1a1a1a 15%,
+    #1a1a1a 100%
+  );
+  background-size: 200% 100%;
+  animation: bgPos 1.2s linear infinite;
+}
+
+.animated-bg-text {
+  border-radius: 50px;
+  display: inline-block;
+  margin: 0;
+  height: 0.75rem;
+  width: 100%;
+}
+
+@keyframes bgPos {
+  0% {
+    background-position: 50% 0;
+  }
+  100% {
+    background-position: -150% 0;
+  }
 }
 </style>
