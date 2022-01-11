@@ -19,11 +19,15 @@
         </div>
         <div class="result__info flex flex-fd-c">
           <h3 class="result__info-title">{{ result.title }}</h3>
-          <p class="result__info-overview">
+          <p v-if="result.overview" class="result__info-overview">
             {{ adjustOverviewLength(result.overview) }}
           </p>
+          <p v-else class="result__info-overview">n/a</p>
           <div class="flex">
-            <p class="result__info-date">{{ result.release_date }}</p>
+            <p v-if="result.release_date" class="result__info-date">
+              {{ result.release_date }}
+            </p>
+            <p v-else class="result__info-date">n/a</p>
             <p class="result__info-rating flex flex-ai-c">
               <img
                 src="../assets/rating-icon.svg"
