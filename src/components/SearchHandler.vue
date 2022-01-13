@@ -20,7 +20,7 @@
         <div class="result__info flex flex-fd-c">
           <h3 class="result__info-title">{{ result.title }}</h3>
           <p v-if="result.overview" class="result__info-overview">
-            {{ adjustOverviewLength(result.overview) }}
+            {{ setOverviewLength(result.overview) }}
           </p>
           <p v-else class="result__info-overview">n/a</p>
           <div class="flex">
@@ -63,7 +63,7 @@ export default {
     setPath(poster_path) {
       return imgPath + poster_path;
     },
-    adjustOverviewLength(overview) {
+    setOverviewLength(overview) {
       if (overview.length <= 150) {
         return overview;
       }
