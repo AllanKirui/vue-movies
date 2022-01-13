@@ -74,10 +74,17 @@
 
     <search-handler
       :search-results="searchResults"
-      v-if="!isLoading"
+      v-if="!isLoading && isSearchActive"
     ></search-handler>
-    <search-placeholder v-else></search-placeholder>
+    <search-placeholder v-else-if="isLoading"></search-placeholder>
   </nav>
+
+  <teleport to="body">
+    <div
+      :class="[isSearchActive ? 'active-overlay' : '', 'overlay']"
+      @click="removeOverlay"
+    ></div>
+  </teleport>
 </template>
 
 <script>
@@ -139,6 +146,11 @@ export default {
         }
         this.searchResults.push(minResults, this.isMoreResults);
       }
+    },
+    removeOverlay() {
+      this.isSearchActive = !this.isSearchActive;
+      this.searchResults[0] = false;
+      this.searchTerm = "";
     },
   },
 };
@@ -286,6 +298,7 @@ nav {
   background-color: var(--color-jet-black);
   opacity: 0.9;
   visibility: hidden;
+  z-index: 2;
 }
 
 .results-wrapper {
