@@ -278,20 +278,21 @@ nav {
 .placeholder-wrapper {
   position: absolute;
   top: 100%;
-  right: 0.9375rem;
+  right: 0;
   width: 100%;
   max-width: 33.125rem;
   height: 29.375rem;
   padding: 0.8125rem 0.625rem;
   background-color: var(--color-jet-black);
   opacity: 0.9;
-  overflow-y: scroll;
-}
-
-.results-wrapper {
   visibility: hidden;
 }
 
+.results-wrapper {
+  overflow-y: auto;
+}
+
+.placeholder-wrapper,
 .results-wrapper.active {
   visibility: visible;
 }
