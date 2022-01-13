@@ -93,6 +93,16 @@ a {
   max-width: 87.5rem; /* 1400px */
 }
 
+.overlay.active-overlay {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-color: rgba(9, 9, 9, 0.2);
+  backdrop-filter: blur(10px);
+}
+
 /* start of scrollbar styles */
 html::-webkit-scrollbar,
 .results-wrapper::-webkit-scrollbar {
@@ -110,7 +120,7 @@ html::-webkit-scrollbar-track,
 }
 /* end of scrollbar styles */
 
-/* global styling for placeholders */
+/* start of global placeholder styles */
 .animated-bg {
   background-image: linear-gradient(
     to right,
@@ -139,4 +149,5 @@ html::-webkit-scrollbar-track,
     background-position: -150% 0;
   }
 }
+/* end of global placeholder styles */
 </style>
