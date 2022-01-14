@@ -1,14 +1,17 @@
 <template>
   <TheHeader />
+  <ExpandedSearch />
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
+import ExpandedSearch from "./components/ExpandedSearch.vue";
 
 export default {
   name: "App",
   components: {
     TheHeader,
+    ExpandedSearch,
   },
 };
 </script>
