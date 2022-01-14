@@ -1,76 +1,80 @@
 <template>
-  <nav class="flex flex-ai-c">
-    <button
-      :class="[isMenuOpen ? 'open' : '', 'burger']"
-      @click="setActiveStatus"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+  <nav class="flex flex-jc-sb">
+    <div class="nav-left flex flex-ai-c">
+      <button
+        :class="[isMenuOpen ? 'open' : '', 'burger']"
+        @click="setActiveStatus"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <div class="logo">
-      <img src="../assets/logo.svg" width="191" height="71" />
+      <div class="logo">
+        <img src="../assets/logo.svg" width="191" height="71" />
+      </div>
+
+      <ul class="nav-options flex">
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">TV Shows</a></li>
+      </ul>
     </div>
 
-    <ul class="nav-options flex">
-      <li><a href="#">Movies</a></li>
-      <li><a href="#">TV Shows</a></li>
-    </ul>
-
-    <form class="search-form" @submit.prevent="getMovies(searchLink)">
-      <label for="search">Search</label>
-      <input
-        name="search"
-        type="text"
-        placeholder="Search for movies or TV shows..."
-        v-model.trim="searchTerm"
-        :class="searchTerm ? 'active-search' : ''"
-      />
-      <button title="search" class="search-btn">
-        <!-- <img src="../assets/search-icon.svg" alt="search icon" /> -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="21"
-          height="21"
-          viewBox="0 0 5.5562499 5.5562502"
-        >
-          <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
-            <g
-              id="g2499"
-              transform="matrix(0.99256808,0,0,0.99256808,-633.03941,-286.23689)"
-              style="display: inline; stroke: #090909; stroke-opacity: 1"
-            >
-              <circle
-                style="
-                  fill: none;
-                  fill-opacity: 1;
-                  stroke: #090909;
-                  stroke-width: 0.40755;
-                  stroke-opacity: 1;
-                "
-                id="circle2495"
-                cx="640.03369"
-                cy="290.65128"
-                r="2.0451832"
-              />
-              <path
-                style="
-                  fill: none;
-                  stroke: #090909;
-                  stroke-width: 0.396875;
-                  stroke-linecap: butt;
-                  stroke-linejoin: miter;
-                  stroke-opacity: 1;
-                "
-                d="m 641.51906,292.13667 1.72321,1.7232"
-                id="path2497"
-              />
+    <div class="nav-right flex flex-ai-c">
+      <form class="search-form" @submit.prevent="getMovies(searchLink)">
+        <label for="search">Search</label>
+        <input
+          name="search"
+          type="text"
+          placeholder="Search for movies or TV shows..."
+          v-model.trim="searchTerm"
+          :class="searchTerm ? 'active-search' : ''"
+        />
+        <button title="search" class="search-btn">
+          <!-- <img src="../assets/search-icon.svg" alt="search icon" /> -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="21"
+            height="21"
+            viewBox="0 0 5.5562499 5.5562502"
+          >
+            <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+              <g
+                id="g2499"
+                transform="matrix(0.99256808,0,0,0.99256808,-633.03941,-286.23689)"
+                style="display: inline; stroke: #090909; stroke-opacity: 1"
+              >
+                <circle
+                  style="
+                    fill: none;
+                    fill-opacity: 1;
+                    stroke: #090909;
+                    stroke-width: 0.40755;
+                    stroke-opacity: 1;
+                  "
+                  id="circle2495"
+                  cx="640.03369"
+                  cy="290.65128"
+                  r="2.0451832"
+                />
+                <path
+                  style="
+                    fill: none;
+                    stroke: #090909;
+                    stroke-width: 0.396875;
+                    stroke-linecap: butt;
+                    stroke-linejoin: miter;
+                    stroke-opacity: 1;
+                  "
+                  d="m 641.51906,292.13667 1.72321,1.7232"
+                  id="path2497"
+                />
+              </g>
             </g>
-          </g>
-        </svg>
-      </button>
-    </form>
+          </svg>
+        </button>
+      </form>
+    </div>
 
     <search-handler
       :search-results="searchResults"
@@ -230,8 +234,7 @@ nav {
 }
 
 .search-form {
-  position: absolute;
-  right: 1.875rem;
+  position: relative;
 }
 
 .search-form label {
