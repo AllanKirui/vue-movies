@@ -299,7 +299,7 @@ nav {
   height: 29.375rem;
   padding: 0.8125rem 0.625rem;
   background-color: var(--color-jet-black);
-  opacity: 0.9;
+  opacity: 0.95;
   visibility: hidden;
   z-index: 2;
 }
