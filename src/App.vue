@@ -66,6 +66,12 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 /* Flex box styles */
 .flex {
   display: flex;
@@ -94,6 +100,10 @@ a {
 .wrapper {
   /* max-width: 83.125rem; 1330px */
   max-width: 87.5rem; /* 1400px */
+}
+
+.text-white {
+  color: var(--color-white);
 }
 
 .overlay.active-overlay {
