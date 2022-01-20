@@ -1,6 +1,6 @@
 <template>
   <TheHeader />
-  <ExpandedSearch />
+  <ExpandedSearch :set-date="setDateFormat" />
 </template>
 
 <script>
@@ -12,6 +12,31 @@ export default {
   components: {
     TheHeader,
     ExpandedSearch,
+  },
+  methods: {
+    setDateFormat(dateString) {
+      if (!dateString) return;
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const date = dateString.split("-");
+      const year = date[0];
+      const monthIdx = parseInt(date[1]) - 1;
+      const day = date[2];
+      const stringMonth = months.find((month) => month === months[monthIdx]);
+      return `${day} ${stringMonth} ${year}`;
+    },
   },
 };
 </script>
