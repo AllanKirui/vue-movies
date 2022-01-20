@@ -77,7 +77,7 @@
             {{ setTitleLength(result.title) }}
           </h3>
           <div class="meta flex flex-jc-sb">
-            <p class="content__info-date">{{ result.release_date }}</p>
+            <p class="content__info-date">{{ setDate(result.release_date) }}</p>
             <p class="content__info-rating">
               <img
                 src="../assets/rating-icon.svg"
@@ -99,6 +99,7 @@ const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&q
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
+  props: ["setDate"],
   data() {
     return {
       searchTerm: "",
