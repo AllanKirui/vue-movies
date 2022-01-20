@@ -26,6 +26,7 @@ export default {
   --color-white: #ffffff;
   --color-black-blue: #212429;
   --color-charleston-green: #272727;
+  --color-spanish-gray: #999999;
 
   /* Font sizes */
   --font-size-16: 1rem;
@@ -112,7 +113,7 @@ ul {
   left: 0;
   width: 100%;
   height: calc(100vh - 80px);
-  background-color: rgba(9, 9, 9, 0.2);
+  background-color: rgba(9, 9, 9, 0.5);
   backdrop-filter: blur(10px);
 }
 
