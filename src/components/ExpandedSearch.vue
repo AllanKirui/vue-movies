@@ -200,4 +200,15 @@ export default {
   padding: 50% 0;
   object-fit: contain;
 }
+
+@media screen and (max-width: 768px) {
+  .results-container {
+    margin-top: 1rem;
+  }
+
+  .search-term {
+    font-size: var(--font-size-24);
+    margin-bottom: 1rem;
+  }
+}
 </style>
