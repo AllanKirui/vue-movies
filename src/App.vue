@@ -1,7 +1,7 @@
 <template>
   <TheHeader />
   <ExpandedSearch :set-date="setDateFormat" @set-status="setLoadingStatus" />
-  <ContentPlaceholder />
+  <ContentPlaceholder v-if="isLoading" />
 </template>
 
 <script>
@@ -15,6 +15,11 @@ export default {
     TheHeader,
     ExpandedSearch,
     ContentPlaceholder,
+  },
+  data() {
+    return {
+      isLoading: false,
+    };
   },
   methods: {
     setDateFormat(dateString) {
@@ -39,6 +44,9 @@ export default {
       const day = date[2];
       const stringMonth = months.find((month) => month === months[monthIdx]);
       return `${day} ${stringMonth} ${year}`;
+    },
+    setLoadingStatus(status) {
+      this.isLoading = status;
     },
   },
 };
