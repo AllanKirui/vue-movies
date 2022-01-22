@@ -1,6 +1,6 @@
 <template>
   <div class="results-container">
-    <ul v-for="item in searchItems" :key="item" class="content-wrapper">
+    <ul v-for="item in placeholderItems" :key="item" class="content-wrapper">
       <li class="content">
         <div class="placeholder__poster animated-bg">
           <p class="tag animated-bg animated-bg-text"></p>
@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-      searchItems: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      placeholderItems: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     };
   },
 };
