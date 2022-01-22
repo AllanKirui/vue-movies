@@ -220,14 +220,24 @@ html::-webkit-scrollbar-track,
   cursor: pointer;
 }
 
+.placeholder__poster,
 .content__poster {
   position: relative;
   display: block;
   width: 100%;
   margin-bottom: 10px;
   border-radius: 8px;
+  background-color: var(--color-jet-black);
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   overflow: hidden;
+}
+
+.poster-height {
+  height: 85%;
+}
+
+.placeholder__poster {
+  height: 80%;
 }
 
 .content__poster img {
