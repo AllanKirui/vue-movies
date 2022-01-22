@@ -58,38 +58,51 @@
     <h1 v-if="userInput" class="search-term">
       Showing results for: <span class="text-white">{{ userInput }}</span>
     </h1>
-    <ul
-      v-for="result in searchResults"
-      :key="result.id"
-      class="content-wrapper"
-    >
-      <li class="content" :title="result.title">
-        <div class="content__poster">
-          <img
-            v-if="result.poster_path"
-            :src="setPath(result.poster_path)"
-            alt=""
-          />
-          <p class="tag">Movie</p>
-        </div>
-        <div class="content__info">
-          <h3 class="content__info-title">
-            {{ setTitleLength(result.title) }}
-          </h3>
-          <div class="meta flex flex-jc-sb">
-            <p class="content__info-date">{{ setDate(result.release_date) }}</p>
-            <p class="content__info-rating">
-              <img
-                src="../assets/rating-icon.svg"
-                width="15"
-                height="14.4"
-                alt="star icon"
-              />{{ result.vote_average }}
-            </p>
+    <div v-if="isResults">
+      <ul
+        v-for="result in searchResults"
+        :key="result.id"
+        class="content-wrapper"
+      >
+        <li class="content" :title="result.title">
+          <div class="content__poster">
+            <img
+              v-if="result.poster_path"
+              :src="setPath(result.poster_path)"
+              alt=""
+            />
+            <img
+              v-else
+              src="../assets/no-poster-img.svg"
+              width="70"
+              height="35.3"
+              alt=""
+              class="no-poster-img"
+            />
+            <p class="tag">Movie</p>
           </div>
-        </div>
-      </li>
-    </ul>
+          <div class="content__info">
+            <h3 class="content__info-title">
+              {{ setTitleLength(result.title) }}
+            </h3>
+            <div class="meta flex flex-jc-sb">
+              <p v-if="result.release_date" class="content__info-date">
+                {{ setDate(result.release_date) }}
+              </p>
+              <p v-else class="content__info-date">n/a</p>
+              <p class="content__info-rating">
+                <img
+                  src="../assets/rating-icon.svg"
+                  width="15"
+                  height="14.4"
+                  alt="star icon"
+                />{{ result.vote_average }}
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -106,6 +119,7 @@ export default {
       userInput: "",
       searchLink: searchAPI,
       searchResults: [],
+      isResults: false,
     };
   },
   methods: {
@@ -124,6 +138,7 @@ export default {
       return shortTitle + "...";
     },
     async getMovies(url) {
+      this.$emit("set-status", true);
       // this.isSearchActive = true;
       // this.isLoading = true;
       this.userInput = this.searchTerm;
@@ -144,10 +159,15 @@ export default {
 
       const response = await fetch(url + this.userInput);
       const data = await response.json();
+      this.removePlaceholder();
       // this.isLoading = false;
       // this.checkResults(data.results);
       // console.log(data.results);
       this.searchResults = data.results;
+    },
+    removePlaceholder() {
+      this.isResults = true;
+      this.$emit("set-status", false);
     },
   },
 };
@@ -174,5 +194,10 @@ export default {
 
 .search-term .text-white {
   margin-left: 0.3125rem;
+}
+
+.content__poster img.no-poster-img {
+  padding: 50% 0;
+  object-fit: contain;
 }
 </style>
