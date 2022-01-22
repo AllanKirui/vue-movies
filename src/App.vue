@@ -1,17 +1,20 @@
 <template>
   <TheHeader />
-  <ExpandedSearch :set-date="setDateFormat" />
+  <ExpandedSearch :set-date="setDateFormat" @set-status="setLoadingStatus" />
+  <ContentPlaceholder />
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
 import ExpandedSearch from "./components/ExpandedSearch.vue";
+import ContentPlaceholder from "./components/ContentPlaceholder.vue";
 
 export default {
   name: "App",
   components: {
     TheHeader,
     ExpandedSearch,
+    ContentPlaceholder,
   },
   methods: {
     setDateFormat(dateString) {
