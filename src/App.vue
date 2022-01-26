@@ -6,12 +6,14 @@
     @set-status="setLoadingStatus"
   />
   <ContentPlaceholder v-if="isLoading" />
+  <ThePagination />
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
 import ExpandedSearch from "./components/ExpandedSearch.vue";
 import ContentPlaceholder from "./components/ContentPlaceholder.vue";
+import ThePagination from "./components/ThePagination.vue";
 
 export default {
   name: "App",
@@ -19,6 +21,7 @@ export default {
     TheHeader,
     ExpandedSearch,
     ContentPlaceholder,
+    ThePagination,
   },
   data() {
     return {
