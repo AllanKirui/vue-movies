@@ -3,10 +3,11 @@
   <ExpandedSearch
     :set-date="setDateFormat"
     :page-num="selectedPage"
+    @total-pages="setTotalPages"
     @set-status="setLoadingStatus"
   />
   <ContentPlaceholder v-if="isLoading" />
-  <ThePagination />
+  <ThePagination :received-pages="totalPages" />
 </template>
 
 <script>
@@ -26,6 +27,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      totalPages: null,
       selectedPage: 1, // the default page is 1
     };
   },
@@ -55,6 +57,9 @@ export default {
     },
     setLoadingStatus(status) {
       this.isLoading = status;
+    },
+    setTotalPages(pages) {
+      this.totalPages = pages;
     },
   },
 };
