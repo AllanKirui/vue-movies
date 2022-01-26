@@ -1,6 +1,10 @@
 <template>
   <TheHeader />
-  <ExpandedSearch :set-date="setDateFormat" @set-status="setLoadingStatus" />
+  <ExpandedSearch
+    :set-date="setDateFormat"
+    :page-num="selectedPage"
+    @set-status="setLoadingStatus"
+  />
   <ContentPlaceholder v-if="isLoading" />
 </template>
 
@@ -19,6 +23,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      selectedPage: 1, // the default page is 1
     };
   },
   methods: {
