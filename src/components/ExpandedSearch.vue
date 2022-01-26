@@ -1,7 +1,10 @@
 <template>
   <div class="search-container">
     <!-- <form class="search-form" @submit.prevent="getMovies(searchLink)"> -->
-    <form class="search-form" @submit.prevent="getMovies(searchLink)">
+    <form
+      class="search-form"
+      @submit.prevent="getMovies(searchLink, this.defaultPage)"
+    >
       <label for="search">Search</label>
       <input
         name="search"
@@ -108,7 +111,7 @@
 
 <script>
 import apiKey from "../../config.js";
-const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
+const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
@@ -118,9 +121,11 @@ export default {
     return {
       searchTerm: "",
       userInput: "",
+      queryParam: "", // to hold the page to fetch and the query
       searchLink: searchAPI,
       searchResults: [],
       isResults: false,
+      defaultPage: 1,
     };
   },
   methods: {
@@ -138,15 +143,17 @@ export default {
       }
       return shortTitle + "...";
     },
-    async getMovies(url) {
+    async getMovies(url, page) {
       this.$emit("set-status", true);
       // this.isSearchActive = true;
       // this.isLoading = true;
       this.userInput = this.searchTerm;
 
+      this.queryParam = `&page=${page}&query="${this.searchTerm}`;
+
       // perform resets before a new fetch request
       this.searchResults = [];
-      this.searchTerm = "";
+      // this.searchTerm = "";
       // this.searchTerm = "";
       // this.searchResults.push(this.isSearchActive);
       // this.isMoreResults = false;
@@ -158,7 +165,7 @@ export default {
       //   return;
       // }
 
-      const response = await fetch(url + this.userInput);
+      const response = await fetch(url + this.queryParam);
       const data = await response.json();
       this.removePlaceholder();
       // this.isLoading = false;
