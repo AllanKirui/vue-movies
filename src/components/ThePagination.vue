@@ -5,6 +5,7 @@
 <script>
 export default {
   props: ["receivedPages"],
+  emits: ["switch-page"],
   data() {
     return {
       numOfPages: this.receivedPages,
@@ -15,6 +16,8 @@ export default {
   },
   methods: {
     displayButtons(buttonClicked) {
+      const that = this;
+
       let buttonsWrapper = document.getElementById("pagination-wrapper");
       buttonsWrapper.innerHTML = ``; // clear the buttons wrapper, on each call of the function
 
@@ -62,6 +65,8 @@ export default {
           const buttonClicked = parseInt(this.value);
           console.log(buttonClicked);
           this.currentPage = buttonClicked;
+          // emit the value of the button was clicked
+          that.$emit("switch-page", buttonClicked);
         });
       });
     },
