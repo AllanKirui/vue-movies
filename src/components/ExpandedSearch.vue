@@ -144,26 +144,12 @@ export default {
       return shortTitle + "...";
     },
     async getMovies(url, page) {
+      // set loading status to true
       this.$emit("set-status", true);
-      // this.isSearchActive = true;
-      // this.isLoading = true;
       this.userInput = this.searchTerm;
-
       this.queryParam = `&page=${page}&query="${this.searchTerm}`;
-
       // perform resets before a new fetch request
       this.searchResults = [];
-      // this.searchTerm = "";
-      // this.searchTerm = "";
-      // this.searchResults.push(this.isSearchActive);
-      // this.isMoreResults = false;
-
-      // if (this.searchTerm === "") {
-      //   this.isLoading = false;
-      //   // show no results, change routes
-      //   window.location.reload();
-      //   return;
-      // }
 
       const response = await fetch(url + this.queryParam);
       const data = await response.json();

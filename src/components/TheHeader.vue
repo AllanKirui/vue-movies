@@ -31,7 +31,6 @@
           :class="searchTerm ? 'active-search' : ''"
         />
         <button title="search" class="search-btn">
-          <!-- <img src="../assets/search-icon.svg" alt="search icon" /> -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"

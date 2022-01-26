@@ -63,7 +63,6 @@ export default {
       pageBtns.forEach((btn) => {
         btn.addEventListener("click", function () {
           const buttonClicked = parseInt(this.value);
-          console.log(buttonClicked);
           this.currentPage = buttonClicked;
           // emit the value of the button was clicked
           that.$emit("switch-page", buttonClicked);
