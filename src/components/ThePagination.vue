@@ -71,5 +71,10 @@ export default {
     // call the displayButtons() method when the component is mounted
     this.displayButtons();
   },
+  updated() {
+    this.numOfPages = this.receivedPages;
+    // call the displayButtons() method every time the component is updated
+    this.displayButtons();
+  },
 };
 </script>
