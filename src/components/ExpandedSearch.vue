@@ -177,6 +177,12 @@ export default {
       this.$emit("set-status", false);
     },
   },
+  watch: {
+    pageNum(newValue) {
+      // call the getMovies() method to fetch movies when switching pages
+      this.getMovies(this.searchLink, newValue);
+    },
+  },
 };
 </script>
 
