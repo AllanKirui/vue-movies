@@ -58,8 +58,8 @@
   </div>
 
   <div class="results-container">
-    <h1 v-if="userInput" class="search-term">
-      Showing results for: <span class="text-white">{{ userInput }}</span>
+    <h1 v-if="queryParam" class="search-term">
+      Showing results for: <span class="text-white">{{ searchTerm }}</span>
     </h1>
     <div v-if="isResults">
       <ul
