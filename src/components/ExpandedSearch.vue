@@ -115,7 +115,7 @@ const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
   props: ["setDate", "page-num"],
-  emits: ["set-status", "total-pages"],
+  emits: ["set-status", "total-pages", "reset-pages"],
   data() {
     return {
       searchTerm: "",
@@ -146,6 +146,10 @@ export default {
     async getMovies(url, page) {
       // set loading status to true
       this.$emit("set-status", true);
+      // if there's a new searchTerm, emit a custom event to make fetch() get the first page
+      if (page === this.defaultPage) {
+        this.$emit("reset-pages");
+      }
       this.userInput = this.searchTerm;
       this.queryParam = `&page=${page}&query="${this.searchTerm}`;
       // perform resets before a new fetch request

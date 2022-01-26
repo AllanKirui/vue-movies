@@ -5,6 +5,7 @@
     :page-num="selectedPage"
     @total-pages="setTotalPages"
     @set-status="setLoadingStatus"
+    @reset-pages="resetPages"
   />
   <ContentPlaceholder v-if="isLoading" />
   <ThePagination
@@ -67,6 +68,9 @@ export default {
     },
     switchPages(pageNum) {
       this.selectedPage = pageNum;
+    },
+    resetPages() {
+      this.selectedPage = 1;
     },
   },
 };
