@@ -112,7 +112,7 @@ const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&q
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
-  props: ["setDate"],
+  props: ["setDate", "page-num"],
   emits: ["set-status"],
   data() {
     return {
