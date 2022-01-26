@@ -7,7 +7,11 @@
     @set-status="setLoadingStatus"
   />
   <ContentPlaceholder v-if="isLoading" />
-  <ThePagination v-if="totalPages && !isLoading" :received-pages="totalPages" />
+  <ThePagination
+    v-if="totalPages && !isLoading"
+    :received-pages="totalPages"
+    @switch-page="switchPages"
+  />
 </template>
 
 <script>
@@ -60,6 +64,9 @@ export default {
     },
     setTotalPages(pages) {
       this.totalPages = pages;
+    },
+    switchPages(pageNum) {
+      this.selectedPage = pageNum;
     },
   },
 };
