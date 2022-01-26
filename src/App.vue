@@ -7,7 +7,7 @@
     @set-status="setLoadingStatus"
   />
   <ContentPlaceholder v-if="isLoading" />
-  <ThePagination :received-pages="totalPages" />
+  <ThePagination v-if="totalPages && !isLoading" :received-pages="totalPages" />
 </template>
 
 <script>
