@@ -53,7 +53,8 @@ export default {
 </script>
 
 <style>
-/* Import styles here */
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
+
 :root {
   /* Colors */
   --color-clouds: #ececec;
