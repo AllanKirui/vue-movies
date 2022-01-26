@@ -1,6 +1,5 @@
 <template>
   <div class="search-container">
-    <!-- <form class="search-form" @submit.prevent="getMovies(searchLink)"> -->
     <form
       class="search-form"
       @submit.prevent="getMovies(searchLink, this.defaultPage)"
@@ -116,7 +115,7 @@ const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
   props: ["setDate", "page-num"],
-  emits: ["set-status"],
+  emits: ["set-status", "total-pages"],
   data() {
     return {
       searchTerm: "",
@@ -125,6 +124,7 @@ export default {
       searchLink: searchAPI,
       searchResults: [],
       isResults: false,
+      totalPages: null,
       defaultPage: 1,
     };
   },
@@ -168,10 +168,9 @@ export default {
       const response = await fetch(url + this.queryParam);
       const data = await response.json();
       this.removePlaceholder();
-      // this.isLoading = false;
-      // this.checkResults(data.results);
-      // console.log(data.results);
+      this.totalPages = data.total_pages;
       this.searchResults = data.results;
+      this.emit("total-pages", this.totalPages);
     },
     removePlaceholder() {
       this.isResults = true;
