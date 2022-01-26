@@ -170,7 +170,7 @@ export default {
       this.removePlaceholder();
       this.totalPages = data.total_pages;
       this.searchResults = data.results;
-      this.emit("total-pages", this.totalPages);
+      this.$emit("total-pages", this.totalPages);
     },
     removePlaceholder() {
       this.isResults = true;
