@@ -1,18 +1,23 @@
 <template>
   <TheHeader />
-  <ExpandedSearch
-    :set-date="setDateFormat"
-    :page-num="selectedPage"
-    @total-pages="setTotalPages"
-    @set-status="setLoadingStatus"
-    @reset-pages="resetPages"
-  />
-  <ContentPlaceholder v-if="isLoading" />
-  <ThePagination
-    v-if="totalPages && !isLoading"
-    :received-pages="totalPages"
-    @switch-page="switchPages"
-  />
+
+  <div class="expanded-search-wrapper flex flex-fd-c">
+    <ExpandedSearch
+      :set-date="setDateFormat"
+      :page-num="selectedPage"
+      @total-pages="setTotalPages"
+      @set-status="setLoadingStatus"
+      @reset-pages="resetPages"
+    />
+    <ContentPlaceholder v-if="isLoading" />
+
+    <ThePagination
+      v-if="totalPages && !isLoading"
+      :received-pages="totalPages"
+      :chosen-page="selectedPage"
+      @switch-page="switchPages"
+    />
+  </div>
 </template>
 
 <script>
@@ -33,6 +38,7 @@ export default {
     return {
       isLoading: false,
       totalPages: null,
+      activePage: null,
       selectedPage: 1, // the default page is 1
     };
   },
@@ -63,8 +69,9 @@ export default {
     setLoadingStatus(status) {
       this.isLoading = status;
     },
-    setTotalPages(pages) {
+    setTotalPages(pages, selectedPage) {
       this.totalPages = pages;
+      this.activePage = selectedPage;
     },
     switchPages(pageNum) {
       this.selectedPage = pageNum;
@@ -295,6 +302,78 @@ html::-webkit-scrollbar-track,
 .content__info img {
   margin-right: 0.1875rem;
 }
+/* end of movie card styles */
+
+/* start of pagination styles */
+#pagination-wrapper {
+  margin: 0 auto 100px;
+  transition: all 0.3s ease-in-out;
+}
+
+.page-btn {
+  position: relative;
+  min-width: 50px;
+  min-height: 45px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: var(--font-size-18);
+  background-color: var(--color-black-blue);
+  color: #b0b0b0;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.page-btn.active::before,
+.page-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transform: skewX(-30deg);
+  transition: left 0.75s;
+  z-index: -1;
+}
+
+.page-btn::before {
+  background: linear-gradient(
+    to right,
+    transparent,
+    transparent,
+    var(--color-clouds),
+    transparent,
+    transparent
+  );
+}
+
+.page-btn.active::before {
+  background: linear-gradient(
+    to right,
+    transparent,
+    transparent,
+    var(--color-jet-black),
+    transparent,
+    transparent
+  );
+}
+
+.page-btn:hover::before {
+  left: 100%;
+  z-index: 1;
+}
+
+.page-btn:not(:last-child) {
+  margin-right: 8px;
+}
+
+.page-btn.active {
+  background-color: var(--color-clouds);
+  color: var(--color-smokey-black);
+}
+/* end of pagination styles */
 
 @media screen and (max-width: 1439px) {
   .content-wrapper {
