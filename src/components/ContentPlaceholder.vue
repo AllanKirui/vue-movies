@@ -28,6 +28,11 @@ export default {
 </script>
 
 <style scoped>
+.results-container {
+  position: relative;
+  top: -40px;
+}
+
 .tag {
   width: 70px;
   height: 20px;
