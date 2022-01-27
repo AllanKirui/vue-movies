@@ -79,6 +79,16 @@ export default {
     resetPages() {
       this.selectedPage = 1;
     },
+    scrollToTop() {
+      // scroll to top when a new page is fetched
+      window.scrollTo(0, 0);
+    },
+  },
+  watch: {
+    selectedPage() {
+      // when the selectedPage data property changes, call the scrollToTop method
+      this.scrollToTop();
+    },
   },
 };
 </script>
@@ -110,6 +120,7 @@ export default {
 html {
   font-size: 100%;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 *,
