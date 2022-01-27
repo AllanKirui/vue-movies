@@ -1,7 +1,7 @@
 <template>
   <div :class="[isSearchActive ? 'active' : '', 'results-wrapper']">
     <ul v-for="result in results" :key="result.id">
-      <li class="result flex">
+      <li class="result flex" :title="result.title">
         <div class="result__poster">
           <img
             v-if="result.poster_path"
