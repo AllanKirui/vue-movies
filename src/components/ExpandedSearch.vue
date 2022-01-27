@@ -114,7 +114,7 @@ const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
-  props: ["setDate", "page-num"],
+  props: ["setDate", "pageNum"],
   emits: ["set-status", "total-pages", "reset-pages"],
   data() {
     return {
@@ -160,7 +160,7 @@ export default {
       this.removePlaceholder();
       this.totalPages = data.total_pages;
       this.searchResults = data.results;
-      this.$emit("total-pages", this.totalPages);
+      this.$emit("total-pages", this.totalPages, this.pageNum);
     },
     removePlaceholder() {
       this.isResults = true;
