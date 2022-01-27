@@ -202,6 +202,7 @@ ul {
   height: calc(100vh - 80px);
   background-color: rgba(9, 9, 9, 0.5);
   backdrop-filter: blur(10px);
+  cursor: pointer;
 }
 
 /* start of scrollbar styles */
