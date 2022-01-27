@@ -1,5 +1,5 @@
 <template>
-  <TheHeader />
+  <TheHeader @no-scroll="setScrollBehaviour" />
 
   <div class="expanded-search-wrapper flex flex-fd-c">
     <ExpandedSearch
@@ -82,6 +82,9 @@ export default {
     scrollToTop() {
       // scroll to top when a new page is fetched
       window.scrollTo(0, 0);
+    },
+    setScrollBehaviour() {
+      document.body.classList.toggle("no-scroll");
     },
   },
   watch: {
@@ -185,6 +188,10 @@ ul {
 
 .text-white {
   color: var(--color-white);
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 .overlay.active-overlay {

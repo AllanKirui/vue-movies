@@ -101,6 +101,7 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
+  emits: ["no-scroll"],
   data() {
     return {
       isMenuOpen: false,
@@ -154,6 +155,15 @@ export default {
       this.isSearchActive = !this.isSearchActive;
       this.searchResults[0] = false;
       this.searchTerm = "";
+    },
+  },
+  watch: {
+    isSearchActive(newValue) {
+      if (newValue) {
+        this.$emit("no-scroll", true);
+      } else {
+        this.$emit("no-scroll", false);
+      }
     },
   },
 };
