@@ -95,6 +95,7 @@ export default {
   --color-black-blue: #212429;
   --color-charleston-green: #272727;
   --color-spanish-gray: #999999;
+  --color-silver-chalice: #b0b0b0;
 
   /* Font sizes */
   --font-size-16: 1rem;
@@ -275,6 +276,7 @@ html::-webkit-scrollbar-track,
 .content__poster img {
   width: 100%;
   height: 100%;
+  max-height: 23.75rem;
   object-fit: cover;
 }
 
@@ -312,15 +314,15 @@ html::-webkit-scrollbar-track,
 
 .page-btn {
   position: relative;
-  min-width: 50px;
-  min-height: 45px;
+  min-width: 3.125rem;
+  min-height: 2.8125rem;
   border: none;
   outline: none;
   border-radius: 5px;
   font-family: inherit;
   font-size: var(--font-size-18);
   background-color: var(--color-black-blue);
-  color: #b0b0b0;
+  color: var(--color-silver-chalice);
   cursor: pointer;
   overflow: hidden;
 }
@@ -366,7 +368,7 @@ html::-webkit-scrollbar-track,
 }
 
 .page-btn:not(:last-child) {
-  margin-right: 8px;
+  margin-right: 0.5rem;
 }
 
 .page-btn.active {
