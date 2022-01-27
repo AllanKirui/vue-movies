@@ -60,6 +60,8 @@
     <h1 v-if="queryParam" class="search-term">
       Showing results for: <span class="text-white">{{ userInput }}</span>
     </h1>
+
+    <!-- If there are results, show them -->
     <div v-if="isResults">
       <ul
         v-for="result in searchResults"
@@ -105,6 +107,16 @@
         </li>
       </ul>
     </div>
+    <!-- else show code indicating lack thereof -->
+    <div v-if="isNoResults" class="no-results">
+      <img
+        src="../assets/search-icon-light.svg"
+        width="50"
+        height="50"
+        alt="no results found image"
+      />
+      <p>Oops! No results found</p>
+    </div>
   </div>
 </template>
 
@@ -124,6 +136,7 @@ export default {
       searchLink: searchAPI,
       searchResults: [],
       isResults: false,
+      isNoResults: false,
       totalPages: null,
       defaultPage: 1,
     };
@@ -155,9 +168,16 @@ export default {
       // perform resets before a new fetch request
       this.searchResults = [];
 
+      // fetch data
       const response = await fetch(url + this.queryParam);
       const data = await response.json();
+
       this.removePlaceholder();
+      if (data.results.length === 0) {
+        this.isNoResults = true;
+      } else {
+        this.isNoResults = false;
+      }
       this.totalPages = data.total_pages;
       this.searchResults = data.results;
       this.$emit("total-pages", this.totalPages, this.pageNum);
@@ -204,6 +224,19 @@ export default {
   object-fit: contain;
 }
 
+.no-results {
+  position: relative;
+  top: 6.25rem;
+  width: 100%;
+  text-align: center;
+  font-size: var(--font-size-18);
+  color: var(--color-clouds);
+}
+
+.no-results img {
+  margin-bottom: 0.625rem;
+}
+
 @media screen and (max-width: 768px) {
   .results-container {
     margin-top: 1rem;
@@ -212,6 +245,10 @@ export default {
   .search-term {
     font-size: var(--font-size-24);
     margin-bottom: 1rem;
+  }
+
+  .no-results {
+    top: 3.125rem;
   }
 }
 </style>
