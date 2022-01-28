@@ -40,7 +40,11 @@
         </div>
       </li>
     </ul>
-    <button v-if="isMoreResults" class="view-more-btn">
+    <button
+      v-if="isMoreResults"
+      class="view-more-btn"
+      @click="$emit('emit-searchterm')"
+    >
       View More Results
     </button>
   </div>
@@ -51,6 +55,7 @@ const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
   props: ["searchResults"],
+  emits: ["emit-searchterm"],
   name: "SearchHandler",
   data() {
     return {
