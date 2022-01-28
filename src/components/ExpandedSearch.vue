@@ -126,7 +126,7 @@ const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
-  props: ["setDate", "pageNum"],
+  props: ["setDate", "pageNum", "searchThis"],
   emits: ["set-status", "total-pages", "reset-pages"],
   data() {
     return {
@@ -192,6 +192,12 @@ export default {
       // call the getMovies() method to fetch movies when switching pages
       this.getMovies(this.searchLink, newValue);
     },
+  },
+  created() {
+    // call the getMovies() method if the 'view more results' button from
+    // SearchHandler.vue was clicked
+    this.searchTerm = this.searchThis;
+    this.getMovies(this.searchLink, this.pageNum);
   },
 };
 </script>

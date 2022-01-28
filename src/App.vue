@@ -1,10 +1,15 @@
 <template>
-  <TheHeader @no-scroll="setScrollBehaviour" />
+  <TheHeader
+    @no-scroll="setScrollBehaviour"
+    @find-searchterm="showMoreResults"
+  />
 
   <div class="expanded-search-wrapper flex flex-fd-c">
     <ExpandedSearch
+      v-if="isShowMoreResults"
       :set-date="setDateFormat"
       :page-num="selectedPage"
+      :search-this="keyword"
       @total-pages="setTotalPages"
       @set-status="setLoadingStatus"
       @reset-pages="resetPages"
@@ -40,6 +45,8 @@ export default {
       totalPages: null,
       activePage: null,
       selectedPage: 1, // the default page is 1
+      isShowMoreResults: false,
+      keyword: "",
     };
   },
   methods: {
@@ -85,6 +92,10 @@ export default {
     },
     setScrollBehaviour() {
       document.body.classList.toggle("no-scroll");
+    },
+    showMoreResults(keyword) {
+      this.isShowMoreResults = true;
+      this.keyword = keyword;
     },
   },
   watch: {
