@@ -20,7 +20,8 @@
       </ul>
     </div>
 
-    <div class="nav-right flex flex-ai-c">
+    <!-- show this conditionally -->
+    <div v-if="!isHidden" class="nav-right flex flex-ai-c">
       <form class="search-form" @submit.prevent="getMovies(searchLink)">
         <label for="search">Search</label>
         <input
@@ -112,6 +113,7 @@ export default {
       searchResults: [],
       isMoreResults: false,
       isLoading: false,
+      isHidden: false,
     };
   },
   methods: {
@@ -159,6 +161,9 @@ export default {
     },
     sendSearchTerm() {
       this.$emit("find-searchterm", this.searchTerm);
+      // hide the mini-search, SearchHandler component
+      this.isHidden = true;
+      this.removeOverlay();
     },
   },
   watch: {
