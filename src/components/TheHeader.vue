@@ -76,8 +76,9 @@
     </div>
 
     <search-handler
-      :search-results="searchResults"
       v-if="!isLoading && isSearchActive"
+      :search-results="searchResults"
+      @emit-searchterm="sendSearchTerm"
     ></search-handler>
     <search-placeholder v-else-if="isLoading"></search-placeholder>
   </nav>
@@ -101,7 +102,7 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
-  emits: ["no-scroll"],
+  emits: ["no-scroll", "find-searchterm"],
   data() {
     return {
       isMenuOpen: false,
@@ -155,6 +156,9 @@ export default {
       this.isSearchActive = !this.isSearchActive;
       this.searchResults[0] = false;
       this.searchTerm = "";
+    },
+    sendSearchTerm() {
+      this.$emit("find-searchterm", this.searchTerm);
     },
   },
   watch: {
