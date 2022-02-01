@@ -44,6 +44,7 @@
       v-if="isMoreResults"
       class="view-more-btn"
       @click="$emit('emit-searchterm')"
+      title="View More Results"
     >
       View More Results
     </button>
@@ -147,7 +148,7 @@ export default {
   font-family: inherit;
   font-size: var(--font-size-16);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
 }
 
 .view-more-btn:hover {
