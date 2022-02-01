@@ -76,6 +76,13 @@
       </form>
     </div>
 
+    <!-- call teh class button wrapper and have it use the same styles as the view more button -->
+    <div v-else class="button-wrapper">
+      <button @click="removeSearchResults" title="Close Search">
+        Close Search
+      </button>
+    </div>
+
     <search-handler
       v-if="!isLoading && isSearchActive"
       :search-results="searchResults"
@@ -103,7 +110,7 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
-  emits: ["no-scroll", "find-searchterm"],
+  emits: ["no-scroll", "find-searchterm", "remove-results"],
   data() {
     return {
       isMenuOpen: false,
@@ -164,6 +171,10 @@ export default {
       // hide the mini-search, SearchHandler component
       this.isHidden = true;
       this.removeOverlay();
+    },
+    removeSearchResults() {
+      this.isHidden = false;
+      this.$emit("remove-results");
     },
   },
   watch: {
@@ -305,6 +316,28 @@ nav {
 .search-form input.active-search + .search-btn svg circle,
 .search-form input.active-search + .search-btn svg path {
   stroke: var(--color-jet-black) !important;
+}
+
+.button-wrapper {
+  margin: auto 0;
+}
+
+.button-wrapper button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-clouds);
+  color: var(--color-smokey-black);
+  font-family: inherit;
+  font-size: var(--font-size-16);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.button-wrapper button:hover {
+  outline: var(--color-clouds) 1px solid;
+  background-color: var(--color-smokey-black);
+  color: var(--color-clouds);
 }
 
 /* styling for registered components */

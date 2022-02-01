@@ -2,6 +2,7 @@
   <TheHeader
     @no-scroll="setScrollBehaviour"
     @find-searchterm="showMoreResults"
+    @remove-results="removeSearchResults"
   />
 
   <div class="expanded-search-wrapper flex flex-fd-c">
@@ -96,6 +97,9 @@ export default {
     showMoreResults(keyword) {
       this.isShowMoreResults = true;
       this.keyword = keyword;
+    },
+    removeSearchResults() {
+      this.isShowMoreResults = false;
     },
   },
   watch: {
