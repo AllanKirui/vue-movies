@@ -23,5 +23,12 @@ export default {
       this.result = data;
     },
   },
+  watch: {
+    movieId(newValue) {
+      if (newValue) {
+        this.getMovies(newValue);
+      }
+    },
+  },
 };
 </script>
