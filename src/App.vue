@@ -3,6 +3,7 @@
     @no-scroll="setScrollBehaviour"
     @find-searchterm="showMoreResults"
     @remove-results="removeSearchResults"
+    @send-id="showMovieInfo"
   />
 
   <div class="expanded-search-wrapper flex flex-fd-c">
@@ -14,6 +15,7 @@
       @total-pages="setTotalPages"
       @set-status="setLoadingStatus"
       @reset-pages="resetPages"
+      @send-id="showMovieInfo"
     />
     <ContentPlaceholder v-if="isLoading" />
 
@@ -48,6 +50,7 @@ export default {
       selectedPage: 1, // the default page is 1
       isShowMoreResults: false,
       keyword: "",
+      movieId: null,
     };
   },
   methods: {
@@ -101,6 +104,9 @@ export default {
     removeSearchResults() {
       this.isShowMoreResults = false;
       this.totalPages = null;
+    },
+    showMovieInfo(id) {
+      this.movieId = id;
     },
   },
   watch: {

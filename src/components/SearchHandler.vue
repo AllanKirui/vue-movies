@@ -1,7 +1,11 @@
 <template>
   <div :class="[isSearchActive ? 'active' : '', 'results-wrapper']">
     <ul v-for="result in results" :key="result.id">
-      <li class="result flex" :title="result.title">
+      <li
+        class="result flex"
+        :title="result.title"
+        @click="sendMovieId(result.id)"
+      >
         <div class="result__poster">
           <img
             v-if="result.poster_path"
@@ -70,7 +74,7 @@ const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
   props: ["searchResults"],
-  emits: ["emit-searchterm"],
+  emits: ["emit-searchterm", "send-id"],
   name: "SearchHandler",
   data() {
     return {
@@ -93,6 +97,9 @@ export default {
         shortOverview += overview[i];
       }
       return shortOverview + "...";
+    },
+    sendMovieId(id) {
+      this.$emit("send-id", id);
     },
   },
 };

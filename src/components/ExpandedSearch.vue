@@ -68,7 +68,11 @@
         :key="result.id"
         class="content-wrapper"
       >
-        <li class="content" :title="result.title">
+        <li
+          class="content"
+          :title="result.title"
+          @click="sendMovieId(result.id)"
+        >
           <div class="content__poster">
             <img
               v-if="result.poster_path"
@@ -127,7 +131,7 @@ const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
   props: ["setDate", "pageNum", "searchThis"],
-  emits: ["set-status", "total-pages", "reset-pages"],
+  emits: ["set-status", "total-pages", "reset-pages", "send-id"],
   data() {
     return {
       searchTerm: "",
@@ -185,6 +189,9 @@ export default {
     removePlaceholder() {
       this.isResults = true;
       this.$emit("set-status", false);
+    },
+    sendMovieId(id) {
+      this.$emit("send-id", id);
     },
   },
   watch: {

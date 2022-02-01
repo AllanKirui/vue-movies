@@ -87,6 +87,7 @@
       v-if="!isLoading && isSearchActive"
       :search-results="searchResults"
       @emit-searchterm="sendSearchTerm"
+      @send-id="sendMovieId"
     ></search-handler>
     <search-placeholder v-else-if="isLoading"></search-placeholder>
   </nav>
@@ -110,7 +111,7 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
-  emits: ["no-scroll", "find-searchterm", "remove-results"],
+  emits: ["no-scroll", "find-searchterm", "remove-results", "send-id"],
   data() {
     return {
       isMenuOpen: false,
@@ -175,6 +176,9 @@ export default {
     removeSearchResults() {
       this.isHidden = false;
       this.$emit("remove-results");
+    },
+    sendMovieId(id) {
+      this.$emit("send-id", id);
     },
   },
   watch: {
