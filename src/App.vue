@@ -100,6 +100,7 @@ export default {
     },
     removeSearchResults() {
       this.isShowMoreResults = false;
+      this.totalPages = null;
     },
   },
   watch: {
