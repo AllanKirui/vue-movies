@@ -27,7 +27,7 @@
     />
   </div>
 
-  <MovieInfo />
+  <MovieInfo :movie-id="movieId" />
 </template>
 
 <script>
@@ -55,6 +55,7 @@ export default {
       isShowMoreResults: false,
       keyword: "",
       movieId: null,
+      isShowMovieInfo: false,
     };
   },
   methods: {
@@ -111,6 +112,7 @@ export default {
     },
     showMovieInfo(id) {
       this.movieId = id;
+      this.isShowMovieInfo = true;
     },
   },
   watch: {
