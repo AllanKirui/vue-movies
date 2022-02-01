@@ -26,6 +26,8 @@
       @switch-page="switchPages"
     />
   </div>
+
+  <MovieInfo />
 </template>
 
 <script>
@@ -33,6 +35,7 @@ import TheHeader from "./components/TheHeader.vue";
 import ExpandedSearch from "./components/ExpandedSearch.vue";
 import ContentPlaceholder from "./components/ContentPlaceholder.vue";
 import ThePagination from "./components/ThePagination.vue";
+import MovieInfo from "./components/MovieInfo.vue";
 
 export default {
   name: "App",
@@ -41,6 +44,7 @@ export default {
     ExpandedSearch,
     ContentPlaceholder,
     ThePagination,
+    MovieInfo,
   },
   data() {
     return {
