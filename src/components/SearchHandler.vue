@@ -48,6 +48,20 @@
     >
       View More Results
     </button>
+
+    <!-- Code to show if there are no results found -->
+    <div
+      v-if="results.length === 0"
+      class="result no-result flex flex-jc-c flex-ai-c flex-fd-c"
+    >
+      <img
+        src="../assets/search-icon-light.svg"
+        width="35"
+        height="35"
+        alt="no results found image"
+      />
+      <p>Oops! No results found</p>
+    </div>
   </div>
 </template>
 
@@ -154,5 +168,21 @@ export default {
 .view-more-btn:hover {
   color: var(--color-smokey-black);
   background-color: var(--color-clouds);
+}
+
+.result.no-result {
+  min-height: 8.125rem;
+  text-align: center;
+  font-size: var(--font-size-16);
+  color: var(--color-clouds);
+}
+
+.result.no-result:hover {
+  outline: none;
+  cursor: initial;
+}
+
+.result.no-result img {
+  margin-bottom: 0.625rem;
 }
 </style>
