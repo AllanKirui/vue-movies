@@ -28,33 +28,27 @@
           <p class="content-overview">{{ result.overview }}</p>
         </div>
 
-        <div class="meta-section-3 flex">
-          <div class="title-field flex flex-fd-c">
+        <div class="meta-section-3 flex flex-fd-c">
+          <div class="content-country flex">
             <p>Country:</p>
-            <p>Genres:</p>
-            <p>Release:</p>
-          </div>
-
-          <div class="value-field">
             <div
               v-for="country in result.production_countries"
               :key="country.name"
-              class="content-country"
             >
               <p>{{ country.name }}</p>
             </div>
-            <div
-              v-for="genre in result.genres"
-              :key="genre.id"
-              class="content-genre"
-            >
-              <p>
-                {{ genre.name }}
-              </p>
+          </div>
+
+          <div class="content-genre flex">
+            <p>Genres:</p>
+            <div v-for="genre in result.genres" :key="genre.id">
+              <p>{{ genre.name }}</p>
             </div>
-            <div class="content-release flex">
-              <p>{{ setDate(result.release_date) }}</p>
-            </div>
+          </div>
+
+          <div class="content-release flex">
+            <p>Release:</p>
+            <p>{{ setDate(result.release_date) }}</p>
           </div>
         </div>
       </div>
@@ -123,7 +117,7 @@ export default {
 
 .content-text {
   background-color: rgb(33, 63, 88);
-  grid-column: 2/2;
+  grid-column: 2/3;
 }
 
 .content-title {
@@ -151,7 +145,7 @@ export default {
 }
 
 .meta .meta-section-3 {
-  gap: 2.5rem;
+  gap: 0.3125rem;
   color: var(--color-silver-chalice);
 }
 
@@ -160,11 +154,14 @@ export default {
   margin-bottom: 0.3125rem;
 }
 
-.meta .meta-section-3 .content-genre p {
+.meta .meta-section-3 .content-genre div p {
   color: var(--color-white);
 }
 
-.value-field div.content-genre {
-  display: inline-flex;
+.meta .meta-section-3 .content-country > p:first-child,
+.meta .meta-section-3 .content-genre > p:first-child,
+.meta .meta-section-3 .content-release > p:first-child {
+  width: 4.375rem;
+  margin-right: 2rem;
 }
 </style>
