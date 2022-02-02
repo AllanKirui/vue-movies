@@ -1,5 +1,20 @@
 <template>
-  <div v-if="result" class="info-wrapper">
+  <!-- show the backdrop image if it is available -->
+  <div
+    v-if="result"
+    class="info-wrapper"
+    :style="
+      result.backdrop_path
+        ? {
+            background: `url(` + setPath(result.backdrop_path) + `)`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'top center',
+          }
+        : ''
+    "
+  >
+    <div class="filter"></div>
     <div class="content-poster">
       <img
         v-if="result.poster_path"
@@ -153,6 +168,16 @@ export default {
   gap: 3.125rem;
   grid-template-columns: 20rem auto;
   padding: 2.1875rem 0.9375rem;
+  position: relative;
+}
+
+.info-wrapper .filter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .content-poster {
@@ -176,6 +201,12 @@ export default {
 
 .content-text {
   grid-column: 2/3;
+  text-shadow: 1px 1px 2px var(--color-jet-black);
+}
+
+.content-poster,
+.content-text {
+  z-index: 2;
 }
 
 .title {
