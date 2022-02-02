@@ -243,6 +243,7 @@ ul {
   background-color: rgba(9, 9, 9, 0.5);
   backdrop-filter: blur(10px);
   cursor: pointer;
+  z-index: 2;
 }
 
 /* start of scrollbar styles */
