@@ -2,10 +2,18 @@
   <div v-if="result" class="info-wrapper">
     <div class="content-poster">
       <img
+        v-if="result.poster_path"
         :src="setPath(result.poster_path)"
         :title="result.title"
         alt=""
         width="320"
+      />
+      <img
+        v-else
+        src="../assets/no-poster-img.svg"
+        width="200"
+        alt=""
+        class="no-poster-img"
       />
     </div>
     <div class="content-text">
@@ -21,15 +29,24 @@
               alt="star icon"
             />{{ result.vote_average }}
           </p>
-          <p class="content-runtime">{{ setTime(result.runtime) }}</p>
+          <p v-if="result.runtime" class="content-runtime">
+            {{ setTime(result.runtime) }}
+          </p>
+          <p v-else class="content-runtime">n/a</p>
         </div>
 
         <div class="meta-section-2">
-          <p class="content-overview">{{ result.overview }}</p>
+          <p v-if="result.overview" class="content-overview">
+            {{ result.overview }}
+          </p>
+          <p v-else class="content-overview">n/a</p>
         </div>
 
         <div class="meta-section-3 flex flex-fd-c">
-          <div class="content-country flex">
+          <div
+            v-if="result.production_countries.length > 0"
+            class="content-country flex"
+          >
             <p>Country:</p>
             <div
               v-for="country in result.production_countries"
@@ -48,8 +65,12 @@
               </p>
             </div>
           </div>
+          <div v-else class="content-country flex">
+            <p>Countries:</p>
+            <p>n/a</p>
+          </div>
 
-          <div class="content-genre flex">
+          <div v-if="result.genres.length > 0" class="content-genre flex">
             <p>Genres:</p>
             <div v-for="genre in result.genres" :key="genre.id">
               <!-- show commas for all items except the last -->
@@ -64,10 +85,15 @@
               </p>
             </div>
           </div>
+          <div v-else class="content-genre flex">
+            <p>Genres:</p>
+            <p>n/a</p>
+          </div>
 
           <div class="content-release flex">
             <p>Release:</p>
-            <p>{{ setDate(result.release_date) }}</p>
+            <p v-if="result.release_date">{{ setDate(result.release_date) }}</p>
+            <p v-else>n/a</p>
           </div>
         </div>
       </div>
@@ -118,24 +144,28 @@ export default {
   gap: 3.125rem;
   grid-template-columns: 20rem auto;
   padding: 2.1875rem 0.9375rem;
-  background-color: tomato;
 }
 
 .content-poster {
   grid-column: 1/2;
-  width: fit-content;
-  height: fit-content;
+  background-color: var(--color-jet-black);
 }
 
 .content-poster img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
+.content-poster img.no-poster-img {
+  padding: 120px 20px;
+  object-fit: contain;
+}
+
 .content-text {
-  background-color: rgb(33, 63, 88);
   grid-column: 2/3;
 }
 
