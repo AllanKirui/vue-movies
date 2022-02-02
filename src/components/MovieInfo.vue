@@ -14,6 +14,7 @@
         : ''
     "
   >
+    <!-- dark filter for backdrop -->
     <div class="filter"></div>
     <div class="content-poster">
       <img
@@ -123,13 +124,20 @@
       </div>
     </div>
   </div>
+
+  <!-- load similar movies -->
+  <SimilarMovies />
 </template>
 
 <script>
 import apiKey from "../../config.js";
+import SimilarMovies from "./SimilarMovies.vue";
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
+  components: {
+    SimilarMovies,
+  },
   props: ["movieId", "setDate", "setTime"],
   data() {
     return {
