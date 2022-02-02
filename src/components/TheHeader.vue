@@ -357,7 +357,7 @@ nav {
   background-color: var(--color-jet-black);
   opacity: 0.95;
   visibility: hidden;
-  z-index: 2;
+  z-index: 3;
 }
 
 .results-wrapper {
