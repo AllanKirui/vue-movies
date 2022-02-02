@@ -17,9 +17,16 @@
       />
     </div>
     <div class="content-text">
-      <h1 class="content-title">{{ result.title }}</h1>
+      <!-- movie title and tagline -->
+      <div class="title">
+        <h1 class="content-title">{{ result.title }}</h1>
+        <p v-if="result.tagline" class="content-tagline">
+          {{ result.tagline }}
+        </p>
+      </div>
 
       <div class="meta">
+        <!-- movie rating and runtime -->
         <div class="meta-section-1 flex">
           <p class="content-rating">
             <img
@@ -35,6 +42,7 @@
           <p v-else class="content-runtime">n/a</p>
         </div>
 
+        <!-- movie overview -->
         <div class="meta-section-2">
           <p v-if="result.overview" class="content-overview">
             {{ result.overview }}
@@ -42,6 +50,7 @@
           <p v-else class="content-overview">n/a</p>
         </div>
 
+        <!-- movie country of production -->
         <div class="meta-section-3 flex flex-fd-c">
           <div
             v-if="result.production_countries.length > 0"
@@ -69,7 +78,7 @@
             <p>Countries:</p>
             <p>n/a</p>
           </div>
-
+          <!-- movie genre -->
           <div v-if="result.genres.length > 0" class="content-genre flex">
             <p>Genres:</p>
             <div v-for="genre in result.genres" :key="genre.id">
@@ -89,7 +98,7 @@
             <p>Genres:</p>
             <p>n/a</p>
           </div>
-
+          <!-- movie release date -->
           <div class="content-release flex">
             <p>Release:</p>
             <p v-if="result.release_date">{{ setDate(result.release_date) }}</p>
@@ -161,7 +170,7 @@ export default {
 }
 
 .content-poster img.no-poster-img {
-  padding: 120px 20px;
+  padding: 7.5rem 1.25rem;
   object-fit: contain;
 }
 
@@ -169,10 +178,14 @@ export default {
   grid-column: 2/3;
 }
 
-.content-title {
+.title {
   margin-top: 1.375rem;
   margin-bottom: 1.125rem;
   color: var(--color-white);
+}
+
+.title .content-tagline {
+  font-style: italic;
 }
 
 .meta {
