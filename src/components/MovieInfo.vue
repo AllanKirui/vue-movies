@@ -35,14 +35,33 @@
               v-for="country in result.production_countries"
               :key="country.name"
             >
-              <p>{{ country.name }}</p>
+              <!-- show commas for all items except the last -->
+              <p>
+                {{ country.name
+                }}<span
+                  v-if="
+                    result.production_countries.indexOf(country) !==
+                    result.production_countries.length - 1
+                  "
+                  >,&nbsp;</span
+                >
+              </p>
             </div>
           </div>
 
           <div class="content-genre flex">
             <p>Genres:</p>
             <div v-for="genre in result.genres" :key="genre.id">
-              <p>{{ genre.name }}</p>
+              <!-- show commas for all items except the last -->
+              <p>
+                {{ genre.name
+                }}<span
+                  v-if="
+                    result.genres.indexOf(genre) !== result.genres.length - 1
+                  "
+                  >,&nbsp;</span
+                >
+              </p>
             </div>
           </div>
 
@@ -149,11 +168,6 @@ export default {
   color: var(--color-silver-chalice);
 }
 
-.meta .meta-section-3 .title-field p,
-.meta .meta-section-3 .value-field div {
-  margin-bottom: 0.3125rem;
-}
-
 .meta .meta-section-3 .content-genre div p {
   color: var(--color-white);
 }
@@ -163,5 +177,10 @@ export default {
 .meta .meta-section-3 .content-release > p:first-child {
   width: 4.375rem;
   margin-right: 2rem;
+}
+
+.meta .meta-section-3 .content-country p span,
+.meta .meta-section-3 .content-genre p span {
+  color: var(--color-silver-chalice);
 }
 </style>
