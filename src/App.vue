@@ -90,6 +90,8 @@ export default {
       const time = parseInt(runtime);
       const hours = Math.floor(time / 60);
       const minutes = time % 60;
+      if (hours === 0) return `${minutes}min`;
+      if (minutes < 10) return `${hours}h 0${minutes}min`;
       return `${hours}h ${minutes}min`;
     },
     setLoadingStatus(status) {
