@@ -27,7 +27,11 @@
     />
   </div>
 
-  <MovieInfo :movie-id="movieId" :set-date="setDateFormat" />
+  <MovieInfo
+    :movie-id="movieId"
+    :set-date="setDateFormat"
+    :set-time="setTimeFormat"
+  />
 </template>
 
 <script>
@@ -81,6 +85,12 @@ export default {
       const day = date[2];
       const stringMonth = months.find((month) => month === months[monthIdx]);
       return `${day} ${stringMonth} ${year}`;
+    },
+    setTimeFormat(runtime) {
+      const time = parseInt(runtime);
+      const hours = Math.floor(time / 60);
+      const minutes = time % 60;
+      return `${hours}h ${minutes}min`;
     },
     setLoadingStatus(status) {
       this.isLoading = status;

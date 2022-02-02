@@ -21,7 +21,7 @@
               alt="star icon"
             />{{ result.vote_average }}
           </p>
-          <p class="content-runtime">{{ result.runtime }}</p>
+          <p class="content-runtime">{{ setTime(result.runtime) }}</p>
         </div>
 
         <div class="meta-section-2">
@@ -61,7 +61,7 @@ import apiKey from "../../config.js";
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
-  props: ["movieId", "setDate"],
+  props: ["movieId", "setDate", "setTime"],
   data() {
     return {
       result: null,
