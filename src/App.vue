@@ -27,7 +27,7 @@
     />
   </div>
 
-  <MovieInfo :movie-id="movieId" />
+  <MovieInfo :movie-id="movieId" :set-date="setDateFormat" />
 </template>
 
 <script>
