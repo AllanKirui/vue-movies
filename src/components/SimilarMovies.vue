@@ -51,7 +51,7 @@
 
 <script>
 import apiKey from "../../config.js";
-const imgPath = "https://image.tmdb.org/t/p/w1280";
+const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   props: ["movieId", "setDate"],

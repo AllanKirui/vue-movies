@@ -6,7 +6,7 @@
     :style="
       result.backdrop_path
         ? {
-            background: `url(` + setPath(result.backdrop_path) + `)`,
+            background: `url(` + setBackdropPath(result.backdrop_path) + `)`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'top center',
@@ -132,7 +132,8 @@
 <script>
 import apiKey from "../../config.js";
 import SimilarMovies from "./SimilarMovies.vue";
-const imgPath = "https://image.tmdb.org/t/p/w1280";
+const imgPath = "https://image.tmdb.org/t/p/w500";
+const backdropImgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
   components: {
@@ -147,6 +148,9 @@ export default {
   methods: {
     setPath(poster_path) {
       return imgPath + poster_path;
+    },
+    setBackdropPath(backdrop_path) {
+      return backdropImgPath + backdrop_path;
     },
     async getMovies(id) {
       const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;

@@ -127,7 +127,7 @@
 <script>
 import apiKey from "../../config.js";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
-const imgPath = "https://image.tmdb.org/t/p/w1280";
+const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   props: ["setDate", "pageNum", "searchThis"],
