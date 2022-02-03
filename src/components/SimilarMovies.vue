@@ -39,7 +39,7 @@
                   width="15"
                   height="14.4"
                   alt="star icon"
-                />{{ movie.vote_average }}
+                />{{ roundRating(movie.vote_average) }}
               </p>
             </div>
           </div>
@@ -65,7 +65,17 @@ export default {
     setPath(poster_path) {
       return imgPath + poster_path;
     },
+    setTitleLength(title) {
+      if (title.length <= 20) {
+        return title;
+      }
 
+      let shortTitle = "";
+      for (let i = 0; i <= 20; i++) {
+        shortTitle += title[i];
+      }
+      return shortTitle + "...";
+    },
     async getMovies(id) {
       const url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${apiKey}`;
 
@@ -82,6 +92,9 @@ export default {
       } else {
         this.similarMovies.push(data.results);
       }
+    },
+    roundRating(rating) {
+      return Math.round(rating * 10) / 10;
     },
   },
   watch: {
