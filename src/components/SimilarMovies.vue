@@ -54,18 +54,20 @@ import apiKey from "../../config.js";
 const imgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
+  props: ["movieId", "setDate"],
   data() {
     return {
       similarMovies: [],
-      movieId: null,
+      isResults: false,
     };
   },
   methods: {
     setPath(poster_path) {
       return imgPath + poster_path;
     },
+
     async getMovies(id) {
-      const url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${apiKey}`;
+      const url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${apiKey}`;
 
       // fetch data
       const response = await fetch(url);
@@ -73,9 +75,21 @@ export default {
 
       // only get the first 8 results
       if (data.results.length >= 8) {
+        this.isResults = true;
         for (let i = 0; i < 8; i++) {
           this.similarMovies.push(data.results[i]);
         }
+      } else {
+        this.similarMovies.push(data.results);
+      }
+    },
+  },
+  watch: {
+    movieId(newValue) {
+      // call the getMovies() method to fetch movies when the movieId prop has a value
+      if (newValue) {
+        this.results = false;
+        this.getMovies(newValue);
       }
     },
   },
