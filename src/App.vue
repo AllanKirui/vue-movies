@@ -325,6 +325,19 @@ html::-webkit-scrollbar-track,
   overflow: hidden;
 }
 
+.content__poster img {
+  transition: transform 0.2s ease-in-out;
+}
+
+.content__poster:hover img {
+  transform: scale(1.025);
+}
+
+.content__poster img.no-poster-img {
+  transition: none;
+  transform: none;
+}
+
 .poster-height {
   height: 85%;
 }
