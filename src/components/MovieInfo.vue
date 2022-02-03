@@ -254,6 +254,7 @@ export default {
   color: var(--color-silver-chalice);
 }
 
+.meta .meta-section-2 .content-overview,
 .meta .meta-section-3 .content-genre div p {
   color: var(--color-white);
 }
