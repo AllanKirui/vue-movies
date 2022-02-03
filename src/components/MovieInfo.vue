@@ -126,7 +126,7 @@
   </div>
 
   <!-- load similar movies -->
-  <SimilarMovies />
+  <SimilarMovies :movie-id="movieId" :set-date="setDate" />
 </template>
 
 <script>
