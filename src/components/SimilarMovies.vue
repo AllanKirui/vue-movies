@@ -101,7 +101,7 @@ export default {
     movieId(newValue) {
       // call the getMovies() method to fetch movies when the movieId prop has a value
       if (newValue) {
-        this.results = false;
+        this.similarMovies = []; // perform resets before a new fetch request
         this.getMovies(newValue);
       }
     },
