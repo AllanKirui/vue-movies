@@ -2,6 +2,7 @@
   <div class="results-container">
     <!-- If there are results, show them -->
     <div v-if="isResults">
+      <h2 class="heading">You might also like</h2>
       <ul
         v-for="movie in similarMovies"
         :key="movie.id"
@@ -56,6 +57,7 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 export default {
   props: ["movieId", "setDate"],
   emits: ["send-id"],
+  inject: ["scrollToTop"],
   data() {
     return {
       similarMovies: [],
@@ -105,6 +107,7 @@ export default {
     movieId(newValue) {
       // call the getMovies() method to fetch movies when the movieId prop has a value
       if (newValue) {
+        this.scrollToTop();
         this.similarMovies = []; // perform resets before a new fetch request
         this.getMovies(newValue);
       } else {
@@ -115,3 +118,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.heading {
+  margin-bottom: 2.1875rem;
+  font-size: var(--font-size-28);
+  font-weight: 400;
+  color: var(--color-clouds);
+}
+</style>
