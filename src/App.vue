@@ -135,6 +135,12 @@ export default {
       this.isRemoveSearchResults = status;
     },
   },
+  provide() {
+    // send the scrollToTop method to SimilarMovies
+    return {
+      scrollToTop: this.scrollToTop,
+    };
+  },
   watch: {
     selectedPage() {
       // when the selectedPage data property changes, call the scrollToTop method
