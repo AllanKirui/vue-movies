@@ -189,6 +189,9 @@ export default {
     },
     sendMovieId(id) {
       this.$emit("send-id", id);
+      // hide the mini-search, SearchHandler component
+      this.isHidden = true;
+      this.removeOverlay();
     },
   },
   watch: {
