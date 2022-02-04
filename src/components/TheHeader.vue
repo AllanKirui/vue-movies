@@ -111,7 +111,14 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
-  emits: ["no-scroll", "find-searchterm", "remove-results", "send-id"],
+  props: ["removeSearch"],
+  emits: [
+    "no-scroll",
+    "find-searchterm",
+    "remove-results",
+    "send-id",
+    "search-status",
+  ],
   data() {
     return {
       isMenuOpen: false,
@@ -129,6 +136,9 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
     },
     async getMovies(url) {
+      // reset the removeSearch prop
+      this.$emit("search-status", false);
+
       this.isSearchActive = true;
       this.isLoading = true;
       // perform resets before a new fetch request
@@ -188,6 +198,10 @@ export default {
       } else {
         this.$emit("no-scroll", false);
       }
+    },
+    removeSearch(newValue) {
+      // remove results from ExpandedSearch, when the removeSearch prop holds true
+      if (newValue) this.removeSearchResults();
     },
   },
 };

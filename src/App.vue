@@ -1,9 +1,11 @@
 <template>
   <TheHeader
+    :remove-search="isRemoveSearchResults"
     @no-scroll="setScrollBehaviour"
     @find-searchterm="showMoreResults"
     @remove-results="removeSearchResults"
     @send-id="showMovieInfo"
+    @search-status="resetRemoveSearch"
   />
 
   <div class="expanded-search-wrapper flex flex-fd-c">
@@ -59,7 +61,7 @@ export default {
       isShowMoreResults: false,
       keyword: "",
       movieId: null,
-      isShowMovieInfo: false,
+      isRemoveSearchResults: false,
     };
   },
   methods: {
@@ -115,6 +117,8 @@ export default {
       document.body.classList.toggle("no-scroll");
     },
     showMoreResults(keyword) {
+      // reset movieId
+      this.movieId = null;
       this.isShowMoreResults = true;
       this.keyword = keyword;
     },
@@ -123,8 +127,11 @@ export default {
       this.totalPages = null;
     },
     showMovieInfo(id) {
+      this.isRemoveSearchResults = true;
       this.movieId = id;
-      this.isShowMovieInfo = true;
+    },
+    resetRemoveSearch(status) {
+      this.isRemoveSearchResults = status;
     },
   },
   watch: {
