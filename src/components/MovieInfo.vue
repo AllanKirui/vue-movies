@@ -189,6 +189,7 @@ export default {
   display: grid;
   gap: 3.125rem;
   grid-template-columns: 20rem auto;
+  margin-bottom: 2.8125rem;
   padding: 2.1875rem 0.9375rem;
   position: relative;
 }
