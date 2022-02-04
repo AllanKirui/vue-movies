@@ -188,7 +188,7 @@ export default {
 .info-wrapper {
   display: grid;
   gap: 3.125rem;
-  grid-template-columns: 20rem auto;
+  grid-template-columns: 23.5% auto;
   margin-bottom: 2.8125rem;
   padding: 2.1875rem 0.9375rem;
   position: relative;

@@ -499,12 +499,47 @@ html::-webkit-scrollbar-track,
   .content-wrapper .content {
     height: 24.375rem;
   }
+
+  /* MovieInfo styles */
+  .info-wrapper {
+    gap: 1.875rem !important;
+    grid-template-columns: 31.3333333333% auto !important;
+  }
 }
 
 @media screen and (max-width: 1023px) {
   .content-wrapper .content {
     height: 22.5rem;
     margin-bottom: 0px !important;
+  }
+
+  /* MovieInfo styles */
+  .info-wrapper {
+    grid-template-columns: 34% auto !important;
+  }
+}
+
+@media screen and (max-width: 939px) {
+  /* MovieInfo styles */
+  .info-wrapper {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr auto !important;
+  }
+
+  .info-wrapper .content-poster {
+    width: 31.3333333333%;
+    margin: 0 auto;
+    grid-column: span 1;
+    grid-row: 1/2;
+  }
+
+  .info-wrapper .content-text {
+    grid-column: span 1;
+    grid-row: 2/3;
+  }
+
+  .info-wrapper .content-text .title {
+    margin-top: 0;
   }
 }
 
