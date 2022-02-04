@@ -126,7 +126,11 @@
   </div>
 
   <!-- load similar movies -->
-  <SimilarMovies :movie-id="movieId" :set-date="setDate" />
+  <SimilarMovies
+    :movie-id="movieId"
+    :set-date="setDate"
+    @send-id="sendMovieId"
+  />
 </template>
 
 <script>
@@ -140,6 +144,7 @@ export default {
     SimilarMovies,
   },
   props: ["movieId", "setDate", "setTime"],
+  emits: ["send-id"],
   data() {
     return {
       result: null,
@@ -160,7 +165,9 @@ export default {
       const data = await response.json();
 
       this.result = data;
-      console.log(this.result);
+    },
+    sendMovieId(id) {
+      this.$emit("send-id", id);
     },
   },
   watch: {

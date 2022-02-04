@@ -33,6 +33,7 @@
     :movie-id="movieId"
     :set-date="setDateFormat"
     :set-time="setTimeFormat"
+    @send-id="showMovieInfo"
   />
 </template>
 

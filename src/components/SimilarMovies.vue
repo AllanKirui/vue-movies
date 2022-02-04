@@ -7,7 +7,7 @@
         :key="movie.id"
         class="content-wrapper"
       >
-        <li class="content" :title="movie.title">
+        <li class="content" :title="movie.title" @click="sendMovieId(movie.id)">
           <div class="content__poster">
             <img
               v-if="movie.poster_path"
@@ -55,6 +55,7 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   props: ["movieId", "setDate"],
+  emits: ["send-id"],
   data() {
     return {
       similarMovies: [],
@@ -95,6 +96,9 @@ export default {
     },
     roundRating(rating) {
       return Math.round(rating * 10) / 10;
+    },
+    sendMovieId(id) {
+      this.$emit("send-id", id);
     },
   },
   watch: {
