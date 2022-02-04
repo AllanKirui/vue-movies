@@ -103,6 +103,9 @@ export default {
       if (newValue) {
         this.similarMovies = []; // perform resets before a new fetch request
         this.getMovies(newValue);
+      } else {
+        // perform resets if there was a previous value for the movieId prop
+        this.similarMovies = [];
       }
     },
   },

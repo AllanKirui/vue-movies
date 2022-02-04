@@ -168,6 +168,9 @@ export default {
       // call the getMovies() method to fetch movies when the movieId prop has a value
       if (newValue) {
         this.getMovies(newValue);
+      } else {
+        // reset result property
+        this.result = null;
       }
     },
   },
