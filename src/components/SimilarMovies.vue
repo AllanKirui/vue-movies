@@ -81,19 +81,22 @@ export default {
     },
     async getMovies(id) {
       const url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${apiKey}`;
+      const alt_url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
 
       // fetch data
       const response = await fetch(url);
       const data = await response.json();
+      console.log(data);
 
-      // only get the first 8 results
-      if (data.results.length >= 8) {
-        this.isResults = true;
-        for (let i = 0; i < 8; i++) {
-          this.similarMovies.push(data.results[i]);
-        }
+      // check if there are recommended movies
+      if (data.results.length !== 0) {
+        this.setDataLength(data.results);
       } else {
-        this.similarMovies.push(data.results);
+        // if there are no recommended movies, fetch data using alternate url
+        const response = await fetch(alt_url);
+        const data = await response.json();
+        console.log(data);
+        this.setDataLength(data.results);
       }
     },
     roundRating(rating) {
@@ -101,6 +104,17 @@ export default {
     },
     sendMovieId(id) {
       this.$emit("send-id", id);
+    },
+    setDataLength(data) {
+      // only get the first 8 results
+      if (data.length >= 8) {
+        this.isResults = true;
+        for (let i = 0; i < 8; i++) {
+          this.similarMovies.push(data[i]);
+        }
+      } else {
+        this.similarMovies.push(data);
+      }
     },
   },
   watch: {
