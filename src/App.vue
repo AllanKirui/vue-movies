@@ -29,12 +29,19 @@
     />
   </div>
 
-  <MovieInfo
-    :movie-id="movieId"
-    :set-date="setDateFormat"
-    :set-time="setTimeFormat"
-    @send-id="showMovieInfo"
-  />
+  <div class="movie-info-wrapper">
+    <MovieInfo
+      :movie-id="movieId"
+      :set-date="setDateFormat"
+      :set-time="setTimeFormat"
+      @send-id="showMovieInfo"
+      @set-status="setLoadingStatus"
+    />
+    <div v-if="isMovieInfoLoading" class="content-holder-wrapper">
+      <InfoPlaceholder />
+      <ContentPlaceholder />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -43,6 +50,7 @@ import ExpandedSearch from "./components/ExpandedSearch.vue";
 import ContentPlaceholder from "./components/ContentPlaceholder.vue";
 import ThePagination from "./components/ThePagination.vue";
 import MovieInfo from "./components/MovieInfo.vue";
+import InfoPlaceholder from "./components/InfoPlaceholder.vue";
 
 export default {
   name: "App",
@@ -52,6 +60,7 @@ export default {
     ContentPlaceholder,
     ThePagination,
     MovieInfo,
+    InfoPlaceholder,
   },
   data() {
     return {
@@ -63,6 +72,7 @@ export default {
       keyword: "",
       movieId: null,
       isRemoveSearchResults: false,
+      isMovieInfoLoading: false,
     };
   },
   methods: {
@@ -98,6 +108,14 @@ export default {
       return `${hours}h ${minutes}min`;
     },
     setLoadingStatus(status) {
+      if (status === "MovieInfoLoading") {
+        this.movieId = null;
+        this.isMovieInfoLoading = true;
+        return;
+      } else if (status === "MovieInfoLoaded") {
+        this.isMovieInfoLoading = false;
+        return;
+      }
       this.isLoading = status;
     },
     setTotalPages(pages, selectedPage) {
@@ -128,6 +146,7 @@ export default {
       this.totalPages = null;
     },
     showMovieInfo(id) {
+      this.isMovieInfoLoading = true;
       this.isRemoveSearchResults = true;
       this.movieId = id;
     },
