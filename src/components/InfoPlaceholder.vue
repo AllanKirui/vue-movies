@@ -1,0 +1,143 @@
+<template>
+  <div class="info-wrapper">
+    <div class="content-poster animated-bg"></div>
+    <div class="content-text">
+      <div class="title">
+        <h1 class="content-title animated-bg animated-bg-text"></h1>
+        <p class="content-tagline animated-bg animated-bg-text"></p>
+      </div>
+
+      <div class="meta">
+        <div class="meta-section-1 flex">
+          <p class="content-rating animated-bg animated-bg-text"></p>
+          <p class="content-runtime animated-bg animated-bg-text"></p>
+        </div>
+
+        <div class="meta-section-2">
+          <p class="content-overview animated-bg animated-bg-text"></p>
+          <p class="content-overview animated-bg animated-bg-text"></p>
+          <p class="content-overview animated-bg animated-bg-text"></p>
+        </div>
+
+        <div class="meta-section-3 flex flex-fd-c">
+          <div class="content-country flex">
+            <p class="animated-bg animated-bg-text"></p>
+            <div class="animated-bg animated-bg-text"></div>
+          </div>
+
+          <div class="content-genre flex">
+            <p class="animated-bg animated-bg-text"></p>
+            <div class="animated-bg animated-bg-text"></div>
+          </div>
+
+          <div class="content-release flex">
+            <p class="animated-bg animated-bg-text"></p>
+            <p class="animated-bg animated-bg-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- title placeholder for SimilarMovies -->
+  <div class="title-placeholder animated-bg animated-bg-text"></div>
+</template>
+
+<style scoped>
+.info-wrapper {
+  display: grid;
+  gap: 3.125rem;
+  grid-template-columns: 23.5% auto;
+  padding: 2.1875rem 0.9375rem;
+  margin-bottom: 2.8125rem;
+}
+
+.content-poster {
+  width: 19.375rem;
+  height: 28.125rem;
+  grid-column: 1/2;
+}
+
+.content-text {
+  grid-column: 2/3;
+}
+
+.title {
+  margin-top: 1.375rem;
+  margin-bottom: 1.125rem;
+}
+
+.title .content-title {
+  width: 60%;
+  height: 1.5rem;
+}
+
+.title .content-tagline {
+  width: 41%;
+}
+
+.meta .meta-section-1 {
+  gap: 1.375rem;
+  margin-bottom: 2rem;
+}
+
+.meta .meta-section-1 .content-rating {
+  width: 3.125rem;
+}
+
+.meta .meta-section-1 .content-runtime {
+  width: 7.5rem;
+}
+
+.meta .meta-section-2 {
+  margin-bottom: 1.75rem;
+}
+
+.meta .meta-section-2 .content-overview {
+  margin-bottom: 0.625rem;
+  width: 90%;
+}
+
+.meta .meta-section-2 .content-overview:last-child {
+  width: 80%;
+}
+
+.meta .meta-section-3 {
+  gap: 1rem;
+}
+
+.meta .meta-section-3 .content-country > p:first-child,
+.meta .meta-section-3 .content-genre > p:first-child,
+.meta .meta-section-3 .content-release > p:first-child {
+  margin-right: 2rem;
+  width: 7.5rem;
+}
+
+.meta .meta-section-3 .content-country div,
+.meta .meta-section-3 .content-genre div,
+.meta .meta-section-3 .content-release p:last-child {
+  width: 10rem;
+}
+
+.title-placeholder {
+  width: 30%;
+  height: 1.5rem;
+  margin-bottom: 4.1875rem;
+  margin-left: 0.9375rem;
+}
+
+@media screen and (max-width: 939px) {
+  .content-poster {
+    min-width: 11.25rem;
+    height: 80%;
+    min-height: 15.625rem;
+  }
+
+  .meta .meta-section-2 .content-overview:not(:last-child) {
+    width: 100%;
+  }
+
+  .title-placeholder {
+    width: 50%;
+  }
+}
+</style>
