@@ -144,7 +144,7 @@ export default {
     SimilarMovies,
   },
   props: ["movieId", "setDate", "setTime"],
-  emits: ["send-id"],
+  emits: ["send-id", "set-status"],
   data() {
     return {
       result: null,
@@ -165,6 +165,7 @@ export default {
       const data = await response.json();
 
       this.result = data;
+      this.$emit("set-status", "MovieInfoLoaded");
     },
     sendMovieId(id) {
       this.$emit("send-id", id);
@@ -174,6 +175,7 @@ export default {
     movieId(newValue) {
       // call the getMovies() method to fetch movies when the movieId prop has a value
       if (newValue) {
+        this.$emit("set-status", "MovieInfoLoading");
         this.getMovies(newValue);
       } else {
         // reset result property
