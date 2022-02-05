@@ -94,7 +94,6 @@ export default {
         // if there are no recommended movies, fetch data using alternate url
         const response = await fetch(alt_url);
         const data = await response.json();
-        console.log(data);
         this.setDataLength(data.results);
       }
     },
@@ -111,8 +110,11 @@ export default {
         for (let i = 0; i < 8; i++) {
           this.similarMovies.push(data[i]);
         }
-      } else {
-        this.similarMovies.push(data);
+      } else if (data.length > 0 && data.length < 8) {
+        this.isResults = true;
+        for (let i = 0; i < data.length; i++) {
+          this.similarMovies.push(data[i]);
+        }
       }
     },
   },
