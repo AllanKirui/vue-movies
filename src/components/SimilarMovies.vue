@@ -86,7 +86,6 @@ export default {
       // fetch data
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
 
       // check if there are recommended movies
       if (data.results.length !== 0) {
@@ -122,7 +121,9 @@ export default {
       // call the getMovies() method to fetch movies when the movieId prop has a value
       if (newValue) {
         this.scrollToTop();
-        this.similarMovies = []; // perform resets before a new fetch request
+        // perform resets before a new fetch request
+        this.similarMovies = [];
+        this.isResults = false;
         this.getMovies(newValue);
       } else {
         // perform resets if there was a previous value for the movieId prop
