@@ -415,4 +415,11 @@ export default {
   visibility: visible;
   opacity: 1;
 }
+
+@media screen and (max-width: 576px) {
+  .trailer-wrapper .trailer-card img.play-icon {
+    visibility: visible;
+    opacity: 1;
+  }
+}
 </style>
