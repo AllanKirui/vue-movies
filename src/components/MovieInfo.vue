@@ -72,7 +72,7 @@
             v-if="result.production_countries.length > 0"
             class="content-country flex"
           >
-            <p>Country:</p>
+            <p>Countries:</p>
             <div
               v-for="country in result.production_countries"
               :key="country.name"
@@ -125,6 +125,27 @@
     </div>
   </div>
 
+  <!-- show link to trailer, if movie has a trailer -->
+  <div v-if="result && videos.length !== 0" class="trailer-wrapper">
+    <h2 class="heading">Watch trailer</h2>
+    <div class="trailer-card">
+      <div class="filter"></div>
+      <img
+        :src="result.backdrop_path ? setBackdropPath(result.backdrop_path) : ''"
+        :alt="result.title"
+        class="backdrop"
+      />
+      <img
+        src="../assets/play-icon.svg"
+        width="50"
+        height="50"
+        alt="play icon"
+        :title="`Watch ${result.title} Trailer on YouTube`"
+        class="play-icon"
+      />
+    </div>
+  </div>
+
   <!-- load similar movies -->
   <SimilarMovies
     :movie-id="movieId"
@@ -148,6 +169,7 @@ export default {
   data() {
     return {
       result: null,
+      videos: [],
     };
   },
   methods: {
@@ -167,6 +189,15 @@ export default {
       this.result = data;
       this.$emit("set-status", "MovieInfoLoaded");
     },
+    async getVideos(id) {
+      const videos_url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}`;
+
+      // fetch data
+      const response = await fetch(videos_url);
+      const data = await response.json();
+
+      this.videos = data.results;
+    },
     sendMovieId(id) {
       this.$emit("send-id", id);
     },
@@ -177,9 +208,11 @@ export default {
       if (newValue) {
         this.$emit("set-status", "MovieInfoLoading");
         this.getMovies(newValue);
+        this.getVideos(newValue);
       } else {
-        // reset result property
+        // reset data properties
         this.result = null;
+        this.videos = [];
       }
     },
   },
@@ -196,6 +229,7 @@ export default {
   position: relative;
 }
 
+.trailer-wrapper .trailer-card .filter,
 .info-wrapper .filter {
   position: absolute;
   top: 0;
@@ -282,5 +316,63 @@ export default {
 .meta .meta-section-3 .content-country p span,
 .meta .meta-section-3 .content-genre p span {
   color: var(--color-silver-chalice);
+}
+
+.trailer-wrapper {
+  margin-bottom: 2.8125rem;
+  padding: 0 0.9375rem;
+  position: relative;
+}
+
+.trailer-wrapper .heading {
+  margin-bottom: 2.1875rem;
+  font-size: var(--font-size-28);
+  font-weight: 400;
+  color: var(--color-clouds);
+}
+
+.trailer-wrapper .trailer-card {
+  max-width: 37.5rem;
+  max-height: 21.875rem;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.trailer-wrapper .trailer-card img.backdrop,
+.trailer-wrapper .trailer-card .filter {
+  border-radius: 10px;
+}
+
+.trailer-wrapper .trailer-card .filter {
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 2;
+}
+
+.trailer-wrapper .trailer-card img.backdrop {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
+}
+
+.trailer-wrapper .trailer-card:hover img.backdrop {
+  transform: scale(1.025);
+}
+
+.trailer-wrapper .trailer-card img.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.trailer-wrapper .trailer-card:hover img.play-icon {
+  visibility: visible;
+  opacity: 1;
 }
 </style>
