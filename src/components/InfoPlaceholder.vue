@@ -38,6 +38,13 @@
       </div>
     </div>
   </div>
+
+  <!-- trailer card placeholder -->
+  <div class="trailer-wrapper">
+    <h2 class="heading animated-bg animated-bg-text"></h2>
+    <div class="trailer-card animated-bg"></div>
+  </div>
+
   <!-- title placeholder for SimilarMovies -->
   <div class="title-placeholder animated-bg animated-bg-text"></div>
 </template>
@@ -118,11 +125,32 @@
   width: 10rem;
 }
 
+.trailer-wrapper {
+  padding: 0 0.9375rem;
+}
+
 .title-placeholder {
   width: 30%;
   height: 1.5rem;
-  margin-bottom: 4.1875rem;
   margin-left: 0.9375rem;
+}
+
+.trailer-wrapper,
+.title-placeholder {
+  margin-bottom: 4.1875rem;
+}
+
+.trailer-wrapper .heading {
+  width: 30%;
+  height: 1.5rem;
+  margin-bottom: 2.1875rem;
+}
+
+.trailer-wrapper .trailer-card {
+  width: 31.5rem;
+  max-width: 100%;
+  height: 21.875rem;
+  max-height: 100%;
 }
 
 @media screen and (max-width: 939px) {
@@ -136,8 +164,16 @@
     width: 100%;
   }
 
+  .trailer-wrapper .heading,
   .title-placeholder {
     width: 50%;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .trailer-wrapper .trailer-card {
+    width: 100%;
+    height: 40vh;
   }
 }
 </style>
