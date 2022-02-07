@@ -135,14 +135,19 @@
         :alt="result.title"
         class="backdrop"
       />
-      <img
-        src="../assets/play-icon.svg"
-        width="50"
-        height="50"
-        alt="play icon"
+      <a
+        :href="`https://youtu.be/${trailerLink.key}`"
+        target="_blank"
         :title="`Watch ${result.title} Trailer on YouTube`"
-        class="play-icon"
-      />
+      >
+        <img
+          src="../assets/play-icon.svg"
+          width="50"
+          height="50"
+          alt="play icon"
+          class="play-icon"
+        />
+      </a>
     </div>
   </div>
 
@@ -170,6 +175,7 @@ export default {
     return {
       result: null,
       videos: [],
+      trailerLink: [],
     };
   },
   methods: {
@@ -195,8 +201,42 @@ export default {
       // fetch data
       const response = await fetch(videos_url);
       const data = await response.json();
-
       this.videos = data.results;
+
+      // call the setTrailerLink method if there are results
+      if (this.videos.length > 0) {
+        this.setTrailerLink(this.videos);
+      } else {
+        this.videos = [];
+      }
+    },
+    setTrailerLink(videoLinks) {
+      const links = [];
+      // loop through the available links
+      for (const link of videoLinks) {
+        // check if the video is of type Trailer
+        if (link.type.toLowerCase() === "trailer") {
+          // split the name property
+          const nameArray = link.name.toLowerCase().split(" ");
+          // check if it contains the string Official or Final or Trailer
+          if (
+            nameArray.indexOf("official") !== -1 ||
+            nameArray.indexOf("final") !== -1 ||
+            nameArray.indexOf("trailer") !== -1
+          ) {
+            // check if the trailer source is YouTube
+            if (link.site.toLowerCase() !== "youtube") return;
+            // add the link to the links array
+            links.push(link);
+          }
+        }
+      }
+      // only use 1 trailer if there is more than 1 available
+      if (links.length > 1) {
+        this.trailerLink = links[0];
+      } else {
+        this.trailerLink = links[0];
+      }
     },
     sendMovieId(id) {
       this.$emit("send-id", id);
