@@ -1,14 +1,18 @@
 <template>
   <div class="results-container">
     <!-- If there are results, show them -->
-    <div v-if="isResults">
+    <div v-if="isResults" class="results">
       <h2 class="heading">You might also like</h2>
       <ul
         v-for="movie in similarMovies"
         :key="movie.id"
         class="content-wrapper"
       >
-        <li class="content" :title="movie.title" @click="sendMovieId(movie.id)">
+        <li
+          class="content hover"
+          @click="sendMovieId(movie.id)"
+          :title="movie.title"
+        >
           <div class="content__poster">
             <img
               v-if="movie.poster_path"
@@ -44,6 +48,25 @@
               </p>
             </div>
           </div>
+          <!-- movie info card -->
+          <div v-if="isShowInfo" class="hover__info">
+            <h2 class="hover__info-title">{{ movie.title }}</h2>
+            <span class="grey-bg"></span>
+            <p class="hover__info-overview">
+              {{ setOverviewLength(movie.overview) }}
+            </p>
+            <div class="meta__info">
+              <div class="meta__info-rating flex">
+                <p class="description">Rating:</p>
+                <p class="data">{{ roundRating(movie.vote_average) }} / 10</p>
+              </div>
+              <div class="meta__info-release flex">
+                <p class="description">Release:</p>
+                <p class="data">{{ setDate(movie.release_date) }}</p>
+              </div>
+            </div>
+            <button :title="movie.title">View More Info</button>
+          </div>
         </li>
       </ul>
     </div>
@@ -62,11 +85,23 @@ export default {
     return {
       similarMovies: [],
       isResults: false,
+      isShowInfo: false,
     };
   },
   methods: {
     setPath(poster_path) {
       return imgPath + poster_path;
+    },
+    setOverviewLength(overview) {
+      if (overview.length <= 150) {
+        return overview;
+      }
+
+      let shortOverview = "";
+      for (let i = 0; i <= 150; i++) {
+        shortOverview += overview[i];
+      }
+      return shortOverview + "...";
     },
     setTitleLength(title) {
       if (title.length <= 20) {
@@ -117,6 +152,35 @@ export default {
         }
       }
     },
+    setInfoCardPosition() {
+      let viewportWidth = window.innerWidth;
+      // only show hover information for screens 768px and above
+      if (viewportWidth >= 768) {
+        this.isShowInfo = true;
+        const movieItems = document.querySelectorAll(".hover__info");
+        movieItems.forEach((movie) => {
+          // find the distance to the right of each movie card
+          let distToRight = movie.getBoundingClientRect().right;
+
+          // add an extra 250px to the distance, to make sure that it will be more
+          // than the viewport width, then set the appropriate postiion for the info card
+          if (
+            distToRight > viewportWidth ||
+            distToRight + 250 > viewportWidth
+          ) {
+            movie.style.right = "75%";
+          } else {
+            movie.style.right = "-75%";
+          }
+        });
+      } else {
+        this.isShowInfo = false;
+      }
+    },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", this.setInfoCardPosition);
+    },
   },
   watch: {
     movieId(newValue) {
@@ -132,6 +196,11 @@ export default {
         this.similarMovies = [];
       }
     },
+  },
+  updated() {
+    // call these methods when the page is updated
+    this.setInfoCardPosition();
+    this.checkWindowSize();
   },
 };
 </script>
