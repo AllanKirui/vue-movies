@@ -210,6 +210,7 @@ body {
   padding: 0;
   font-family: "PT Sans", sans-serif;
   background-color: var(--color-smokey-black);
+  overflow-x: hidden;
 }
 
 h1,
@@ -412,6 +413,85 @@ html::-webkit-scrollbar-track,
 }
 /* end of movie card styles */
 
+/* start of movie info card styles */
+.content-wrapper .content {
+  position: relative;
+}
+
+.content-wrapper .content .hover__info {
+  position: absolute;
+  top: 30px;
+  right: -75%;
+  width: 300px;
+  padding: 15px 15px 0 15px;
+  border-radius: 10px;
+  background-color: var(--color-jet-black);
+  color: var(--color-clouds);
+  opacity: 0;
+  cursor: default;
+  visibility: hidden;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.content-wrapper .content.hover:hover .hover__info {
+  opacity: 0.98;
+  visibility: visible;
+  transition: 0.4s ease 0.5s;
+}
+
+.content-wrapper .content .hover__info-title {
+  margin-bottom: 0.5rem;
+  color: var(--color-white);
+  font-size: var(--font-size-18);
+}
+
+.content-wrapper .content .hover__info span.grey-bg {
+  display: block;
+  position: relative;
+  left: -15px;
+  margin-bottom: 0.5rem;
+  width: calc(100% + 30px);
+  height: 10px;
+  background-color: var(--color-smokey-black);
+}
+
+.content-wrapper .content .hover__info .meta__info,
+.content-wrapper .content .hover__info-overview {
+  margin-bottom: 0.875rem;
+}
+
+.content-wrapper .content .hover__info .description {
+  margin-right: 0.875rem;
+  color: var(--color-spanish-gray);
+}
+
+.content-wrapper .content .hover__info .meta__info-rating {
+  margin-bottom: 3px;
+}
+
+.content-wrapper .content .hover__info button {
+  position: relative;
+  left: -0.9375rem;
+  padding: 0.5rem 0.75rem;
+  width: calc(100% + 1.875rem);
+  border: none;
+  border-radius: 0 0 0.625rem 0.625rem;
+  background-color: var(--color-smokey-black);
+  color: var(--color-clouds);
+  font-family: inherit;
+  font-size: var(--font-size-16);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.content-wrapper .content .hover__info button:hover {
+  color: var(--color-smokey-black);
+  background-color: var(--color-clouds);
+}
+
+/* end of movie info card styles */
+
 /* start of pagination styles */
 #pagination-wrapper {
   margin: 0 auto 100px;
@@ -539,6 +619,9 @@ html::-webkit-scrollbar-track,
 }
 
 @media screen and (max-width: 939px) {
+  .search-form {
+    display: none;
+  }
   /* MovieInfo styles */
   .info-wrapper {
     grid-template-columns: 1fr !important;
