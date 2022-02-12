@@ -160,7 +160,7 @@ export default {
     setInfoCardPosition() {
       let viewportWidth = window.innerWidth;
       // only show hover information for screens 768px and above
-      if (viewportWidth >= 768) {
+      if (viewportWidth >= 1024) {
         this.isShowInfo = true;
         const movieItems = document.querySelectorAll(".hover__info");
         movieItems.forEach((movie) => {
@@ -173,9 +173,9 @@ export default {
             distToRight > viewportWidth ||
             distToRight + 250 > viewportWidth
           ) {
-            movie.style.right = "75%";
+            movie.style.right = "95%";
           } else {
-            movie.style.right = "-75%";
+            movie.style.right = "-110%";
           }
         });
       } else {
