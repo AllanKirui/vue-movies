@@ -52,9 +52,11 @@
           <div v-if="isShowInfo" class="hover__info">
             <h2 class="hover__info-title">{{ movie.title }}</h2>
             <span class="grey-bg"></span>
-            <p class="hover__info-overview">
+            <p v-if="movie.overview" class="hover__info-overview">
               {{ setOverviewLength(movie.overview) }}
             </p>
+            <p v-else class="hover__info-overview">n/a</p>
+
             <div class="meta__info">
               <div class="meta__info-rating flex">
                 <p class="description">Rating:</p>
@@ -62,7 +64,10 @@
               </div>
               <div class="meta__info-release flex">
                 <p class="description">Release:</p>
-                <p class="data">{{ setDate(movie.release_date) }}</p>
+                <p v-if="movie.release_date" class="data">
+                  {{ setDate(movie.release_date) }}
+                </p>
+                <p v-else class="data">n/a</p>
               </div>
             </div>
             <button :title="movie.title">View More Info</button>
