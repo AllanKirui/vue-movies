@@ -420,10 +420,9 @@ html::-webkit-scrollbar-track,
 
 .content-wrapper .content .hover__info {
   position: absolute;
-  top: 30px;
-  right: -75%;
+  top: 50px;
   width: 300px;
-  padding: 15px 15px 0 15px;
+  padding: 0.9375rem 0.9375rem 0 0.9375rem;
   border-radius: 10px;
   background-color: var(--color-jet-black);
   color: var(--color-clouds);
