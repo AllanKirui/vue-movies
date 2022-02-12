@@ -10,7 +10,7 @@ export default {
     return {
       numOfPages: this.receivedPages,
       buttonsToShow: 5,
-      buttonClicked: "null",
+      // buttonClicked: "null",
     };
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
     this.displayButtons(this.chosenPage);
   },
   updated() {
-    // call the total number of pages after every new search in ExpandedSearch.vue
+    // get the total number of pages after every new search in ExpandedSearch.vue
     this.numOfPages = this.receivedPages;
   },
 };
