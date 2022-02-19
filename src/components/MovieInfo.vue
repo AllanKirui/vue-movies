@@ -6,10 +6,10 @@
     :style="
       result.backdrop_path
         ? {
-            background: `url(` + setBackdropPath(result.backdrop_path) + `)`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top center',
+            background:
+              `url(` +
+              setBackdropPath(result.backdrop_path) +
+              `) no-repeat top center/cover`,
           }
         : ''
     "
