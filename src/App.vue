@@ -9,7 +9,10 @@
   />
 
   <!-- only show this if it's the activeComponent -->
-  <div v-if="activeComponent === 'MoviesList'" class="movies-list-wrapper">
+  <div
+    v-if="activeComponent === 'MoviesList'"
+    class="movies-list-wrapper flex flex-fd-c"
+  >
     <MoviesList
       :page-num="selectedPage"
       :set-date="setDateFormat"
@@ -446,6 +449,7 @@ html::-webkit-scrollbar-track,
 
 .movies-list-wrapper .results-container {
   top: 0;
+  margin: 2.5rem 0;
 }
 /* end of movie card styles */
 
@@ -530,7 +534,6 @@ html::-webkit-scrollbar-track,
 /* start of pagination styles */
 #pagination-wrapper {
   margin: 0 auto 100px;
-  text-align: center;
   transition: all 0.3s ease-in-out;
 }
 
