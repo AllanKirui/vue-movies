@@ -8,7 +8,7 @@
     @search-status="resetRemoveSearch"
   />
 
-  <MoviesList />
+  <MoviesList :page-num="selectedPage" :set-date="setDateFormat" />
 
   <div class="expanded-search-wrapper flex flex-fd-c">
     <ExpandedSearch
