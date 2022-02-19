@@ -8,7 +8,14 @@
     @search-status="resetRemoveSearch"
   />
 
-  <MoviesList :page-num="selectedPage" :set-date="setDateFormat" />
+  <div class="movies-list-wrapper">
+    <MoviesList
+      :page-num="selectedPage"
+      :set-date="setDateFormat"
+      @set-status="setLoadingStatus"
+    />
+    <ContentPlaceholder v-if="isLoading" />
+  </div>
 
   <div class="expanded-search-wrapper flex flex-fd-c">
     <ExpandedSearch
@@ -414,6 +421,10 @@ html::-webkit-scrollbar-track,
 
 .content__info img {
   margin-right: 0.1875rem;
+}
+
+.movies-list-wrapper .results-container {
+  top: 0;
 }
 /* end of movie card styles */
 
