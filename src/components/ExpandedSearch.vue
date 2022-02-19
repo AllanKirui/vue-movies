@@ -143,6 +143,7 @@ export default {
       isNoResults: false,
       totalPages: null,
       defaultPage: 1,
+      componentName: "ExpandedSearch",
     };
   },
   methods: {
@@ -184,7 +185,12 @@ export default {
       }
       this.totalPages = data.total_pages;
       this.searchResults = data.results;
-      this.$emit("total-pages", this.totalPages, this.pageNum);
+      this.$emit(
+        "total-pages",
+        this.totalPages,
+        this.pageNum,
+        this.componentName
+      );
     },
     removePlaceholder() {
       this.isResults = true;
