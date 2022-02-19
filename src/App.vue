@@ -8,9 +8,9 @@
     @search-status="resetRemoveSearch"
   />
 
-  <!-- only show this if it's the activeComponent -->
+  <!-- only show this if it's the activeComponent and MovieInfo is not active-->
   <div
-    v-if="activeComponent === 'MoviesList'"
+    v-if="activeComponent === 'MoviesList' && !isMovieInfoActive"
     class="movies-list-wrapper flex flex-fd-c"
   >
     <MoviesList
@@ -18,6 +18,7 @@
       :set-date="setDateFormat"
       @set-status="setLoadingStatus"
       @total-pages="setTotalPages"
+      @send-id="showMovieInfo"
     />
     <ContentPlaceholder v-if="isLoading" />
     <ThePagination
@@ -28,9 +29,9 @@
     />
   </div>
 
-  <!-- only show this if it's the activeComponent -->
+  <!-- only show this if it's the activeComponent and MovieInfo is not active-->
   <div
-    v-if="activeComponent === 'ExpandedSearch'"
+    v-if="activeComponent === 'ExpandedSearch' && !isMovieInfoActive"
     class="expanded-search-wrapper flex flex-fd-c"
   >
     <ExpandedSearch
@@ -100,6 +101,7 @@ export default {
       isMovieInfoLoading: false,
       componentName: "",
       activeComponent: "MoviesList",
+      isMovieInfoActive: false,
     };
   },
   methods: {
@@ -178,6 +180,7 @@ export default {
       this.selectedPage = 1;
     },
     showMovieInfo(id) {
+      this.isMovieInfoActive = true;
       this.isMovieInfoLoading = true;
       this.isRemoveSearchResults = true;
       this.movieId = id;
@@ -448,7 +451,7 @@ html::-webkit-scrollbar-track,
 }
 
 .movies-list-wrapper .results-container {
-  top: 0;
+  top: -80px;
   margin: 2.5rem 0;
 }
 /* end of movie card styles */
