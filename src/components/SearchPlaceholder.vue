@@ -1,7 +1,7 @@
 <template>
   <div class="placeholder-wrapper">
     <!-- <ul v-for="result in searchResults[1]" :key="result.id"> -->
-    <ul v-for="item in searchItems" :key="item">
+    <ul v-for="item in 3" :key="item">
       <li class="result flex">
         <div class="result__poster animated-bg"></div>
         <div class="result__info flex flex-fd-c">
@@ -23,16 +23,6 @@
     </ul>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      searchItems: [1, 2, 3],
-    };
-  },
-};
-</script>
 
 <style scoped>
 .result__info {
