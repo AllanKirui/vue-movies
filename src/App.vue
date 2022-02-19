@@ -8,6 +8,8 @@
     @search-status="resetRemoveSearch"
   />
 
+  <MoviesList />
+
   <div class="expanded-search-wrapper flex flex-fd-c">
     <ExpandedSearch
       v-if="isShowMoreResults"
@@ -46,6 +48,7 @@
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
+import MoviesList from "./components/MoviesList.vue";
 import ExpandedSearch from "./components/ExpandedSearch.vue";
 import ContentPlaceholder from "./components/ContentPlaceholder.vue";
 import ThePagination from "./components/ThePagination.vue";
@@ -56,6 +59,7 @@ export default {
   name: "App",
   components: {
     TheHeader,
+    MoviesList,
     ExpandedSearch,
     ContentPlaceholder,
     ThePagination,
