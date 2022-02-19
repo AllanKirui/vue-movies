@@ -1,6 +1,5 @@
 <template>
   <div class="results-container">
-    <!-- <div v-if="isResults"> -->
     <div>
       <ul
         v-for="result in searchResults"
@@ -125,9 +124,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.results-container {
-  margin: 2.5rem 0;
-}
-</style>
