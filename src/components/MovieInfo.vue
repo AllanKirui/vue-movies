@@ -422,5 +422,9 @@ export default {
     visibility: visible;
     opacity: 1;
   }
+
+  .content-poster img.no-poster-img {
+    padding: 5.5rem 1.25rem;
+  }
 }
 </style>
