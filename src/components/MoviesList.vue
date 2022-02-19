@@ -59,7 +59,7 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   props: ["setDate", "pageNum"],
-  emits: ["set-status"],
+  emits: ["set-status", "total-pages"],
   data() {
     return {
       searchResults: [],
@@ -92,11 +92,25 @@ export default {
       const data = await response.json();
 
       this.removePlaceholder();
+
+      // only get the first 50 pages
+      if (data.total_pages > 40) {
+        this.totalPages = 40;
+      } else {
+        this.totalPages = data.total_pages;
+      }
       this.searchResults = data.results;
+      this.$emit("total-pages", this.totalPages, this.pageNum);
     },
     removePlaceholder() {
       this.isResults = true;
       this.$emit("set-status", false);
+    },
+  },
+  watch: {
+    pageNum(newValue) {
+      // call the getMovies() method to fetch movies when switching pages
+      this.getMovies(newValue);
     },
   },
   beforeMount() {
@@ -105,3 +119,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.results-container {
+  margin: 2.5rem 0;
+}
+</style>

@@ -13,8 +13,15 @@
       :page-num="selectedPage"
       :set-date="setDateFormat"
       @set-status="setLoadingStatus"
+      @total-pages="setTotalPages"
     />
     <ContentPlaceholder v-if="isLoading" />
+    <ThePagination
+      v-if="totalPages && !isLoading"
+      :received-pages="totalPages"
+      :chosen-page="selectedPage"
+      @switch-page="switchPages"
+    />
   </div>
 
   <div class="expanded-search-wrapper flex flex-fd-c">
@@ -29,7 +36,6 @@
       @send-id="showMovieInfo"
     />
     <ContentPlaceholder v-if="isLoading" />
-
     <ThePagination
       v-if="totalPages && !isLoading"
       :received-pages="totalPages"
@@ -509,6 +515,7 @@ html::-webkit-scrollbar-track,
 /* start of pagination styles */
 #pagination-wrapper {
   margin: 0 auto 100px;
+  text-align: center;
   transition: all 0.3s ease-in-out;
 }
 
