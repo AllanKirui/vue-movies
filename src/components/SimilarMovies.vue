@@ -83,6 +83,7 @@ import apiKey from "../../config.js";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
+  name: "SimilarMovies",
   props: ["movieId", "setDate"],
   emits: ["send-id"],
   inject: ["scrollToTop"],

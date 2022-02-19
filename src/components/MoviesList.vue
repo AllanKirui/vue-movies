@@ -57,6 +57,7 @@ import apiKey from "../../config.js";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
+  name: "MoviesList",
   props: ["setDate", "pageNum"],
   emits: ["set-status", "total-pages", "send-id"],
   data() {

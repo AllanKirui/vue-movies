@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  name: "ThePagination",
   props: ["receivedPages", "chosenPage"],
   emits: ["switch-page"],
   data() {

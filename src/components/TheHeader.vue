@@ -107,6 +107,7 @@ import SearchPlaceholder from "./SearchPlaceholder.vue";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
 
 export default {
+  name: "TheHeader",
   components: {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,

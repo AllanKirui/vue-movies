@@ -130,6 +130,7 @@ const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
+  name: "ExpandedSearch",
   props: ["setDate", "pageNum", "searchThis"],
   emits: ["set-status", "total-pages", "reset-pages", "send-id"],
   data() {

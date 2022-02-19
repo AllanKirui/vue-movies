@@ -166,6 +166,7 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 const backdropImgPath = "https://image.tmdb.org/t/p/w1280";
 
 export default {
+  name: "MovieInfo",
   components: {
     SimilarMovies,
   },
