@@ -59,6 +59,7 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   props: ["setDate", "pageNum"],
+  emits: ["set-status"],
   data() {
     return {
       searchResults: [],
@@ -81,7 +82,8 @@ export default {
     },
     async getMovies(page) {
       const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${page}`;
-
+      // set loading status to true
+      this.$emit("set-status", true);
       // perform resets before a new fetch request
       this.searchResults = [];
 
@@ -89,7 +91,12 @@ export default {
       const response = await fetch(url);
       const data = await response.json();
 
+      this.removePlaceholder();
       this.searchResults = data.results;
+    },
+    removePlaceholder() {
+      this.isResults = true;
+      this.$emit("set-status", false);
     },
   },
   beforeMount() {
