@@ -8,7 +8,8 @@
     @search-status="resetRemoveSearch"
   />
 
-  <div class="movies-list-wrapper">
+  <!-- only show this if it's the activeComponent -->
+  <div v-if="activeComponent === 'MoviesList'" class="movies-list-wrapper">
     <MoviesList
       :page-num="selectedPage"
       :set-date="setDateFormat"
@@ -17,14 +18,18 @@
     />
     <ContentPlaceholder v-if="isLoading" />
     <ThePagination
-      v-if="totalPages && !isLoading"
+      v-if="totalPages && !isLoading && componentName === 'MoviesList'"
       :received-pages="totalPages"
       :chosen-page="selectedPage"
       @switch-page="switchPages"
     />
   </div>
 
-  <div class="expanded-search-wrapper flex flex-fd-c">
+  <!-- only show this if it's the activeComponent -->
+  <div
+    v-if="activeComponent === 'ExpandedSearch'"
+    class="expanded-search-wrapper flex flex-fd-c"
+  >
     <ExpandedSearch
       v-if="isShowMoreResults"
       :set-date="setDateFormat"
@@ -37,7 +42,7 @@
     />
     <ContentPlaceholder v-if="isLoading" />
     <ThePagination
-      v-if="totalPages && !isLoading"
+      v-if="totalPages && !isLoading && componentName === 'ExpandedSearch'"
       :received-pages="totalPages"
       :chosen-page="selectedPage"
       @switch-page="switchPages"
@@ -90,6 +95,8 @@ export default {
       movieId: null,
       isRemoveSearchResults: false,
       isMovieInfoLoading: false,
+      componentName: "",
+      activeComponent: "MoviesList",
     };
   },
   methods: {
@@ -135,9 +142,10 @@ export default {
       }
       this.isLoading = status;
     },
-    setTotalPages(pages, selectedPage) {
+    setTotalPages(pages, selectedPage, name) {
       this.totalPages = pages;
       this.activePage = selectedPage;
+      this.componentName = name;
     },
     switchPages(pageNum) {
       this.selectedPage = pageNum;
@@ -157,10 +165,14 @@ export default {
       this.movieId = null;
       this.isShowMoreResults = true;
       this.keyword = keyword;
+      this.activeComponent = "ExpandedSearch";
+      this.selectedPage = 1;
     },
     removeSearchResults() {
       this.isShowMoreResults = false;
       this.totalPages = null;
+      this.activeComponent = "MoviesList";
+      this.selectedPage = 1;
     },
     showMovieInfo(id) {
       this.isMovieInfoLoading = true;
@@ -169,6 +181,9 @@ export default {
     },
     resetRemoveSearch(status) {
       this.isRemoveSearchResults = status;
+    },
+    setActiveComponent(cmp) {
+      this.activeComponent = cmp;
     },
   },
   provide() {
