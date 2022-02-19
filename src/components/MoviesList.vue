@@ -58,7 +58,7 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   props: ["setDate", "pageNum"],
-  emits: ["set-status", "total-pages"],
+  emits: ["set-status", "total-pages", "send-id"],
   data() {
     return {
       searchResults: [],
@@ -110,6 +110,9 @@ export default {
     removePlaceholder() {
       this.isResults = true;
       this.$emit("set-status", false);
+    },
+    sendMovieId(id) {
+      this.$emit("send-id", id);
     },
   },
   watch: {
