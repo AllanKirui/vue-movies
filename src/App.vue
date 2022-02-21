@@ -55,6 +55,7 @@
 
   <div class="movie-info-wrapper">
     <MovieInfo
+      v-if="isShowMovieInfo"
       :movie-id="movieId"
       :set-date="setDateFormat"
       :set-time="setTimeFormat"
@@ -102,6 +103,7 @@ export default {
       componentName: "",
       activeComponent: "MoviesList",
       isMovieInfoActive: false,
+      isShowMovieInfo: false,
     };
   },
   methods: {
@@ -137,6 +139,9 @@ export default {
       return `${hours}h ${minutes}min`;
     },
     setLoadingStatus(status) {
+      // whenever we're loading set this property to true
+      this.isShowMovieInfo = true;
+
       if (status === "MovieInfoLoading") {
         this.movieId = null;
         this.isMovieInfoLoading = true;
@@ -166,8 +171,11 @@ export default {
       document.body.classList.toggle("no-scroll");
     },
     showMoreResults(keyword) {
-      // reset movieId
+      // perform resets
       this.movieId = null;
+      this.isMovieInfoActive = false;
+      this.isShowMovieInfo = false;
+
       this.isShowMoreResults = true;
       this.keyword = keyword;
       this.activeComponent = "ExpandedSearch";
