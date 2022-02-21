@@ -57,9 +57,15 @@
   </div>
 
   <div class="results-container">
-    <h1 v-if="queryParam" class="search-term">
-      Showing results for: <span class="text-white">{{ userInput }}</span>
-    </h1>
+    <div class="heading-wrapper flex flex-jc-sb flex-ai-c">
+      <h1 v-if="queryParam" class="search-term">
+        Showing results for: <span class="text-white">{{ userInput }}</span>
+      </h1>
+      <p v-if="isResults" class="pages-found">
+        Showing page <span class="text-white">{{ pageNum }}</span> of
+        <span class="text-white">{{ totalPages }}</span>
+      </p>
+    </div>
 
     <!-- If there are results, show them -->
     <div v-if="isResults">
@@ -230,9 +236,13 @@ export default {
   margin: 2.5rem 0;
 }
 
-.search-term {
+.heading-wrapper {
   color: var(--color-spanish-gray);
   margin-bottom: 2.5rem;
+}
+
+.pages-found {
+  font-size: var(--font-size-18);
 }
 
 .search-term .text-white {
@@ -262,9 +272,15 @@ export default {
     margin-top: 1rem;
   }
 
+  .heading-wrapper {
+    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: start;
+  }
+
   .search-term {
     font-size: var(--font-size-24);
-    margin-bottom: 1rem;
+    margin-bottom: 0.625rem;
   }
 
   .no-results {
