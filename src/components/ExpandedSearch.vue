@@ -83,15 +83,25 @@
             <img
               v-if="result.poster_path"
               :src="setPath(result.poster_path)"
-              alt=""
+              :alt="`poster image for ${result.title}`"
+              class="poster-img"
             />
             <img
               v-else
               src="../assets/no-poster-img.svg"
               width="70"
               height="35.3"
-              alt=""
+              alt="no poster image"
               class="no-poster-img"
+            />
+            <!-- show a placeholder image before the poster loads -->
+            <img
+              v-if="result.poster_path"
+              src="../assets/poster-placeholder.png"
+              width="70"
+              height="35.3"
+              alt="placeholder image"
+              class="placeholder-img"
             />
             <p class="tag">Movie</p>
           </div>

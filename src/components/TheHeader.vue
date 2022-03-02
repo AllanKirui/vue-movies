@@ -11,7 +11,12 @@
       </button>
 
       <div class="logo">
-        <img src="../assets/logo.svg" width="191" height="71" />
+        <img
+          src="../assets/logo.svg"
+          width="191"
+          height="71"
+          alt="vue movies logo"
+        />
       </div>
 
       <ul class="nav-options flex">

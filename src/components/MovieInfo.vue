@@ -21,15 +21,24 @@
         v-if="result.poster_path"
         :src="setPath(result.poster_path)"
         :title="result.title"
-        alt=""
+        :alt="`poster image for ${result.title}`"
         width="320"
+        class="poster-img"
       />
       <img
         v-else
         src="../assets/no-poster-img.svg"
         width="200"
-        alt=""
+        alt="no poster image"
         class="no-poster-img"
+      />
+      <!-- show a placeholder image before the poster loads -->
+      <img
+        v-if="result.poster_path"
+        src="../assets/poster-placeholder.png"
+        width="320"
+        alt="placeholder image"
+        class="placeholder-img"
       />
     </div>
     <div class="content-text">
@@ -283,6 +292,7 @@ export default {
 .content-poster {
   grid-column: 1/2;
   background-color: var(--color-jet-black);
+  position: relative;
 }
 
 .content-poster img {
@@ -292,6 +302,12 @@ export default {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.content-poster img.poster-img {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .content-poster img.no-poster-img {

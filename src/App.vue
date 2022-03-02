@@ -413,10 +413,17 @@ html::-webkit-scrollbar-track,
   transition: transform 0.2s ease-in-out;
 }
 
-.content__poster:hover img {
+.content__poster img.poster-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.content__poster:hover img.poster-img {
   transform: scale(1.025);
 }
 
+.content__poster img.placeholder-img,
 .content__poster img.no-poster-img {
   transition: none;
   transform: none;
@@ -462,10 +469,6 @@ html::-webkit-scrollbar-track,
 /* end of movie card styles */
 
 /* start of movie info card styles */
-.content-wrapper .content {
-  position: relative;
-}
-
 .content-wrapper .content .hover__info {
   position: absolute;
   top: 50px;

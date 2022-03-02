@@ -10,15 +10,25 @@
           <img
             v-if="result.poster_path"
             :src="setPath(result.poster_path)"
-            alt=""
+            :alt="`poster image for ${result.title}`"
+            class="poster-img"
           />
           <img
             v-else
             src="../assets/no-poster-img.svg"
             width="70"
             height="35.3"
-            alt=""
+            alt="no poster image"
             class="no-poster-img"
+          />
+          <!-- show a placeholder image before the poster loads -->
+          <img
+            v-if="result.poster_path"
+            src="../assets/poster-placeholder.png"
+            width="70"
+            height="35.3"
+            alt="placeholder image"
+            class="placeholder-img"
           />
         </div>
         <div class="result__info flex flex-fd-c">
@@ -114,13 +124,19 @@ export default {
   outline: 1px solid var(--color-clouds);
 }
 
-.result__poster img,
-.result__poster img.no-poster-img {
+.result__poster {
+  position: relative;
+}
+
+.result__poster img {
   width: 100%;
   height: 100%;
 }
 
-.result__poster img {
+.result__poster img.poster-img {
+  position: absolute;
+  top: 0;
+  left: 0;
   object-fit: cover;
 }
 
