@@ -1,7 +1,7 @@
 <template>
   <div class="results-container">
     <!-- If there are results, show them -->
-    <div v-if="isResults" class="results">
+    <div v-if="isResults && isLoaded" class="results">
       <h2 class="heading">You might also like</h2>
       <ul
         v-for="movie in similarMovies"
@@ -94,7 +94,7 @@ const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   name: "SimilarMovies",
-  props: ["movieId", "setDate"],
+  props: ["movieId", "setDate", "isLoaded"],
   emits: ["send-id"],
   inject: ["scrollToTop"],
   data() {

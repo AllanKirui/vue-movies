@@ -163,6 +163,7 @@
   <!-- load similar movies -->
   <SimilarMovies
     :movie-id="movieId"
+    :is-loaded="isLoaded"
     :set-date="setDate"
     @send-id="sendMovieId"
   />
@@ -184,6 +185,7 @@ export default {
   data() {
     return {
       result: null,
+      isLoaded: false,
       videos: [],
       trailerLink: [],
     };
@@ -196,6 +198,7 @@ export default {
       return backdropImgPath + backdrop_path;
     },
     async getMovies(id) {
+      this.isLoaded = false;
       const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
 
       // fetch data
@@ -203,6 +206,7 @@ export default {
       const data = await response.json();
 
       this.result = data;
+      this.isLoaded = true;
       this.$emit("set-status", "MovieInfoLoaded");
     },
     async getVideos(id) {
