@@ -406,6 +406,10 @@ html::-webkit-scrollbar-track,
 }
 
 .content__poster img {
+  width: 100%;
+  height: 100%;
+  max-height: 23.75rem;
+  object-fit: cover;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -424,13 +428,6 @@ html::-webkit-scrollbar-track,
 
 .placeholder__poster {
   height: 80%;
-}
-
-.content__poster img {
-  width: 100%;
-  height: 100%;
-  max-height: 23.75rem;
-  object-fit: cover;
 }
 
 .content .tag {
