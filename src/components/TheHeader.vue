@@ -16,7 +16,9 @@
           width="191"
           height="71"
           alt="vue movies logo"
+          class="logo-img"
         />
+        <h2 class="logo-text">Vue Movies</h2>
       </div>
 
       <ul class="nav-options flex">
@@ -288,6 +290,26 @@ nav {
 .nav-options li:not(:last-child),
 .logo {
   margin-right: 2.5rem;
+}
+
+.logo {
+  position: relative;
+  width: 11.9375rem;
+  height: 4.4375rem;
+}
+
+.logo .logo-img {
+  position: relative;
+  background: var(--color-jet-black);
+  z-index: 2;
+}
+
+.logo .logo-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-clouds);
+  z-index: 1;
 }
 
 .search-form {
