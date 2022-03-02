@@ -90,13 +90,12 @@
 
 <script>
 import apiKey from "../../config.js";
-const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   name: "SimilarMovies",
   props: ["movieId", "setDate", "isLoaded"],
   emits: ["send-id"],
-  inject: ["scrollToTop"],
+  inject: ["scrollToTop", "setOverviewLength", "setPath", "setTitleLength"],
   data() {
     return {
       similarMovies: [],
@@ -105,31 +104,6 @@ export default {
     };
   },
   methods: {
-    setPath(poster_path) {
-      return imgPath + poster_path;
-    },
-    setOverviewLength(overview) {
-      if (overview.length <= 150) {
-        return overview;
-      }
-
-      let shortOverview = "";
-      for (let i = 0; i <= 150; i++) {
-        shortOverview += overview[i];
-      }
-      return shortOverview + "...";
-    },
-    setTitleLength(title) {
-      if (title.length <= 20) {
-        return title;
-      }
-
-      let shortTitle = "";
-      for (let i = 0; i <= 20; i++) {
-        shortTitle += title[i];
-      }
-      return shortTitle + "...";
-    },
     async getMovies(id) {
       const url = `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${apiKey}`;
       const alt_url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;

@@ -78,6 +78,9 @@ import ThePagination from "./components/ThePagination.vue";
 import MovieInfo from "./components/MovieInfo.vue";
 import InfoPlaceholder from "./components/InfoPlaceholder.vue";
 
+const imgPath = "https://image.tmdb.org/t/p/w500";
+const backdropImgPath = "https://image.tmdb.org/t/p/w1280";
+
 export default {
   name: "App",
   components: {
@@ -107,6 +110,34 @@ export default {
     };
   },
   methods: {
+    setPath(poster_path) {
+      return imgPath + poster_path;
+    },
+    setBackdropPath(backdrop_path) {
+      return backdropImgPath + backdrop_path;
+    },
+    setOverviewLength(overview) {
+      if (overview.length <= 150) {
+        return overview;
+      }
+
+      let shortOverview = "";
+      for (let i = 0; i <= 150; i++) {
+        shortOverview += overview[i];
+      }
+      return shortOverview + "...";
+    },
+    setTitleLength(title) {
+      if (title.length <= 20) {
+        return title;
+      }
+
+      let shortTitle = "";
+      for (let i = 0; i <= 20; i++) {
+        shortTitle += title[i];
+      }
+      return shortTitle + "...";
+    },
     setDateFormat(dateString) {
       if (!dateString) return;
       const months = [
@@ -199,11 +230,46 @@ export default {
     setActiveComponent(cmp) {
       this.activeComponent = cmp;
     },
+    setInfoCardPosition() {
+      let viewportWidth = window.innerWidth;
+      // only show hover information for screens 768px and above
+      if (viewportWidth >= 1024) {
+        this.isShowInfo = true;
+        const movieItems = document.querySelectorAll(".hover__info");
+        movieItems.forEach((movie) => {
+          // find the distance to the right of each movie card
+          let distToRight = movie.getBoundingClientRect().right;
+
+          // add an extra 250px to the distance, to make sure that it will be more
+          // than the viewport width, then set the appropriate postiion for the info card
+          if (
+            distToRight > viewportWidth ||
+            distToRight + 250 > viewportWidth
+          ) {
+            movie.style.right = "95%";
+          } else {
+            movie.style.right = "-110%";
+          }
+        });
+      } else {
+        this.isShowInfo = false;
+      }
+    },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", this.setInfoCardPosition);
+    },
   },
   provide() {
     // send the scrollToTop method to SimilarMovies
     return {
       scrollToTop: this.scrollToTop,
+      setOverviewLength: this.setOverviewLength,
+      imgPath: imgPath,
+      backdropImgPath: backdropImgPath,
+      setPath: this.setPath,
+      setBackdropPath: this.setBackdropPath,
+      setTitleLength: this.setTitleLength,
     };
   },
   watch: {

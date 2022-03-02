@@ -143,12 +143,12 @@
 <script>
 import apiKey from "../../config.js";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
-const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   name: "ExpandedSearch",
   props: ["setDate", "pageNum", "searchThis"],
   emits: ["set-status", "total-pages", "reset-pages", "send-id"],
+  inject: ["setPath", "setTitleLength"],
   data() {
     return {
       searchTerm: "",
@@ -164,20 +164,6 @@ export default {
     };
   },
   methods: {
-    setPath(poster_path) {
-      return imgPath + poster_path;
-    },
-    setTitleLength(title) {
-      if (title.length <= 20) {
-        return title;
-      }
-
-      let shortTitle = "";
-      for (let i = 0; i <= 20; i++) {
-        shortTitle += title[i];
-      }
-      return shortTitle + "...";
-    },
     async getMovies(url, page) {
       // set loading status to true
       this.$emit("set-status", true);

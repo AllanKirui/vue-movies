@@ -64,12 +64,12 @@
 
 <script>
 import apiKey from "../../config.js";
-const imgPath = "https://image.tmdb.org/t/p/w500";
 
 export default {
   name: "MoviesList",
   props: ["setDate", "pageNum"],
   emits: ["set-status", "total-pages", "send-id"],
+  inject: ["setPath", "setTitleLength"],
   data() {
     return {
       searchResults: [],
@@ -77,20 +77,6 @@ export default {
     };
   },
   methods: {
-    setPath(poster_path) {
-      return imgPath + poster_path;
-    },
-    setTitleLength(title) {
-      if (title.length <= 20) {
-        return title;
-      }
-
-      let shortTitle = "";
-      for (let i = 0; i <= 20; i++) {
-        shortTitle += title[i];
-      }
-      return shortTitle + "...";
-    },
     async getMovies(page) {
       const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${page}`;
       // set loading status to true

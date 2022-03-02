@@ -80,12 +80,11 @@
 </template>
 
 <script>
-const imgPath = "https://image.tmdb.org/t/p/w500";
-
 export default {
+  name: "SearchHandler",
   props: ["searchResults"],
   emits: ["emit-searchterm", "send-id"],
-  name: "SearchHandler",
+  inject: ["setOverviewLength", "setPath"],
   data() {
     return {
       isSearchActive: this.searchResults[0],
@@ -94,20 +93,6 @@ export default {
     };
   },
   methods: {
-    setPath(poster_path) {
-      return imgPath + poster_path;
-    },
-    setOverviewLength(overview) {
-      if (overview.length <= 150) {
-        return overview;
-      }
-
-      let shortOverview = "";
-      for (let i = 0; i <= 150; i++) {
-        shortOverview += overview[i];
-      }
-      return shortOverview + "...";
-    },
     sendMovieId(id) {
       this.$emit("send-id", id);
     },
