@@ -457,6 +457,10 @@ html::-webkit-scrollbar-track,
   cursor: pointer;
 }
 
+.content-wrapper .content.placeholder {
+  cursor: initial;
+}
+
 .placeholder__poster,
 .content__poster {
   position: relative;

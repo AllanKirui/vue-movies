@@ -1,7 +1,7 @@
 <template>
   <div class="results-container">
     <ul v-for="item in 10" :key="item" class="content-wrapper">
-      <li class="content">
+      <li class="content placeholder">
         <div class="placeholder__poster animated-bg">
           <p class="tag animated-bg animated-bg-text"></p>
         </div>
