@@ -7,7 +7,7 @@
         class="content-wrapper"
       >
         <li
-          class="content"
+          class="content hover"
           :title="result.title"
           @click="sendMovieId(result.id)"
         >
@@ -56,6 +56,30 @@
               </p>
             </div>
           </div>
+          <!-- movie info card -->
+          <div v-if="isShowInfo" class="hover__info">
+            <h2 class="hover__info-title">{{ result.title }}</h2>
+            <span class="grey-bg"></span>
+            <p v-if="result.overview" class="hover__info-overview">
+              {{ setOverviewLength(result.overview) }}
+            </p>
+            <p v-else class="hover__info-overview">n/a</p>
+
+            <div class="meta__info">
+              <div class="meta__info-rating flex">
+                <p class="description">Rating:</p>
+                <p class="data">{{ result.vote_average }} / 10</p>
+              </div>
+              <div class="meta__info-release flex">
+                <p class="description">Release:</p>
+                <p v-if="result.release_date" class="data">
+                  {{ setDate(result.release_date) }}
+                </p>
+                <p v-else class="data">n/a</p>
+              </div>
+            </div>
+            <button :title="result.title">View More Info</button>
+          </div>
         </li>
       </ul>
     </div>
@@ -69,11 +93,12 @@ export default {
   name: "MoviesList",
   props: ["pageNum"],
   emits: ["set-status", "total-pages", "send-id"],
-  inject: ["setPath", "setTitleLength", "setDate"],
+  inject: ["setPath", "setTitleLength", "setDate", "setOverviewLength"],
   data() {
     return {
       searchResults: [],
       componentName: "MoviesList",
+      isShowInfo: false,
     };
   },
   methods: {
@@ -111,6 +136,35 @@ export default {
     sendMovieId(id) {
       this.$emit("send-id", id);
     },
+    setInfoCardPosition() {
+      let viewportWidth = window.innerWidth;
+      // only show hover information for screens 768px and above
+      if (viewportWidth >= 1024) {
+        this.isShowInfo = true;
+        const movieItems = document.querySelectorAll(".hover__info");
+        movieItems.forEach((movie) => {
+          // find the distance to the right of each movie card
+          let distToRight = movie.getBoundingClientRect().right;
+
+          // add an extra 250px to the distance, to make sure that it will be more
+          // than the viewport width, then set the appropriate position for the info card
+          if (
+            distToRight > viewportWidth ||
+            distToRight + 250 > viewportWidth
+          ) {
+            movie.style.right = "95%";
+          } else {
+            movie.style.right = "-110%";
+          }
+        });
+      } else {
+        this.isShowInfo = false;
+      }
+    },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", this.setInfoCardPosition);
+    },
   },
   watch: {
     pageNum(newValue) {
@@ -121,6 +175,11 @@ export default {
   beforeMount() {
     // call the getMovies() method
     this.getMovies(this.pageNum);
+  },
+  updated() {
+    // call these methods when the page is updated
+    this.setInfoCardPosition();
+    this.checkWindowSize();
   },
 };
 </script>
