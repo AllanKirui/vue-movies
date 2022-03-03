@@ -11,7 +11,6 @@ export default {
     return {
       numOfPages: this.receivedPages,
       buttonsToShow: 5,
-      // buttonClicked: "null",
     };
   },
   methods: {
