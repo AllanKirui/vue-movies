@@ -1,5 +1,5 @@
 <template>
-  <div class="results-container">
+  <div class="results-container wrapper">
     <div>
       <ul
         v-for="result in searchResults"
@@ -115,7 +115,7 @@ export default {
 
       this.removePlaceholder();
 
-      // only get the first 50 pages
+      // only get the first 40 pages
       if (data.total_pages > 40) {
         this.totalPages = 40;
       } else {

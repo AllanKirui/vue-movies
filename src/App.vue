@@ -366,8 +366,9 @@ ul {
 }
 
 .wrapper {
-  /* max-width: 83.125rem; 1330px */
-  max-width: 87.5rem; /* 1400px */
+  max-width: 1372px;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .text-white {

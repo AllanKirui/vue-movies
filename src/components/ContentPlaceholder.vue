@@ -1,5 +1,5 @@
 <template>
-  <div class="results-container">
+  <div class="results-container wrapper">
     <ul v-for="item in 10" :key="item" class="content-wrapper">
       <li class="content placeholder">
         <div class="placeholder__poster animated-bg">

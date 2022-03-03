@@ -56,7 +56,7 @@
     </form>
   </div>
 
-  <div class="results-container">
+  <div class="results-container wrapper">
     <div class="heading-wrapper flex flex-jc-sb flex-ai-c">
       <h1 v-if="queryParam" class="search-term">
         Showing results for: <span class="text-white">{{ userInput }}</span>

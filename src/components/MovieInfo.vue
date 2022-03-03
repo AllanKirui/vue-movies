@@ -2,7 +2,7 @@
   <!-- show the backdrop image if it is available -->
   <div
     v-if="result"
-    class="info-wrapper"
+    class="info-wrapper wrapper"
     :style="
       result.backdrop_path
         ? {
@@ -135,7 +135,7 @@
   </div>
 
   <!-- show link to trailer, if movie has a trailer -->
-  <div v-if="result && videos.length !== 0" class="trailer-wrapper">
+  <div v-if="result && videos.length !== 0" class="trailer-wrapper wrapper">
     <h2 class="heading">Watch trailer</h2>
     <div class="trailer-card">
       <div class="filter"></div>

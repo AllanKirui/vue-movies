@@ -1,5 +1,5 @@
 <template>
-  <div class="results-container">
+  <div class="results-container wrapper">
     <!-- If there are results, show them -->
     <div v-if="isResults && isLoaded" class="results">
       <h2 class="heading">You might also like</h2>

@@ -1,5 +1,5 @@
 <template>
-  <div class="info-wrapper">
+  <div class="info-wrapper wrapper">
     <div class="content-poster animated-bg"></div>
     <div class="content-text">
       <div class="title">
@@ -40,13 +40,15 @@
   </div>
 
   <!-- trailer card placeholder -->
-  <div class="trailer-wrapper">
+  <div class="trailer-wrapper wrapper">
     <h2 class="heading animated-bg animated-bg-text"></h2>
     <div class="trailer-card animated-bg"></div>
   </div>
 
   <!-- title placeholder for SimilarMovies -->
-  <div class="title-placeholder animated-bg animated-bg-text"></div>
+  <div class="title-wrapper wrapper">
+    <div class="title-placeholder animated-bg animated-bg-text"></div>
+  </div>
 </template>
 
 <style scoped>
