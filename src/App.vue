@@ -733,7 +733,7 @@ html::-webkit-scrollbar-track,
 }
 
 @media screen and (max-width: 939px) {
-  .search-form {
+  .search-form.nav {
     display: none;
   }
   /* MovieInfo styles */

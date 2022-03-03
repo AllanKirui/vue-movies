@@ -1,7 +1,7 @@
 <template>
   <div class="search-container">
     <form
-      class="search-form"
+      class="search-form expanded-search"
       @submit.prevent="getMovies(searchLink, this.defaultPage)"
     >
       <label for="search">Search</label>

@@ -29,7 +29,7 @@
 
     <!-- show this conditionally -->
     <div v-if="!isHidden" class="nav-right flex flex-ai-c">
-      <form class="search-form" @submit.prevent="getMovies(searchLink)">
+      <form class="search-form nav" @submit.prevent="getMovies(searchLink)">
         <label for="search">Search</label>
         <input
           name="search"
