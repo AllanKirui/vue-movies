@@ -15,7 +15,6 @@
   >
     <MoviesList
       :page-num="selectedPage"
-      :set-date="setDateFormat"
       @set-status="setLoadingStatus"
       @total-pages="setTotalPages"
       @send-id="showMovieInfo"
@@ -36,7 +35,6 @@
   >
     <ExpandedSearch
       v-if="isShowMoreResults"
-      :set-date="setDateFormat"
       :page-num="selectedPage"
       :search-this="keyword"
       @total-pages="setTotalPages"
@@ -57,7 +55,6 @@
     <MovieInfo
       v-if="isShowMovieInfo"
       :movie-id="movieId"
-      :set-date="setDateFormat"
       :set-time="setTimeFormat"
       @send-id="showMovieInfo"
       @set-status="setLoadingStatus"
@@ -270,6 +267,7 @@ export default {
       setPath: this.setPath,
       setBackdropPath: this.setBackdropPath,
       setTitleLength: this.setTitleLength,
+      setDate: this.setDateFormat,
     };
   },
   watch: {

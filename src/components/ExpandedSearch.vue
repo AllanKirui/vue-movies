@@ -146,9 +146,9 @@ const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 
 export default {
   name: "ExpandedSearch",
-  props: ["setDate", "pageNum", "searchThis"],
+  props: ["pageNum", "searchThis"],
   emits: ["set-status", "total-pages", "reset-pages", "send-id"],
-  inject: ["setPath", "setTitleLength"],
+  inject: ["setPath", "setTitleLength", "setOverviewLength", "setDate"],
   data() {
     return {
       searchTerm: "",

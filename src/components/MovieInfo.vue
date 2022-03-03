@@ -164,7 +164,6 @@
   <SimilarMovies
     :movie-id="movieId"
     :is-loaded="isLoaded"
-    :set-date="setDate"
     @send-id="sendMovieId"
   />
 </template>
@@ -178,9 +177,9 @@ export default {
   components: {
     SimilarMovies,
   },
-  props: ["movieId", "setDate", "setTime"],
+  props: ["movieId", "setTime"],
   emits: ["send-id", "set-status"],
-  inject: ["setPath", "setBackdropPath"],
+  inject: ["setPath", "setBackdropPath", "setDate"],
   data() {
     return {
       result: null,

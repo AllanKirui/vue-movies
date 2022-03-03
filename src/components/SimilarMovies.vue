@@ -93,9 +93,15 @@ import apiKey from "../../config.js";
 
 export default {
   name: "SimilarMovies",
-  props: ["movieId", "setDate", "isLoaded"],
+  props: ["movieId", "isLoaded"],
   emits: ["send-id"],
-  inject: ["scrollToTop", "setOverviewLength", "setPath", "setTitleLength"],
+  inject: [
+    "scrollToTop",
+    "setOverviewLength",
+    "setPath",
+    "setTitleLength",
+    "setDate",
+  ],
   data() {
     return {
       similarMovies: [],
@@ -153,7 +159,7 @@ export default {
           let distToRight = movie.getBoundingClientRect().right;
 
           // add an extra 250px to the distance, to make sure that it will be more
-          // than the viewport width, then set the appropriate postiion for the info card
+          // than the viewport width, then set the appropriate position for the info card
           if (
             distToRight > viewportWidth ||
             distToRight + 250 > viewportWidth

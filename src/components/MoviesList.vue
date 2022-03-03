@@ -67,9 +67,9 @@ import apiKey from "../../config.js";
 
 export default {
   name: "MoviesList",
-  props: ["setDate", "pageNum"],
+  props: ["pageNum"],
   emits: ["set-status", "total-pages", "send-id"],
-  inject: ["setPath", "setTitleLength"],
+  inject: ["setPath", "setTitleLength", "setDate"],
   data() {
     return {
       searchResults: [],
