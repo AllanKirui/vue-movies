@@ -61,7 +61,7 @@
       <h1 v-if="queryParam" class="search-term">
         Showing results for: <span class="text-white">{{ userInput }}</span>
       </h1>
-      <p v-if="isResults" class="pages-found">
+      <p v-if="isResults && isShowPageStatus" class="pages-found">
         Showing page <span class="text-white">{{ pageNum }}</span> of
         <span class="text-white">{{ totalPages }}</span>
       </p>
@@ -186,12 +186,14 @@ export default {
       defaultPage: 1,
       componentName: "ExpandedSearch",
       isShowInfo: false,
+      isShowPageStatus: false,
     };
   },
   methods: {
     async getMovies(url, page) {
       // set loading status to true
       this.$emit("set-status", true);
+      this.isShowPageStatus = false;
       // if there's a new searchTerm, emit a custom event to make fetch() get the first page
       if (page === this.defaultPage) {
         this.$emit("reset-pages");
@@ -206,6 +208,7 @@ export default {
       const data = await response.json();
 
       this.removePlaceholder();
+      this.isShowPageStatus = true;
       if (data.results.length === 0) {
         this.isNoResults = true;
       } else {
