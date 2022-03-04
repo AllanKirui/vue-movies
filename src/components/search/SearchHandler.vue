@@ -15,7 +15,7 @@
           />
           <img
             v-else
-            src="../assets/no-poster-img.svg"
+            src="../../assets/no-poster-img.svg"
             width="70"
             height="35.3"
             alt="no poster image"
@@ -24,7 +24,7 @@
           <!-- show a placeholder image before the poster loads -->
           <img
             v-if="result.poster_path"
-            src="../assets/poster-placeholder.png"
+            src="../../assets/poster-placeholder.png"
             width="70"
             height="35.3"
             alt="placeholder image"
@@ -44,7 +44,7 @@
             <p v-else class="result__info-date">n/a</p>
             <p class="result__info-rating flex flex-ai-c">
               <img
-                src="../assets/rating-icon.svg"
+                src="../../assets/rating-icon.svg"
                 width="15"
                 height="14.4"
                 alt="star icon"
@@ -69,7 +69,7 @@
       class="result no-result flex flex-jc-c flex-ai-c flex-fd-c"
     >
       <img
-        src="../assets/search-icon-light.svg"
+        src="../../assets/search-icon-light.svg"
         width="35"
         height="35"
         alt="no results found image"

@@ -67,13 +67,13 @@
 </template>
 
 <script>
-import TheHeader from "./components/TheHeader.vue";
-import MoviesList from "./components/MoviesList.vue";
-import ExpandedSearch from "./components/ExpandedSearch.vue";
-import ContentPlaceholder from "./components/ContentPlaceholder.vue";
-import ThePagination from "./components/ThePagination.vue";
-import MovieInfo from "./components/MovieInfo.vue";
-import InfoPlaceholder from "./components/InfoPlaceholder.vue";
+import TheHeader from "./components/nav/TheHeader.vue";
+import MoviesList from "./components/movies/MoviesList.vue";
+import ExpandedSearch from "./components/search/ExpandedSearch.vue";
+import ContentPlaceholder from "./components/ui/ContentPlaceholder.vue";
+import ThePagination from "./components/ui/ThePagination.vue";
+import MovieInfo from "./components/movies/MovieInfo.vue";
+import InfoPlaceholder from "./components/ui/InfoPlaceholder.vue";
 
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const backdropImgPath = "https://image.tmdb.org/t/p/w1280";

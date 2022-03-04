@@ -27,7 +27,7 @@
       />
       <img
         v-else
-        src="../assets/no-poster-img.svg"
+        src="../../assets/no-poster-img.svg"
         width="200"
         alt="no poster image"
         class="no-poster-img"
@@ -35,7 +35,7 @@
       <!-- show a placeholder image before the poster loads -->
       <img
         v-if="result.poster_path"
-        src="../assets/poster-placeholder.png"
+        src="../../assets/poster-placeholder.png"
         width="320"
         alt="placeholder image"
         class="placeholder-img"
@@ -55,7 +55,7 @@
         <div class="meta-section-1 flex">
           <p class="content-rating">
             <img
-              src="../assets/rating-icon.svg"
+              src="../../assets/rating-icon.svg"
               width="15"
               height="14.4"
               alt="star icon"
@@ -150,7 +150,7 @@
         :title="`Watch ${result.title} Trailer on YouTube`"
       >
         <img
-          src="../assets/play-icon.svg"
+          src="../../assets/play-icon.svg"
           width="50"
           height="50"
           alt="play icon"
@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import apiKey from "../../config.js";
+import apiKey from "../../../config.js";
 import SimilarMovies from "./SimilarMovies.vue";
 
 export default {

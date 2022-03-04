@@ -12,7 +12,7 @@
 
       <div class="logo">
         <img
-          src="../assets/logo.svg"
+          src="../../assets/logo.svg"
           width="191"
           height="71"
           alt="vue movies logo"
@@ -108,9 +108,9 @@
 </template>
 
 <script>
-import apiKey from "../../config.js";
-import SearchHandler from "./SearchHandler.vue";
-import SearchPlaceholder from "./SearchPlaceholder.vue";
+import apiKey from "../../../config.js";
+import SearchHandler from "../search/SearchHandler.vue";
+import SearchPlaceholder from "../ui/SearchPlaceholder.vue";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
 
 export default {

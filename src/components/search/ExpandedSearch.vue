@@ -88,7 +88,7 @@
             />
             <img
               v-else
-              src="../assets/no-poster-img.svg"
+              src="../../assets/no-poster-img.svg"
               width="70"
               height="35.3"
               alt="no poster image"
@@ -97,7 +97,7 @@
             <!-- show a placeholder image before the poster loads -->
             <img
               v-if="result.poster_path"
-              src="../assets/poster-placeholder.png"
+              src="../../assets/poster-placeholder.png"
               width="70"
               height="35.3"
               alt="placeholder image"
@@ -116,7 +116,7 @@
               <p v-else class="content__info-date">n/a</p>
               <p class="content__info-rating">
                 <img
-                  src="../assets/rating-icon.svg"
+                  src="../../assets/rating-icon.svg"
                   width="15"
                   height="14.4"
                   alt="star icon"
@@ -154,7 +154,7 @@
     <!-- else show code indicating lack thereof -->
     <div v-if="isNoResults" class="no-results">
       <img
-        src="../assets/search-icon-light.svg"
+        src="../../assets/search-icon-light.svg"
         width="50"
         height="50"
         alt="no results found image"
@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import apiKey from "../../config.js";
+import apiKey from "../../../config.js";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 
 export default {
