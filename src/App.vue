@@ -1,80 +1,12 @@
 <template>
-  <TheHeader
-    :remove-search="isRemoveSearchResults"
-    @no-scroll="setScrollBehaviour"
-    @find-searchterm="showMoreResults"
-    @remove-results="removeSearchResults"
-    @send-id="showMovieInfo"
-    @search-status="resetRemoveSearch"
-  />
+  <TheHeader :close-button="isShowCloseBtn" @no-scroll="setScrollBehaviour" />
 
-  <!-- only show this if it's the activeComponent and MovieInfo is not active-->
-  <div
-    v-if="activeComponent === 'MoviesList' && !isMovieInfoActive"
-    class="movies-list-wrapper flex flex-fd-c"
-  >
-    <MoviesList
-      :page-num="selectedPage"
-      @set-status="setLoadingStatus"
-      @total-pages="setTotalPages"
-      @send-id="showMovieInfo"
-    />
-    <ContentPlaceholder v-if="isLoading" />
-    <ThePagination
-      v-if="totalPages && !isLoading && componentName === 'MoviesList'"
-      :received-pages="totalPages"
-      :chosen-page="selectedPage"
-      @switch-page="switchPages"
-    />
-  </div>
-
-  <!-- only show this if it's the activeComponent and MovieInfo is not active-->
-  <div
-    v-if="activeComponent === 'ExpandedSearch' && !isMovieInfoActive"
-    class="expanded-search-wrapper flex flex-fd-c"
-  >
-    <ExpandedSearch
-      v-if="isShowMoreResults"
-      :page-num="selectedPage"
-      :search-this="keyword"
-      @total-pages="setTotalPages"
-      @set-status="setLoadingStatus"
-      @reset-pages="resetPages"
-      @send-id="showMovieInfo"
-    />
-    <ContentPlaceholder v-if="isLoading" />
-    <ThePagination
-      v-if="totalPages && !isLoading && componentName === 'ExpandedSearch'"
-      :received-pages="totalPages"
-      :chosen-page="selectedPage"
-      @switch-page="switchPages"
-    />
-  </div>
-
-  <div class="movie-info-wrapper">
-    <MovieInfo
-      v-if="isShowMovieInfo"
-      :movie-id="movieId"
-      :set-time="setTimeFormat"
-      @send-id="showMovieInfo"
-      @set-status="setLoadingStatus"
-    />
-    <div v-if="isMovieInfoLoading" class="content-holder-wrapper">
-      <InfoPlaceholder />
-      <ContentPlaceholder />
-    </div>
-  </div>
+  <!-- listen to a custom event that hides the close button on the header -->
+  <router-view @show-button="showCloseButton"></router-view>
 </template>
 
 <script>
 import TheHeader from "./components/nav/TheHeader.vue";
-import MoviesList from "./components/movies/MoviesList.vue";
-import ExpandedSearch from "./components/search/ExpandedSearch.vue";
-import ContentPlaceholder from "./components/ui/ContentPlaceholder.vue";
-import ThePagination from "./components/ui/ThePagination.vue";
-import MovieInfo from "./components/movies/MovieInfo.vue";
-import InfoPlaceholder from "./components/ui/InfoPlaceholder.vue";
-
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const backdropImgPath = "https://image.tmdb.org/t/p/w1280";
 
@@ -82,28 +14,10 @@ export default {
   name: "App",
   components: {
     TheHeader,
-    MoviesList,
-    ExpandedSearch,
-    ContentPlaceholder,
-    ThePagination,
-    MovieInfo,
-    InfoPlaceholder,
   },
   data() {
     return {
-      isLoading: false,
-      totalPages: null,
-      activePage: null,
-      selectedPage: 1, // the default page is 1
-      isShowMoreResults: false,
-      keyword: "",
-      movieId: null,
-      isRemoveSearchResults: false,
-      isMovieInfoLoading: false,
-      componentName: "",
-      activeComponent: "MoviesList",
-      isMovieInfoActive: false,
-      isShowMovieInfo: false,
+      isShowCloseBtn: false,
     };
   },
   methods: {
@@ -166,31 +80,6 @@ export default {
       if (minutes < 10) return `${hours}h 0${minutes}min`;
       return `${hours}h ${minutes}min`;
     },
-    setLoadingStatus(status) {
-      // whenever we're loading set this property to true
-      this.isShowMovieInfo = true;
-
-      if (status === "MovieInfoLoading") {
-        this.movieId = null;
-        this.isMovieInfoLoading = true;
-        return;
-      } else if (status === "MovieInfoLoaded") {
-        this.isMovieInfoLoading = false;
-        return;
-      }
-      this.isLoading = status;
-    },
-    setTotalPages(pages, selectedPage, name) {
-      this.totalPages = pages;
-      this.activePage = selectedPage;
-      this.componentName = name;
-    },
-    switchPages(pageNum) {
-      this.selectedPage = pageNum;
-    },
-    resetPages() {
-      this.selectedPage = 1;
-    },
     scrollToTop() {
       // scroll to top when a new page is fetched
       window.scrollTo(0, 0);
@@ -198,83 +87,33 @@ export default {
     setScrollBehaviour() {
       document.body.classList.toggle("no-scroll");
     },
-    showMoreResults(keyword) {
-      // perform resets
-      this.movieId = null;
-      this.isMovieInfoActive = false;
-      this.isShowMovieInfo = false;
-
-      this.isShowMoreResults = true;
-      this.keyword = keyword;
-      this.activeComponent = "ExpandedSearch";
-      this.selectedPage = 1;
+    setMovieInfoRoute(movieTitle, movieId) {
+      const route = {
+        path: "/movies/info",
+        query: { name: movieTitle, id: movieId },
+      };
+      return route;
     },
-    removeSearchResults() {
-      this.isShowMoreResults = false;
-      this.totalPages = null;
-      this.activeComponent = "MoviesList";
-      this.selectedPage = 1;
-    },
-    showMovieInfo(id) {
-      this.isMovieInfoActive = true;
-      this.isMovieInfoLoading = true;
-      this.isRemoveSearchResults = true;
-      this.movieId = id;
-    },
-    resetRemoveSearch(status) {
-      this.isRemoveSearchResults = status;
-    },
-    setActiveComponent(cmp) {
-      this.activeComponent = cmp;
-    },
-    setInfoCardPosition() {
-      let viewportWidth = window.innerWidth;
-      // only show hover information for screens 768px and above
-      if (viewportWidth >= 1024) {
-        this.isShowInfo = true;
-        const movieItems = document.querySelectorAll(".hover__info");
-        movieItems.forEach((movie) => {
-          // find the distance to the right of each movie card
-          let distToRight = movie.getBoundingClientRect().right;
-
-          // add an extra 250px to the distance, to make sure that it will be more
-          // than the viewport width, then set the appropriate postiion for the info card
-          if (
-            distToRight > viewportWidth ||
-            distToRight + 250 > viewportWidth
-          ) {
-            movie.style.right = "95%";
-          } else {
-            movie.style.right = "-110%";
-          }
-        });
-      } else {
-        this.isShowInfo = false;
+    showCloseButton(status) {
+      if (status) {
+        this.isShowCloseBtn = status;
+        return;
       }
-    },
-    checkWindowSize() {
-      // listen to the resize event and call the method to set the info card's position
-      window.addEventListener("resize", this.setInfoCardPosition);
+      this.isShowCloseBtn = false;
     },
   },
   provide() {
-    // send the scrollToTop method to SimilarMovies
+    // send the various methods to the components that need them
     return {
       scrollToTop: this.scrollToTop,
       setOverviewLength: this.setOverviewLength,
-      imgPath: imgPath,
-      backdropImgPath: backdropImgPath,
       setPath: this.setPath,
       setBackdropPath: this.setBackdropPath,
       setTitleLength: this.setTitleLength,
       setDate: this.setDateFormat,
+      setTime: this.setTimeFormat,
+      setMovieInfoRoute: this.setMovieInfoRoute,
     };
-  },
-  watch: {
-    selectedPage() {
-      // when the selectedPage data property changes, call the scrollToTop method
-      this.scrollToTop();
-    },
   },
 };
 </script>

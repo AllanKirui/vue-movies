@@ -1,196 +1,217 @@
 <template>
-  <!-- show the backdrop image if it is available -->
-  <div
-    v-if="result"
-    class="info-wrapper wrapper"
-    :style="
-      result.backdrop_path
-        ? {
-            background:
-              `url(` +
-              setBackdropPath(result.backdrop_path) +
-              `) no-repeat top center/cover`,
-          }
-        : ''
-    "
-  >
-    <!-- dark filter for backdrop -->
-    <div class="filter"></div>
-    <div class="content-poster">
-      <img
-        v-if="result.poster_path"
-        :src="setPath(result.poster_path)"
-        :title="result.title"
-        :alt="`poster image for ${result.title}`"
-        width="320"
-        class="poster-img"
-      />
-      <img
-        v-else
-        src="../../assets/no-poster-img.svg"
-        width="200"
-        alt="no poster image"
-        class="no-poster-img"
-      />
-      <!-- show a placeholder image before the poster loads -->
-      <img
-        v-if="result.poster_path"
-        src="../../assets/poster-placeholder.png"
-        width="320"
-        alt="placeholder image"
-        class="placeholder-img"
-      />
-    </div>
-    <div class="content-text">
-      <!-- movie title and tagline -->
-      <div class="title">
-        <h1 class="content-title">{{ result.title }}</h1>
-        <p v-if="result.tagline" class="content-tagline">
-          {{ result.tagline }}
-        </p>
-      </div>
-
-      <div class="meta">
-        <!-- movie rating and runtime -->
-        <div class="meta-section-1 flex">
-          <p class="content-rating">
-            <img
-              src="../../assets/rating-icon.svg"
-              width="15"
-              height="14.4"
-              alt="star icon"
-            />{{ result.vote_average }}
-          </p>
-          <p v-if="result.runtime" class="content-runtime">
-            {{ setTime(result.runtime) }}
-          </p>
-          <p v-else class="content-runtime">n/a</p>
-        </div>
-
-        <!-- movie overview -->
-        <div class="meta-section-2">
-          <p v-if="result.overview" class="content-overview">
-            {{ result.overview }}
-          </p>
-          <p v-else class="content-overview">n/a</p>
-        </div>
-
-        <!-- movie country of production -->
-        <div class="meta-section-3 flex flex-fd-c">
-          <div
-            v-if="result.production_countries.length > 0"
-            class="content-country flex"
-          >
-            <p>Countries:</p>
-            <div
-              v-for="country in result.production_countries"
-              :key="country.name"
-            >
-              <!-- show commas for all items except the last -->
-              <p>
-                {{ country.name
-                }}<span
-                  v-if="
-                    result.production_countries.indexOf(country) !==
-                    result.production_countries.length - 1
-                  "
-                  >,&nbsp;</span
-                >
-              </p>
-            </div>
-          </div>
-          <div v-else class="content-country flex">
-            <p>Countries:</p>
-            <p>n/a</p>
-          </div>
-          <!-- movie genre -->
-          <div v-if="result.genres.length > 0" class="content-genre flex">
-            <p>Genres:</p>
-            <div v-for="genre in result.genres" :key="genre.id">
-              <!-- show commas for all items except the last -->
-              <p>
-                {{ genre.name
-                }}<span
-                  v-if="
-                    result.genres.indexOf(genre) !== result.genres.length - 1
-                  "
-                  >,&nbsp;</span
-                >
-              </p>
-            </div>
-          </div>
-          <div v-else class="content-genre flex">
-            <p>Genres:</p>
-            <p>n/a</p>
-          </div>
-          <!-- movie release date -->
-          <div class="content-release flex">
-            <p>Release:</p>
-            <p v-if="result.release_date">{{ setDate(result.release_date) }}</p>
-            <p v-else>n/a</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- show link to trailer, if movie has a trailer -->
-  <div v-if="result && videos.length !== 0" class="trailer-wrapper wrapper">
-    <h2 class="heading">Watch trailer</h2>
-    <div class="trailer-card">
+  <!-- show the data once we're done loading -->
+  <div v-if="!isLoading">
+    <!-- show the backdrop image if it is available -->
+    <div
+      v-if="result"
+      class="info-wrapper wrapper"
+      :style="
+        result.backdrop_path
+          ? {
+              background:
+                `url(` +
+                setBackdropPath(result.backdrop_path) +
+                `) no-repeat top center/cover`,
+            }
+          : ''
+      "
+    >
+      <!-- dark filter for backdrop -->
       <div class="filter"></div>
-      <img
-        :src="result.backdrop_path ? setBackdropPath(result.backdrop_path) : ''"
-        :alt="result.title"
-        class="backdrop"
-      />
-      <a
-        :href="`https://youtu.be/${trailerLink.key}`"
-        target="_blank"
-        :title="`Watch ${result.title} Trailer on YouTube`"
-      >
+      <div class="content-poster">
         <img
-          src="../../assets/play-icon.svg"
-          width="50"
-          height="50"
-          alt="play icon"
-          class="play-icon"
+          v-if="result.poster_path"
+          :src="setPath(result.poster_path)"
+          :title="result.title"
+          :alt="`poster image for ${result.title}`"
+          width="320"
+          class="poster-img"
         />
-      </a>
+        <img
+          v-else
+          src="../../assets/no-poster-img.svg"
+          width="200"
+          alt="no poster image"
+          class="no-poster-img"
+        />
+        <!-- show a placeholder image before the poster loads -->
+        <img
+          v-if="result.poster_path"
+          src="../../assets/poster-placeholder.png"
+          width="320"
+          alt="placeholder image"
+          class="placeholder-img"
+        />
+      </div>
+      <div class="content-text">
+        <!-- movie title and tagline -->
+        <div class="title">
+          <h1 class="content-title">{{ result.title }}</h1>
+          <p v-if="result.tagline" class="content-tagline">
+            {{ result.tagline }}
+          </p>
+        </div>
+
+        <div class="meta">
+          <!-- movie rating and runtime -->
+          <div class="meta-section-1 flex">
+            <p class="content-rating">
+              <img
+                src="../../assets/rating-icon.svg"
+                width="15"
+                height="14.4"
+                alt="star icon"
+              />{{ result.vote_average }}
+            </p>
+            <p v-if="result.runtime" class="content-runtime">
+              {{ setTime(result.runtime) }}
+            </p>
+            <p v-else class="content-runtime">n/a</p>
+          </div>
+
+          <!-- movie overview -->
+          <div class="meta-section-2">
+            <p v-if="result.overview" class="content-overview">
+              {{ result.overview }}
+            </p>
+            <p v-else class="content-overview">n/a</p>
+          </div>
+
+          <!-- movie country of production -->
+          <div class="meta-section-3 flex flex-fd-c">
+            <div
+              v-if="result.production_countries.length > 0"
+              class="content-country flex"
+            >
+              <p>Countries:</p>
+              <div
+                v-for="country in result.production_countries"
+                :key="country.name"
+              >
+                <!-- show commas for all items except the last -->
+                <p>
+                  {{ country.name
+                  }}<span
+                    v-if="
+                      result.production_countries.indexOf(country) !==
+                      result.production_countries.length - 1
+                    "
+                    >,&nbsp;</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div v-else class="content-country flex">
+              <p>Countries:</p>
+              <p>n/a</p>
+            </div>
+            <!-- movie genre -->
+            <div v-if="result.genres.length > 0" class="content-genre flex">
+              <p>Genres:</p>
+              <div v-for="genre in result.genres" :key="genre.id">
+                <!-- show commas for all items except the last -->
+                <p>
+                  {{ genre.name
+                  }}<span
+                    v-if="
+                      result.genres.indexOf(genre) !== result.genres.length - 1
+                    "
+                    >,&nbsp;</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div v-else class="content-genre flex">
+              <p>Genres:</p>
+              <p>n/a</p>
+            </div>
+            <!-- movie release date -->
+            <div class="content-release flex">
+              <p>Release:</p>
+              <p v-if="result.release_date">
+                {{ setDate(result.release_date) }}
+              </p>
+              <p v-else>n/a</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- show link to trailer, if movie has a trailer -->
+    <div v-if="result && videos.length !== 0" class="trailer-wrapper wrapper">
+      <h2 class="heading">Watch trailer</h2>
+      <div class="trailer-card">
+        <div class="filter"></div>
+        <img
+          :src="
+            result.backdrop_path ? setBackdropPath(result.backdrop_path) : ''
+          "
+          :alt="result.title"
+          class="backdrop"
+        />
+        <a
+          :href="`https://youtu.be/${trailerLink.key}`"
+          target="_blank"
+          :title="`Watch ${result.title} Trailer on YouTube`"
+        >
+          <img
+            src="../../assets/play-icon.svg"
+            width="50"
+            height="50"
+            alt="play icon"
+            class="play-icon"
+          />
+        </a>
+      </div>
+    </div>
+
+    <!-- load similar movies after the movie information is shown -->
+    <SimilarMovies
+      :movie-id="movieId"
+      :is-loaded="isLoaded"
+      @send-id="getNewMovieInfo"
+    />
   </div>
 
-  <!-- load similar movies -->
-  <SimilarMovies
-    :movie-id="movieId"
-    :is-loaded="isLoaded"
-    @send-id="sendMovieId"
-  />
+  <!-- if we're loading, show the content placeholders -->
+  <div v-else>
+    <InfoPlaceholder />
+    <ContentPlaceholder />
+  </div>
 </template>
 
 <script>
 import apiKey from "../../../config.js";
 import SimilarMovies from "./SimilarMovies.vue";
+import InfoPlaceholder from "../ui/InfoPlaceholder.vue";
+import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
 
 export default {
   name: "MovieInfo",
   components: {
     SimilarMovies,
+    InfoPlaceholder,
+    ContentPlaceholder,
   },
-  props: ["movieId", "setTime"],
-  emits: ["send-id", "set-status"],
-  inject: ["setPath", "setBackdropPath", "setDate"],
+  emits: ["show-button"],
+  inject: ["setPath", "setBackdropPath", "setDate", "setTime", "scrollToTop"],
   data() {
     return {
       result: null,
       isLoaded: false,
       videos: [],
       trailerLink: [],
+      movieId: null,
+      isLoading: false,
+      idFromSearch: null,
     };
   },
   methods: {
     async getMovies(id) {
+      this.scrollToTop();
       this.isLoaded = false;
+      this.isLoading = true;
       const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`;
 
       // fetch data
@@ -199,7 +220,7 @@ export default {
 
       this.result = data;
       this.isLoaded = true;
-      this.$emit("set-status", "MovieInfoLoaded");
+      this.isLoading = false;
     },
     async getVideos(id) {
       const videos_url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}`;
@@ -238,29 +259,39 @@ export default {
         }
       }
       // only use 1 trailer if there is more than 1 available
-      if (links.length > 1) {
-        this.trailerLink = links[0];
-      } else {
-        this.trailerLink = links[0];
-      }
+      this.trailerLink = links[0];
     },
-    sendMovieId(id) {
-      this.$emit("send-id", id);
+    getNewMovieInfo(id) {
+      this.movieId = id;
     },
   },
   watch: {
     movieId(newValue) {
       // call the getMovies() method to fetch movies when the movieId prop has a value
       if (newValue) {
-        this.$emit("set-status", "MovieInfoLoading");
         this.getMovies(newValue);
         this.getVideos(newValue);
-      } else {
-        // reset data properties
-        this.result = null;
-        this.videos = [];
       }
     },
+    idFromSearch(newValue) {
+      // watch the id gotten from mini search and fetch movies if it has a value
+      if (newValue) {
+        this.getMovies(newValue);
+        this.getVideos(newValue);
+        // set the value of the movie id data prop to be the value of the id from search
+        this.movieId = newValue;
+      }
+    },
+  },
+  beforeMount() {
+    // get the movie Id from the query parameter before the movie is displayed onscreen
+    this.movieId = +this.$route.query.id;
+  },
+  updated() {
+    // get the id which has been updated from outside the component
+    this.idFromSearch = +this.$route.query.id;
+    // emit a custom event to hide the close button on the header
+    this.$emit("show-button", false);
   },
 };
 </script>

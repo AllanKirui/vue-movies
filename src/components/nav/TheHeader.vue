@@ -22,8 +22,14 @@
       </div>
 
       <ul class="nav-options flex">
-        <li><a href="#">Movies</a></li>
-        <li><a href="#">TV Shows</a></li>
+        <li>
+          <router-link :to="newRoute" @click="removeExpandedSearchResults"
+            >Movies</router-link
+          >
+        </li>
+        <li>
+          <router-link to="/shows">TV Shows</router-link>
+        </li>
       </ul>
     </div>
 
@@ -83,18 +89,23 @@
       </form>
     </div>
 
-    <!-- call teh class button wrapper and have it use the same styles as the view more button -->
+    <!-- show the close button -->
     <div v-else class="button-wrapper">
-      <button @click="removeSearchResults" title="Close Search">
+      <router-link
+        :to="newRoute"
+        @click="removeExpandedSearchResults"
+        title="Close Search"
+      >
         Close Search
-      </button>
+      </router-link>
     </div>
 
     <search-handler
       v-if="!isLoading && isSearchActive"
-      :search-results="searchResults"
-      @emit-searchterm="sendSearchTerm"
-      @send-id="sendMovieId"
+      :search-results="resultsData"
+      :search-term="searchTerm"
+      @more-results="showExpandedSearchResults"
+      @clear-results="removeOverlay"
     ></search-handler>
     <search-placeholder v-else-if="isLoading"></search-placeholder>
   </nav>
@@ -119,14 +130,8 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
-  props: ["removeSearch"],
-  emits: [
-    "no-scroll",
-    "find-searchterm",
-    "remove-results",
-    "send-id",
-    "search-status",
-  ],
+  props: ["closeButton"],
+  emits: ["no-scroll"],
   data() {
     return {
       isMenuOpen: false,
@@ -134,25 +139,33 @@ export default {
       searchLink: searchAPI,
       isSearchActive: false,
       searchResults: [],
+      resultsData: null,
       isMoreResults: false,
       isLoading: false,
       isHidden: false,
+      defaultPage: 1,
     };
+  },
+  computed: {
+    newRoute() {
+      const route = {
+        path: "/movies",
+        query: { page: this.defaultPage },
+      };
+      return route;
+    },
   },
   methods: {
     setActiveStatus() {
       this.isMenuOpen = !this.isMenuOpen;
     },
     async getMovies(url) {
-      // reset the removeSearch prop
-      this.$emit("search-status", false);
-
       this.isSearchActive = true;
       this.isLoading = true;
       // perform resets before a new fetch request
       this.searchResults = [];
-      this.searchResults.push(this.isSearchActive);
       this.isMoreResults = false;
+      this.searchResults.push(this.isSearchActive);
 
       if (this.searchTerm === "") {
         this.isLoading = false;
@@ -179,40 +192,34 @@ export default {
         }
         this.searchResults.push(minResults, this.isMoreResults);
       }
+      // store the results data in an object
+      this.resultsData = {
+        isSearchActive: this.searchResults[0],
+        data: this.searchResults[1],
+        isMoreResults: this.searchResults[2],
+      };
     },
     removeOverlay() {
       this.isSearchActive = !this.isSearchActive;
       this.searchResults[0] = false;
       this.searchTerm = "";
     },
-    sendSearchTerm() {
-      this.$emit("find-searchterm", this.searchTerm);
+    showExpandedSearchResults() {
       // hide the mini-search, SearchHandler component
       this.isHidden = true;
       this.removeOverlay();
     },
-    removeSearchResults() {
+    removeExpandedSearchResults() {
       this.isHidden = false;
-      this.$emit("remove-results");
-    },
-    sendMovieId(id) {
-      this.$emit("send-id", id);
-      // hide the mini-search, SearchHandler component
-      this.isHidden = true;
-      this.removeOverlay();
     },
   },
   watch: {
-    isSearchActive(newValue) {
-      if (newValue) {
-        this.$emit("no-scroll", true);
-      } else {
-        this.$emit("no-scroll", false);
-      }
+    isSearchActive() {
+      this.$emit("no-scroll");
     },
-    removeSearch(newValue) {
-      // remove results from ExpandedSearch, when the removeSearch prop holds true
-      if (newValue) this.removeSearchResults();
+    closeButton(newValue) {
+      // set the value of the isHidden data property if the closeButton prop has a new value
+      this.isHidden = newValue;
     },
   },
 };
@@ -281,10 +288,24 @@ nav {
   padding: 0;
 }
 
+/* .nav-options button { */
 .nav-options a {
+  /* display: inline-block; */
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
   font-size: var(--font-size-18);
   font-weight: bold;
+  background-color: var(--color-smokey-black);
   color: var(--color-clouds);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+/* .nav-options button:hover { */
+.nav-options a:hover {
+  color: var(--color-smokey-black);
+  background-color: var(--color-clouds);
 }
 
 .nav-options li:not(:last-child),
@@ -371,7 +392,8 @@ nav {
   margin: auto 0;
 }
 
-.button-wrapper button {
+.button-wrapper a {
+  display: inline-block;
   padding: 8px 12px;
   border: none;
   border-radius: 5px;
@@ -383,7 +405,7 @@ nav {
   transition: all 0.15s ease-in-out;
 }
 
-.button-wrapper button:hover {
+.button-wrapper a:hover {
   outline: var(--color-clouds) 1px solid;
   background-color: var(--color-smokey-black);
   color: var(--color-clouds);

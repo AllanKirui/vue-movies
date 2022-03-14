@@ -20,7 +20,7 @@
 <style scoped>
 .results-container {
   position: relative;
-  top: -40px;
+  top: 0 !important;
 }
 
 .tag {

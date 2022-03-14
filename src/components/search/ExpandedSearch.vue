@@ -2,7 +2,7 @@
   <div class="search-container">
     <form
       class="search-form expanded-search"
-      @submit.prevent="getMovies(searchLink, this.defaultPage)"
+      @submit.prevent="getMovies(searchLink, defaultPage)"
     >
       <label for="search">Search</label>
       <input
@@ -56,123 +56,148 @@
     </form>
   </div>
 
-  <div class="results-container wrapper">
+  <div class="results-container wrapper flex flex-fd-c">
     <div class="heading-wrapper flex flex-jc-sb flex-ai-c">
       <h1 v-if="queryParam" class="search-term">
         Showing results for: <span class="text-white">{{ userInput }}</span>
       </h1>
-      <p v-if="isResults && isShowPageStatus" class="pages-found">
-        Showing page <span class="text-white">{{ pageNum }}</span> of
+      <p v-if="isResults && !isLoading && !isNoResults" class="pages-found">
+        Showing page
+        <span class="text-white">{{ selectedPage }}</span> of
         <span class="text-white">{{ totalPages }}</span>
       </p>
     </div>
 
-    <!-- If there are results, show them -->
-    <div v-if="isResults">
-      <ul
-        v-for="result in searchResults"
-        :key="result.id"
-        class="content-wrapper"
-      >
-        <li
-          class="content hover"
-          :title="result.title"
-          @click="sendMovieId(result.id)"
+    <!-- show the data once we're done loading -->
+    <div v-if="!isLoading">
+      <div>
+        <ul
+          v-for="result in searchResults"
+          :key="result.id"
+          class="content-wrapper"
         >
-          <div class="content__poster">
-            <img
-              v-if="result.poster_path"
-              :src="setPath(result.poster_path)"
-              :alt="`poster image for ${result.title}`"
-              class="poster-img"
-            />
-            <img
-              v-else
-              src="../../assets/no-poster-img.svg"
-              width="70"
-              height="35.3"
-              alt="no poster image"
-              class="no-poster-img"
-            />
-            <!-- show a placeholder image before the poster loads -->
-            <img
-              v-if="result.poster_path"
-              src="../../assets/poster-placeholder.png"
-              width="70"
-              height="35.3"
-              alt="placeholder image"
-              class="placeholder-img"
-            />
-            <p class="tag">Movie</p>
-          </div>
-          <div class="content__info">
-            <h3 class="content__info-title">
-              {{ setTitleLength(result.title) }}
-            </h3>
-            <div class="meta flex flex-jc-sb">
-              <p v-if="result.release_date" class="content__info-date">
-                {{ setDate(result.release_date) }}
-              </p>
-              <p v-else class="content__info-date">n/a</p>
-              <p class="content__info-rating">
+          <router-link
+            :to="setMovieInfoRoute(result.title, result.id)"
+            @click="$emit('show-button', false)"
+          >
+            <li class="content hover" :title="result.title">
+              <div class="content__poster">
                 <img
-                  src="../../assets/rating-icon.svg"
-                  width="15"
-                  height="14.4"
-                  alt="star icon"
-                />{{ result.vote_average }}
-              </p>
-            </div>
-          </div>
-          <!-- movie info card -->
-          <div v-if="isShowInfo" class="hover__info">
-            <h2 class="hover__info-title">{{ result.title }}</h2>
-            <span class="grey-bg"></span>
-            <p v-if="result.overview" class="hover__info-overview">
-              {{ setOverviewLength(result.overview) }}
-            </p>
-            <p v-else class="hover__info-overview">n/a</p>
-
-            <div class="meta__info">
-              <div class="meta__info-rating flex">
-                <p class="description">Rating:</p>
-                <p class="data">{{ result.vote_average }} / 10</p>
+                  v-if="result.poster_path"
+                  :src="setPath(result.poster_path)"
+                  :alt="`poster image for ${result.title}`"
+                  class="poster-img"
+                />
+                <img
+                  v-else
+                  src="../../assets/no-poster-img.svg"
+                  width="70"
+                  height="35.3"
+                  alt="no poster image"
+                  class="no-poster-img"
+                />
+                <!-- show a placeholder image before the poster loads -->
+                <img
+                  v-if="result.poster_path"
+                  src="../../assets/poster-placeholder.png"
+                  width="70"
+                  height="35.3"
+                  alt="placeholder image"
+                  class="placeholder-img"
+                />
+                <p class="tag">Movie</p>
               </div>
-              <div class="meta__info-release flex">
-                <p class="description">Release:</p>
-                <p v-if="result.release_date" class="data">
-                  {{ setDate(result.release_date) }}
+              <div class="content__info">
+                <h3 class="content__info-title">
+                  {{ setTitleLength(result.title) }}
+                </h3>
+                <div class="meta flex flex-jc-sb">
+                  <p v-if="result.release_date" class="content__info-date">
+                    {{ setDate(result.release_date) }}
+                  </p>
+                  <p v-else class="content__info-date">n/a</p>
+                  <p class="content__info-rating">
+                    <img
+                      src="../../assets/rating-icon.svg"
+                      width="15"
+                      height="14.4"
+                      alt="star icon"
+                    />{{ result.vote_average }}
+                  </p>
+                </div>
+              </div>
+              <!-- movie info card -->
+              <div v-if="isShowInfo" class="hover__info">
+                <h2 class="hover__info-title">{{ result.title }}</h2>
+                <span class="grey-bg"></span>
+                <p v-if="result.overview" class="hover__info-overview">
+                  {{ setOverviewLength(result.overview) }}
                 </p>
-                <p v-else class="data">n/a</p>
+                <p v-else class="hover__info-overview">n/a</p>
+
+                <div class="meta__info">
+                  <div class="meta__info-rating flex">
+                    <p class="description">Rating:</p>
+                    <p class="data">{{ result.vote_average }} / 10</p>
+                  </div>
+                  <div class="meta__info-release flex">
+                    <p class="description">Release:</p>
+                    <p v-if="result.release_date" class="data">
+                      {{ setDate(result.release_date) }}
+                    </p>
+                    <p v-else class="data">n/a</p>
+                  </div>
+                </div>
+                <button :title="result.title">View More Info</button>
               </div>
-            </div>
-            <button :title="result.title">View More Info</button>
-          </div>
-        </li>
-      </ul>
+            </li>
+          </router-link>
+        </ul>
+      </div>
+      <!-- else show code indicating lack thereof -->
+      <div v-if="isNoResults" class="no-results">
+        <img
+          src="../../assets/search-icon-light.svg"
+          width="50"
+          height="50"
+          alt="no results found image"
+        />
+        <p>Oops! No results found</p>
+      </div>
     </div>
-    <!-- else show code indicating lack thereof -->
-    <div v-if="isNoResults" class="no-results">
-      <img
-        src="../../assets/search-icon-light.svg"
-        width="50"
-        height="50"
-        alt="no results found image"
-      />
-      <p>Oops! No results found</p>
-    </div>
+
+    <!-- if we're loading, show the content placeholder -->
+    <ContentPlaceholder v-else />
+  </div>
+
+  <div class="pagination">
+    <ThePagination
+      v-if="totalPages && !isLoading"
+      :received-pages="totalPages"
+      :chosen-page="selectedPage"
+      @switch-page="switchPages"
+    />
   </div>
 </template>
 
 <script>
 import apiKey from "../../../config.js";
+import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
+import ThePagination from "../ui/ThePagination.vue";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 
 export default {
   name: "ExpandedSearch",
-  props: ["pageNum", "searchThis"],
-  emits: ["set-status", "total-pages", "reset-pages", "send-id"],
-  inject: ["setPath", "setTitleLength", "setOverviewLength", "setDate"],
+  components: { ContentPlaceholder, ThePagination },
+  emits: ["show-button"],
+  inject: [
+    "setPath",
+    "setTitleLength",
+    "setOverviewLength",
+    "setDate",
+    "scrollToTop",
+    "setMovieInfoRoute",
+  ],
   data() {
     return {
       searchTerm: "",
@@ -184,19 +209,18 @@ export default {
       isNoResults: false,
       totalPages: null,
       defaultPage: 1,
-      componentName: "ExpandedSearch",
+      selectedPage: 1,
       isShowInfo: false,
-      isShowPageStatus: false,
+      isLoading: false,
     };
   },
   methods: {
     async getMovies(url, page) {
-      // set loading status to true
-      this.$emit("set-status", true);
-      this.isShowPageStatus = false;
+      this.updateRoute(this.searchTerm, page);
+      this.isLoading = true;
       // if there's a new searchTerm, emit a custom event to make fetch() get the first page
       if (page === this.defaultPage) {
-        this.$emit("reset-pages");
+        this.selectedPage = 1;
       }
       this.userInput = this.searchTerm;
       this.queryParam = `&page=${page}&query="${this.searchTerm}`;
@@ -207,8 +231,8 @@ export default {
       const response = await fetch(url + this.queryParam);
       const data = await response.json();
 
-      this.removePlaceholder();
-      this.isShowPageStatus = true;
+      this.isResults = true;
+      this.isLoading = false;
       if (data.results.length === 0) {
         this.isNoResults = true;
       } else {
@@ -216,19 +240,17 @@ export default {
       }
       this.totalPages = data.total_pages;
       this.searchResults = data.results;
-      this.$emit(
-        "total-pages",
-        this.totalPages,
-        this.pageNum,
-        this.componentName
-      );
     },
-    removePlaceholder() {
-      this.isResults = true;
-      this.$emit("set-status", false);
+    switchPages(newPage) {
+      this.getMovies(this.searchLink, newPage);
+      this.selectedPage = newPage;
     },
-    sendMovieId(id) {
-      this.$emit("send-id", id);
+    updateRoute(searchTerm, activePage) {
+      // update the query parameter on the route link
+      this.$router.push({
+        path: "/movies/search",
+        query: { keyword: searchTerm, page: activePage },
+      });
     },
     setInfoCardPosition() {
       let viewportWidth = window.innerWidth;
@@ -261,16 +283,24 @@ export default {
     },
   },
   watch: {
-    pageNum(newValue) {
-      // call the getMovies() method to fetch movies when switching pages
-      this.getMovies(this.searchLink, newValue);
+    selectedPage() {
+      // when the selectedPage data property changes, call the scrollToTop method
+      this.scrollToTop();
     },
   },
+  beforeMount() {
+    // get the page number from the route's query parameter
+    const newPage = +this.$route.query.page;
+    // if there is a new page, switch pages
+    if (newPage) {
+      this.switchPages(newPage);
+    }
+  },
   created() {
-    // call the getMovies() method if the 'view more results' button from
-    // SearchHandler.vue was clicked
-    this.searchTerm = this.searchThis;
-    this.getMovies(this.searchLink, this.pageNum);
+    // get the search term from the keyword prop on the query parameter
+    this.searchTerm = this.$route.query.keyword;
+    // emit a custom event to show the close button on the header
+    this.$emit("show-button", true);
   },
   updated() {
     // call these methods when the page is updated
@@ -281,6 +311,9 @@ export default {
 </script>
 
 <style scoped>
+.pagination {
+  text-align: center;
+}
 .search-container {
   margin-top: 2.1875rem;
   padding: 0 0.9375rem;

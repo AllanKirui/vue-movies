@@ -1,6 +1,5 @@
 <template>
   <div class="placeholder-wrapper">
-    <!-- <ul v-for="result in searchResults[1]" :key="result.id"> -->
     <ul v-for="item in 3" :key="item">
       <li class="result flex">
         <div class="result__poster animated-bg"></div>

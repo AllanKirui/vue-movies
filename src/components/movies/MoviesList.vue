@@ -1,119 +1,142 @@
 <template>
-  <div class="results-container wrapper">
+  <!-- show the data once we're done loading -->
+  <div v-if="!isLoading" class="results-container wrapper">
     <div>
       <ul
         v-for="result in searchResults"
         :key="result.id"
         class="content-wrapper"
       >
-        <li
-          class="content hover"
-          :title="result.title"
-          @click="sendMovieId(result.id)"
-        >
-          <div class="content__poster">
-            <img
-              v-if="result.poster_path"
-              :src="setPath(result.poster_path)"
-              :alt="`poster image for ${result.title}`"
-              class="poster-img"
-            />
-            <img
-              v-else
-              src="../../assets/no-poster-img.svg"
-              width="70"
-              height="35.3"
-              alt="no poster image"
-              class="no-poster-img"
-            />
-            <!-- show a placeholder image before the poster loads -->
-            <img
-              v-if="result.poster_path"
-              src="../../assets/poster-placeholder.png"
-              width="70"
-              height="35.3"
-              alt="placeholder image"
-              class="placeholder-img"
-            />
-            <p class="tag">Movie</p>
-          </div>
-          <div class="content__info">
-            <h3 class="content__info-title">
-              {{ setTitleLength(result.title) }}
-            </h3>
-            <div class="meta flex flex-jc-sb">
-              <p v-if="result.release_date" class="content__info-date">
-                {{ setDate(result.release_date) }}
-              </p>
-              <p v-else class="content__info-date">n/a</p>
-              <p class="content__info-rating">
-                <img
-                  src="../../assets/rating-icon.svg"
-                  width="15"
-                  height="14.4"
-                  alt="star icon"
-                />{{ result.vote_average }}
-              </p>
+        <!-- set the route for showing a movie's information -->
+        <router-link :to="setMovieInfoRoute(result.title, result.id)">
+          <li class="content hover" :title="result.title">
+            <div class="content__poster">
+              <img
+                v-if="result.poster_path"
+                :src="setPath(result.poster_path)"
+                :alt="`poster image for ${result.title}`"
+                class="poster-img"
+              />
+              <img
+                v-else
+                src="../../assets/no-poster-img.svg"
+                width="70"
+                height="35.3"
+                alt="no poster image"
+                class="no-poster-img"
+              />
+              <!-- show a placeholder image before the poster loads -->
+              <img
+                v-if="result.poster_path"
+                src="../../assets/poster-placeholder.png"
+                width="70"
+                height="35.3"
+                alt="placeholder image"
+                class="placeholder-img"
+              />
+              <p class="tag">Movie</p>
             </div>
-          </div>
-          <!-- movie info card -->
-          <div v-if="isShowInfo" class="hover__info">
-            <h2 class="hover__info-title">{{ result.title }}</h2>
-            <span class="grey-bg"></span>
-            <p v-if="result.overview" class="hover__info-overview">
-              {{ setOverviewLength(result.overview) }}
-            </p>
-            <p v-else class="hover__info-overview">n/a</p>
-
-            <div class="meta__info">
-              <div class="meta__info-rating flex">
-                <p class="description">Rating:</p>
-                <p class="data">{{ result.vote_average }} / 10</p>
-              </div>
-              <div class="meta__info-release flex">
-                <p class="description">Release:</p>
-                <p v-if="result.release_date" class="data">
+            <div class="content__info">
+              <h3 class="content__info-title">
+                {{ setTitleLength(result.title) }}
+              </h3>
+              <div class="meta flex flex-jc-sb">
+                <p v-if="result.release_date" class="content__info-date">
                   {{ setDate(result.release_date) }}
                 </p>
-                <p v-else class="data">n/a</p>
+                <p v-else class="content__info-date">n/a</p>
+                <p class="content__info-rating">
+                  <img
+                    src="../../assets/rating-icon.svg"
+                    width="15"
+                    height="14.4"
+                    alt="star icon"
+                  />{{ result.vote_average }}
+                </p>
               </div>
             </div>
-            <button :title="result.title">View More Info</button>
-          </div>
-        </li>
+            <!-- movie info card -->
+            <div v-if="isShowInfo" class="hover__info">
+              <h2 class="hover__info-title">{{ result.title }}</h2>
+              <span class="grey-bg"></span>
+              <p v-if="result.overview" class="hover__info-overview">
+                {{ setOverviewLength(result.overview) }}
+              </p>
+              <p v-else class="hover__info-overview">n/a</p>
+
+              <div class="meta__info">
+                <div class="meta__info-rating flex">
+                  <p class="description">Rating:</p>
+                  <p class="data">{{ result.vote_average }} / 10</p>
+                </div>
+                <div class="meta__info-release flex">
+                  <p class="description">Release:</p>
+                  <p v-if="result.release_date" class="data">
+                    {{ setDate(result.release_date) }}
+                  </p>
+                  <p v-else class="data">n/a</p>
+                </div>
+              </div>
+              <button :title="result.title">View More Info</button>
+            </div>
+          </li>
+        </router-link>
       </ul>
     </div>
   </div>
+
+  <!-- if we're loading, show the content placeholder -->
+  <ContentPlaceholder v-else />
+
+  <ThePagination
+    v-if="totalPages && !isLoading"
+    :received-pages="totalPages"
+    :chosen-page="selectedPage"
+    @switch-page="switchPages"
+  />
 </template>
 
 <script>
 import apiKey from "../../../config.js";
+import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
+import ThePagination from "../ui/ThePagination.vue";
 
 export default {
   name: "MoviesList",
+  components: { ContentPlaceholder, ThePagination },
   props: ["pageNum"],
-  emits: ["set-status", "total-pages", "send-id"],
-  inject: ["setPath", "setTitleLength", "setDate", "setOverviewLength"],
+  inject: [
+    "setPath",
+    "setTitleLength",
+    "setDate",
+    "setOverviewLength",
+    "scrollToTop",
+    "setMovieInfoRoute",
+  ],
   data() {
     return {
       searchResults: [],
       componentName: "MoviesList",
       isShowInfo: false,
+      isLoading: false,
+      totalPages: null,
+      selectedPage: 1, // the default page is 1
+      activePage: null,
     };
   },
   methods: {
     async getMovies(page) {
+      this.updateRoute(page);
+      this.isLoading = true;
       const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${page}`;
-      // set loading status to true
-      this.$emit("set-status", true);
+
       // perform resets before a new fetch request
       this.searchResults = [];
 
       // fetch data
       const response = await fetch(url);
       const data = await response.json();
-
-      this.removePlaceholder();
+      this.isLoading = false;
 
       // only get the first 40 pages
       if (data.total_pages > 40) {
@@ -122,19 +145,10 @@ export default {
         this.totalPages = data.total_pages;
       }
       this.searchResults = data.results;
-      this.$emit(
-        "total-pages",
-        this.totalPages,
-        this.pageNum,
-        this.componentName
-      );
     },
-    removePlaceholder() {
-      this.isResults = true;
-      this.$emit("set-status", false);
-    },
-    sendMovieId(id) {
-      this.$emit("send-id", id);
+    switchPages(newPage) {
+      this.getMovies(newPage);
+      this.selectedPage = newPage;
     },
     setInfoCardPosition() {
       let viewportWidth = window.innerWidth;
@@ -165,18 +179,42 @@ export default {
       // listen to the resize event and call the method to set the info card's position
       window.addEventListener("resize", this.setInfoCardPosition);
     },
+    updateRoute(activePage) {
+      // update the query parameter on the route link
+      this.$router.push({ path: "/movies", query: { page: activePage } });
+    },
   },
   watch: {
-    pageNum(newValue) {
-      // call the getMovies() method to fetch movies when switching pages
-      this.getMovies(newValue);
+    selectedPage() {
+      // when the selectedPage data property changes, call the scrollToTop method
+      this.scrollToTop();
+    },
+    activePage(newValue) {
+      // if there is a new page number, fetch new results
+      if (newValue) {
+        this.getMovies(newValue);
+        this.selectedPage = newValue;
+      }
     },
   },
   beforeMount() {
+    // get the page number from the route's query parameter
+    const newPage = +this.$route.query.page;
+    // if there is a new page, switch pages
+    if (newPage) {
+      this.switchPages(newPage);
+      return;
+    }
     // call the getMovies() method
     this.getMovies(this.pageNum);
+    this.getMovies(this.activePage);
+    // call these methods before the page is shown
+    this.setInfoCardPosition();
+    this.checkWindowSize();
   },
   updated() {
+    // update the activePage property, whenever the query parameter has changed
+    this.activePage = +this.$route.query.page;
     // call these methods when the page is updated
     this.setInfoCardPosition();
     this.checkWindowSize();

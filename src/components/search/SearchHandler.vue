@@ -1,67 +1,72 @@
 <template>
   <div :class="[isSearchActive ? 'active' : '', 'results-wrapper']">
     <ul v-for="result in results" :key="result.id">
-      <li
-        class="result flex"
-        :title="result.title"
-        @click="sendMovieId(result.id)"
-      >
-        <div class="result__poster">
-          <img
-            v-if="result.poster_path"
-            :src="setPath(result.poster_path)"
-            :alt="`poster image for ${result.title}`"
-            class="poster-img"
-          />
-          <img
-            v-else
-            src="../../assets/no-poster-img.svg"
-            width="70"
-            height="35.3"
-            alt="no poster image"
-            class="no-poster-img"
-          />
-          <!-- show a placeholder image before the poster loads -->
-          <img
-            v-if="result.poster_path"
-            src="../../assets/poster-placeholder.png"
-            width="70"
-            height="35.3"
-            alt="placeholder image"
-            class="placeholder-img"
-          />
-        </div>
-        <div class="result__info flex flex-fd-c">
-          <h3 class="result__info-title">{{ result.title }}</h3>
-          <p v-if="result.overview" class="result__info-overview">
-            {{ setOverviewLength(result.overview) }}
-          </p>
-          <p v-else class="result__info-overview">n/a</p>
-          <div class="flex">
-            <p v-if="result.release_date" class="result__info-date">
-              {{ result.release_date }}
-            </p>
-            <p v-else class="result__info-date">n/a</p>
-            <p class="result__info-rating flex flex-ai-c">
-              <img
-                src="../../assets/rating-icon.svg"
-                width="15"
-                height="14.4"
-                alt="star icon"
-              />{{ result.vote_average }}
-            </p>
+      <!-- set the route for showing a movie's information -->
+      <router-link :to="setMovieInfoRoute(result.title, result.id)">
+        <li
+          class="result flex"
+          @click="$emit('clear-results')"
+          :title="result.title"
+        >
+          <div class="result__poster">
+            <img
+              v-if="result.poster_path"
+              :src="setPath(result.poster_path)"
+              :alt="`poster image for ${result.title}`"
+              class="poster-img"
+            />
+            <img
+              v-else
+              src="../../assets/no-poster-img.svg"
+              width="70"
+              height="35.3"
+              alt="no poster image"
+              class="no-poster-img"
+            />
+            <!-- show a placeholder image before the poster loads -->
+            <img
+              v-if="result.poster_path"
+              src="../../assets/poster-placeholder.png"
+              width="70"
+              height="35.3"
+              alt="placeholder image"
+              class="placeholder-img"
+            />
           </div>
-        </div>
-      </li>
+          <div class="result__info flex flex-fd-c">
+            <h3 class="result__info-title">{{ result.title }}</h3>
+            <p v-if="result.overview" class="result__info-overview">
+              {{ setOverviewLength(result.overview) }}
+            </p>
+            <p v-else class="result__info-overview">n/a</p>
+            <div class="flex">
+              <p v-if="result.release_date" class="result__info-date">
+                {{ result.release_date }}
+              </p>
+              <p v-else class="result__info-date">n/a</p>
+              <p class="result__info-rating flex flex-ai-c">
+                <img
+                  src="../../assets/rating-icon.svg"
+                  width="15"
+                  height="14.4"
+                  alt="star icon"
+                />{{ result.vote_average }}
+              </p>
+            </div>
+          </div>
+        </li>
+      </router-link>
     </ul>
-    <button
+
+    <router-link
+      :to="newRoute"
       v-if="isMoreResults"
+      @click="$emit('more-results')"
       class="view-more-btn"
-      @click="$emit('emit-searchterm')"
       title="View More Results"
     >
       View More Results
-    </button>
+    </router-link>
 
     <!-- Code to show if there are no results found -->
     <div
@@ -82,19 +87,23 @@
 <script>
 export default {
   name: "SearchHandler",
-  props: ["searchResults"],
-  emits: ["emit-searchterm", "send-id"],
-  inject: ["setOverviewLength", "setPath"],
+  props: ["searchResults", "searchTerm"],
+  emits: ["more-results", "clear-results"],
+  inject: ["setOverviewLength", "setPath", "setMovieInfoRoute"],
   data() {
     return {
-      isSearchActive: this.searchResults[0],
-      results: this.searchResults[1],
-      isMoreResults: this.searchResults[2],
+      isSearchActive: this.searchResults.isSearchActive,
+      results: this.searchResults.data,
+      isMoreResults: this.searchResults.isMoreResults,
     };
   },
-  methods: {
-    sendMovieId(id) {
-      this.$emit("send-id", id);
+  computed: {
+    newRoute() {
+      const route = {
+        path: "/movies/search",
+        query: { keyword: this.searchTerm, page: 1 },
+      };
+      return route;
     },
   },
 };
@@ -158,6 +167,7 @@ export default {
 }
 
 .view-more-btn {
+  display: inline-block;
   position: relative;
   left: 50%;
   transform: translateX(-50%);

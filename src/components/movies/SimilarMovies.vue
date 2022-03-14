@@ -8,81 +8,84 @@
         :key="movie.id"
         class="content-wrapper"
       >
-        <li
-          class="content hover"
-          @click="sendMovieId(movie.id)"
-          :title="movie.title"
-        >
-          <div class="content__poster">
-            <img
-              v-if="movie.poster_path"
-              :src="setPath(movie.poster_path)"
-              :alt="`poster image for ${movie.title}`"
-              class="poster-img"
-            />
-            <img
-              v-else
-              src="../../assets/no-poster-img.svg"
-              width="70"
-              height="35.3"
-              alt="no poster image"
-              class="no-poster-img"
-            />
-            <!-- show a placeholder image before the poster loads -->
-            <img
-              v-if="movie.poster_path"
-              src="../../assets/poster-placeholder.png"
-              width="70"
-              height="35.3"
-              alt="placeholder image"
-              class="placeholder-img"
-            />
-            <p class="tag">Movie</p>
-          </div>
-          <div class="content__info">
-            <h3 class="content__info-title">
-              {{ setTitleLength(movie.title) }}
-            </h3>
-            <div class="meta flex flex-jc-sb">
-              <p v-if="movie.release_date" class="content__info-date">
-                {{ setDate(movie.release_date) }}
-              </p>
-              <p v-else class="content__info-date">n/a</p>
-              <p class="content__info-rating">
-                <img
-                  src="../../assets/rating-icon.svg"
-                  width="15"
-                  height="14.4"
-                  alt="star icon"
-                />{{ roundRating(movie.vote_average) }}
-              </p>
+        <!-- set the route for showing a movie's information -->
+        <router-link :to="setMovieInfoRoute(movie.title, movie.id)">
+          <li
+            class="content hover"
+            @click="sendMovieId(movie.id)"
+            :title="movie.title"
+          >
+            <div class="content__poster">
+              <img
+                v-if="movie.poster_path"
+                :src="setPath(movie.poster_path)"
+                :alt="`poster image for ${movie.title}`"
+                class="poster-img"
+              />
+              <img
+                v-else
+                src="../../assets/no-poster-img.svg"
+                width="70"
+                height="35.3"
+                alt="no poster image"
+                class="no-poster-img"
+              />
+              <!-- show a placeholder image before the poster loads -->
+              <img
+                v-if="movie.poster_path"
+                src="../../assets/poster-placeholder.png"
+                width="70"
+                height="35.3"
+                alt="placeholder image"
+                class="placeholder-img"
+              />
+              <p class="tag">Movie</p>
             </div>
-          </div>
-          <!-- movie info card -->
-          <div v-if="isShowInfo" class="hover__info">
-            <h2 class="hover__info-title">{{ movie.title }}</h2>
-            <span class="grey-bg"></span>
-            <p v-if="movie.overview" class="hover__info-overview">
-              {{ setOverviewLength(movie.overview) }}
-            </p>
-            <p v-else class="hover__info-overview">n/a</p>
-
-            <div class="meta__info">
-              <div class="meta__info-rating flex">
-                <p class="description">Rating:</p>
-                <p class="data">{{ roundRating(movie.vote_average) }} / 10</p>
-              </div>
-              <div class="meta__info-release flex">
-                <p class="description">Release:</p>
-                <p v-if="movie.release_date" class="data">
+            <div class="content__info">
+              <h3 class="content__info-title">
+                {{ setTitleLength(movie.title) }}
+              </h3>
+              <div class="meta flex flex-jc-sb">
+                <p v-if="movie.release_date" class="content__info-date">
                   {{ setDate(movie.release_date) }}
                 </p>
-                <p v-else class="data">n/a</p>
+                <p v-else class="content__info-date">n/a</p>
+                <p class="content__info-rating">
+                  <img
+                    src="../../assets/rating-icon.svg"
+                    width="15"
+                    height="14.4"
+                    alt="star icon"
+                  />{{ roundRating(movie.vote_average) }}
+                </p>
               </div>
             </div>
-            <button :title="movie.title">View More Info</button>
-          </div>
-        </li>
+            <!-- movie info card -->
+            <div v-if="isShowInfo" class="hover__info">
+              <h2 class="hover__info-title">{{ movie.title }}</h2>
+              <span class="grey-bg"></span>
+              <p v-if="movie.overview" class="hover__info-overview">
+                {{ setOverviewLength(movie.overview) }}
+              </p>
+              <p v-else class="hover__info-overview">n/a</p>
+
+              <div class="meta__info">
+                <div class="meta__info-rating flex">
+                  <p class="description">Rating:</p>
+                  <p class="data">{{ roundRating(movie.vote_average) }} / 10</p>
+                </div>
+                <div class="meta__info-release flex">
+                  <p class="description">Release:</p>
+                  <p v-if="movie.release_date" class="data">
+                    {{ setDate(movie.release_date) }}
+                  </p>
+                  <p v-else class="data">n/a</p>
+                </div>
+              </div>
+              <button :title="movie.title">View More Info</button>
+            </div>
+          </li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -101,6 +104,7 @@ export default {
     "setPath",
     "setTitleLength",
     "setDate",
+    "setMovieInfoRoute",
   ],
   data() {
     return {
@@ -178,25 +182,25 @@ export default {
       window.addEventListener("resize", this.setInfoCardPosition);
     },
   },
-  watch: {
-    movieId(newValue) {
-      // call the getMovies() method to fetch movies when the movieId prop has a value
-      if (newValue) {
-        this.scrollToTop();
-        // perform resets before a new fetch request
-        this.similarMovies = [];
-        this.isResults = false;
-        this.getMovies(newValue);
-      } else {
-        // perform resets if there was a previous value for the movieId prop
-        this.similarMovies = [];
-      }
-    },
-  },
   updated() {
     // call these methods when the page is updated
     this.setInfoCardPosition();
     this.checkWindowSize();
+  },
+  beforeMount() {
+    if (this.movieId) {
+      this.scrollToTop();
+      // perform resets before a new fetch request
+      this.similarMovies = [];
+      this.isResults = false;
+      this.getMovies(this.movieId);
+      // call these methods before the component is mounted
+      this.setInfoCardPosition();
+      this.checkWindowSize();
+    } else {
+      // perform resets if there was a previous value for the movieId prop
+      this.similarMovies = [];
+    }
   },
 };
 </script>
