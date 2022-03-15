@@ -150,6 +150,11 @@
           :alt="result.title"
           class="backdrop"
         />
+        <img
+          src="../../assets/video-placeholder.png"
+          alt="placeholder image"
+          class="backdrop-placeholder"
+        />
         <a
           :href="`https://youtu.be/${trailerLink.key}`"
           target="_blank"
@@ -434,9 +439,17 @@ export default {
 }
 
 .trailer-wrapper .trailer-card img.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   transition: transform 0.2s ease-in-out;
+}
+
+.trailer-wrapper .trailer-card img.backdrop-placeholder {
+  width: 100%;
+  height: 100%;
 }
 
 .trailer-wrapper .trailer-card:hover img.backdrop {
