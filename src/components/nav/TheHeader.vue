@@ -26,7 +26,7 @@
           @click="setActiveSide('movies')"
           :class="activeSide === 'movies' ? 'active-side' : ''"
         >
-          <router-link :to="newRoute" @click="removeExpandedSearchResults"
+          <router-link :to="moviesRoute" @click="removeExpandedSearchResults"
             >Movies</router-link
           >
         </li>
@@ -98,7 +98,7 @@
     <!-- show the close button -->
     <div v-else class="button-wrapper">
       <router-link
-        :to="newRoute"
+        :to="moviesRoute"
         @click="removeExpandedSearchResults"
         title="Close Search"
       >
@@ -154,7 +154,7 @@ export default {
     };
   },
   computed: {
-    newRoute() {
+    moviesRoute() {
       const route = {
         path: "/movies",
         query: { page: this.defaultPage },
