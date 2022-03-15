@@ -446,6 +446,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -473,6 +474,29 @@ export default {
 .trailer-wrapper .trailer-card:hover img.play-icon {
   visibility: visible;
   opacity: 1;
+}
+
+@media screen and (max-width: 939px) {
+  .info-wrapper {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr auto;
+  }
+
+  .info-wrapper .content-poster {
+    width: 31.3333333333%;
+    margin: 0 auto;
+    grid-column: span 1;
+    grid-row: 1/2;
+  }
+
+  .info-wrapper .content-text {
+    grid-column: span 1;
+    grid-row: 2/3;
+  }
+
+  .info-wrapper .content-text .title {
+    margin-top: 0;
+  }
 }
 
 @media screen and (max-width: 576px) {
