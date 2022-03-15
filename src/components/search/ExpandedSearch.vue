@@ -165,9 +165,11 @@
         <p>Oops! No results found</p>
       </div>
     </div>
+  </div>
 
-    <!-- if we're loading, show the content placeholder -->
-    <ContentPlaceholder v-else />
+  <!-- if we're loading, show the content placeholder -->
+  <div class="expanded-search-placeholder">
+    <ContentPlaceholder v-if="isLoading" />
   </div>
 
   <div class="pagination">
@@ -313,9 +315,6 @@ export default {
 </script>
 
 <style scoped>
-.pagination {
-  text-align: center;
-}
 .search-container {
   margin-top: 2.1875rem;
   padding: 0 0.9375rem;
@@ -358,6 +357,14 @@ export default {
 
 .no-results img {
   margin-bottom: 0.625rem;
+}
+
+.pagination {
+  text-align: center;
+}
+
+.expanded-search-placeholder {
+  margin-top: -2.5rem;
 }
 
 @media screen and (max-width: 768px) {
