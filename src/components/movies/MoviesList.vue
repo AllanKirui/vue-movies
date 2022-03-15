@@ -116,7 +116,6 @@ export default {
   data() {
     return {
       searchResults: [],
-      componentName: "MoviesList",
       isShowInfo: false,
       isLoading: false,
       totalPages: null,
