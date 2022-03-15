@@ -25,6 +25,7 @@
         <li
           @click="setActiveSide('movies')"
           :class="activeSide === 'movies' ? 'active-side' : ''"
+          title="Go to Movies"
         >
           <router-link :to="moviesRoute" @click="removeExpandedSearchResults"
             >Movies</router-link
@@ -33,6 +34,7 @@
         <li
           @click="setActiveSide('shows')"
           :class="activeSide === 'shows' ? 'active-side' : ''"
+          title="Go to Shows"
         >
           <router-link :to="showsRoute" @click="removeExpandedSearchResults"
             >TV Shows</router-link
