@@ -102,6 +102,13 @@ export default {
       };
       return route;
     },
+    setShowsInfoRoute(showTitle, showId) {
+      const route = {
+        path: "/shows/info",
+        query: { name: showTitle, id: showId },
+      };
+      return route;
+    },
     showCloseButton(status) {
       if (status) {
         this.isShowCloseBtn = status;
@@ -125,6 +132,7 @@ export default {
       setDate: this.setDateFormat,
       setTime: this.setTimeFormat,
       setMovieInfoRoute: this.setMovieInfoRoute,
+      setShowsInfoRoute: this.setShowsInfoRoute,
     };
   },
 };
