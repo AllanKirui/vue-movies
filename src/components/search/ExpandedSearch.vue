@@ -189,7 +189,7 @@ const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 export default {
   name: "ExpandedSearch",
   components: { ContentPlaceholder, ThePagination },
-  emits: ["show-button"],
+  emits: ["show-button", "activated-side"],
   inject: [
     "setPath",
     "setTitleLength",
@@ -295,6 +295,8 @@ export default {
     if (newPage) {
       this.switchPages(newPage);
     }
+    // emit a custom event that sets active styling on the header links
+    this.$emit("activated-side", "movies");
   },
   created() {
     // get the search term from the keyword prop on the query parameter

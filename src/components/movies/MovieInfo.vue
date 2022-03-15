@@ -199,7 +199,7 @@ export default {
     InfoPlaceholder,
     ContentPlaceholder,
   },
-  emits: ["show-button"],
+  emits: ["show-button", "activated-side"],
   inject: ["setPath", "setBackdropPath", "setDate", "setTime", "scrollToTop"],
   data() {
     return {
@@ -291,6 +291,8 @@ export default {
   beforeMount() {
     // get the movie Id from the query parameter before the movie is displayed onscreen
     this.movieId = +this.$route.query.id;
+    // emit a custom event that sets active styling on the header links
+    this.$emit("activated-side", "movies");
   },
   updated() {
     // get the id which has been updated from outside the component
