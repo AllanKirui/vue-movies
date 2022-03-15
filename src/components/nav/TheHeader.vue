@@ -34,7 +34,9 @@
           @click="setActiveSide('shows')"
           :class="activeSide === 'shows' ? 'active-side' : ''"
         >
-          <router-link to="/shows">TV Shows</router-link>
+          <router-link :to="showsRoute" @click="removeExpandedSearchResults"
+            >TV Shows</router-link
+          >
         </li>
       </ul>
     </div>
@@ -157,6 +159,13 @@ export default {
     moviesRoute() {
       const route = {
         path: "/movies",
+        query: { page: this.defaultPage },
+      };
+      return route;
+    },
+    showsRoute() {
+      const route = {
+        path: "/shows",
         query: { page: this.defaultPage },
       };
       return route;
