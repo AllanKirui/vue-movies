@@ -204,9 +204,6 @@ export default {
       this.switchPages(newPage);
       return;
     }
-    // call the getMovies() method
-    this.getMovies(this.pageNum);
-    this.getMovies(this.activePage);
     // call these methods before the page is shown
     this.setInfoCardPosition();
     this.checkWindowSize();
