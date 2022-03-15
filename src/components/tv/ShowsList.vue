@@ -6,11 +6,7 @@
         :key="result.id"
         class="content-wrapper"
       >
-        <li
-          class="content hover"
-          :title="result.name"
-          @click="sendShowId(result.id)"
-        >
+        <li class="content hover" :title="result.name">
           <div class="content__poster">
             <img
               v-if="result.poster_path"
@@ -68,27 +64,21 @@ import apiKey from "../../../config.js";
 export default {
   name: "ShowsList",
   props: ["pageNum"],
-  emits: ["set-status", "total-pages", "send-id"],
   inject: ["setPath", "setTitleLength", "setDate"],
   data() {
     return {
       searchResults: [],
-      componentName: "ShowsList",
     };
   },
   methods: {
     async getShows(page) {
       const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&page=${page}`;
-      // set loading status to true
-      this.$emit("set-status", true);
       // perform resets before a new fetch request
       this.searchResults = [];
 
       // fetch data
       const response = await fetch(url);
       const data = await response.json();
-
-      this.removePlaceholder();
 
       // only get the first 40 pages
       if (data.total_pages > 40) {
@@ -97,19 +87,6 @@ export default {
         this.totalPages = data.total_pages;
       }
       this.searchResults = data.results;
-      this.$emit(
-        "total-pages",
-        this.totalPages,
-        this.pageNum,
-        this.componentName
-      );
-    },
-    removePlaceholder() {
-      this.isResults = true;
-      this.$emit("set-status", false);
-    },
-    sendShowId(id) {
-      this.$emit("send-id", id);
     },
   },
   watch: {
