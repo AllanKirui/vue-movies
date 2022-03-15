@@ -211,6 +211,9 @@ export default {
     },
     removeExpandedSearchResults() {
       this.isHidden = false;
+      if (this.isSearchActive) {
+        this.removeOverlay();
+      }
     },
   },
   watch: {
@@ -303,6 +306,11 @@ nav {
 .nav-options a:hover {
   color: var(--color-smokey-black);
   background-color: var(--color-clouds);
+}
+
+.nav-options li.active-page a {
+  background-color: var(--color-clouds);
+  color: var(--color-smokey-black);
 }
 
 .nav-options li:not(:last-child),
