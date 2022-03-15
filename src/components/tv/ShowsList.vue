@@ -1,5 +1,6 @@
 <template>
-  <div class="results-container wrapper">
+  <!-- show the data once we're done loading -->
+  <div v-if="!isLoading" class="results-container wrapper">
     <div>
       <ul
         v-for="result in searchResults"
@@ -80,13 +81,18 @@
       </ul>
     </div>
   </div>
+
+  <!-- if we're loading, show the content placeholder -->
+  <ContentPlaceholder v-else />
 </template>
 
 <script>
 import apiKey from "../../../config.js";
+import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
 
 export default {
   name: "ShowsList",
+  components: { ContentPlaceholder },
   props: ["pageNum"],
   inject: [
     "setPath",
@@ -100,10 +106,12 @@ export default {
     return {
       searchResults: [],
       isShowInfo: false,
+      isLoading: false,
     };
   },
   methods: {
     async getShows(page) {
+      this.isLoading = true;
       const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&page=${page}`;
       // perform resets before a new fetch request
       this.searchResults = [];
@@ -111,6 +119,7 @@ export default {
       // fetch data
       const response = await fetch(url);
       const data = await response.json();
+      this.isLoading = false;
 
       // only get the first 40 pages
       if (data.total_pages > 40) {
