@@ -84,15 +84,23 @@
 
   <!-- if we're loading, show the content placeholder -->
   <ContentPlaceholder v-else />
+
+  <ThePagination
+    v-if="totalPages && !isLoading"
+    :received-pages="totalPages"
+    :chosen-page="selectedPage"
+    @switch-page="switchPages"
+  />
 </template>
 
 <script>
 import apiKey from "../../../config.js";
 import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
+import ThePagination from "../ui/ThePagination.vue";
 
 export default {
   name: "ShowsList",
-  components: { ContentPlaceholder },
+  components: { ContentPlaceholder, ThePagination },
   props: ["pageNum"],
   inject: [
     "setPath",
@@ -107,6 +115,9 @@ export default {
       searchResults: [],
       isShowInfo: false,
       isLoading: false,
+      totalPages: null,
+      selectedPage: 1, // the default page is 1
+      activePage: null,
     };
   },
   methods: {
@@ -129,6 +140,10 @@ export default {
       }
       this.searchResults = data.results;
       console.log(url);
+    },
+    switchPages(newPage) {
+      this.getShows(newPage);
+      this.selectedPage = newPage;
     },
     setInfoCardPosition() {
       let viewportWidth = window.innerWidth;
@@ -161,9 +176,9 @@ export default {
     },
   },
   watch: {
-    pageNum(newValue) {
-      // call the getShows() method to fetch shows when switching pages
-      this.getShows(newValue);
+    selectedPage() {
+      // when the selectedPage data property changes, call the scrollToTop method
+      this.scrollToTop();
     },
   },
   beforeMount() {
