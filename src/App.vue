@@ -1,8 +1,15 @@
 <template>
-  <TheHeader :close-button="isShowCloseBtn" @no-scroll="setScrollBehaviour" />
+  <TheHeader
+    :close-button="isShowCloseBtn"
+    :selected-side="selectedSide"
+    @no-scroll="setScrollBehaviour"
+  />
 
   <!-- listen to a custom event that hides the close button on the header -->
-  <router-view @show-button="showCloseButton"></router-view>
+  <router-view
+    @show-button="showCloseButton"
+    @activated-side="setActivatedSide"
+  ></router-view>
 </template>
 
 <script>
@@ -18,6 +25,7 @@ export default {
   data() {
     return {
       isShowCloseBtn: false,
+      selectedSide: null,
     };
   },
   methods: {
@@ -100,6 +108,10 @@ export default {
         return;
       }
       this.isShowCloseBtn = false;
+    },
+    setActivatedSide(side) {
+      // set the active part of the app to TV Shows
+      this.selectedSide = side;
     },
   },
   provide() {
