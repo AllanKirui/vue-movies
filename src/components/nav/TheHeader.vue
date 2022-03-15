@@ -288,9 +288,7 @@ nav {
   padding: 0;
 }
 
-/* .nav-options button { */
 .nav-options a {
-  /* display: inline-block; */
   padding: 8px 12px;
   border: none;
   border-radius: 5px;
@@ -302,7 +300,6 @@ nav {
   transition: all 0.15s ease-in-out;
 }
 
-/* .nav-options button:hover { */
 .nav-options a:hover {
   color: var(--color-smokey-black);
   background-color: var(--color-clouds);
