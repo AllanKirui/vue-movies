@@ -122,6 +122,7 @@ export default {
   },
   methods: {
     async getShows(page) {
+      this.updateRoute(page);
       this.isLoading = true;
       const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&page=${page}`;
       // perform resets before a new fetch request
@@ -174,21 +175,39 @@ export default {
       // listen to the resize event and call the method to set the info card's position
       window.addEventListener("resize", this.setInfoCardPosition);
     },
+    updateRoute(activePage) {
+      // update the query parameter on the route link
+      this.$router.push({ path: "/shows", query: { page: activePage } });
+    },
   },
   watch: {
     selectedPage() {
       // when the selectedPage data property changes, call the scrollToTop method
       this.scrollToTop();
     },
+    activePage(newValue) {
+      // if there is a new page number, fetch new results
+      if (newValue) {
+        this.getShows(newValue);
+        this.selectedPage = newValue;
+      }
+    },
   },
   beforeMount() {
-    // call the getShows() method
-    this.getShows(this.pageNum);
+    // get the page number from the route's query parameter
+    const newPage = +this.$route.query.page;
+    // if there is a new page, switch pages
+    if (newPage) {
+      this.switchPages(newPage);
+      return;
+    }
     // call these methods before the page is shown
     this.setInfoCardPosition();
     this.checkWindowSize();
   },
   updated() {
+    // update the activePage property, whenever the query parameter has changed
+    this.activePage = +this.$route.query.page;
     // call these methods when the page is updated
     this.setInfoCardPosition();
     this.checkWindowSize();
