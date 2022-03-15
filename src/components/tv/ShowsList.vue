@@ -52,6 +52,30 @@
               </p>
             </div>
           </div>
+          <!-- tv show info card -->
+          <div v-if="isShowInfo" class="hover__info">
+            <h2 class="hover__info-title">{{ result.name }}</h2>
+            <span class="grey-bg"></span>
+            <p v-if="result.overview" class="hover__info-overview">
+              {{ setOverviewLength(result.overview) }}
+            </p>
+            <p v-else class="hover__info-overview">n/a</p>
+
+            <div class="meta__info">
+              <div class="meta__info-rating flex">
+                <p class="description">Rating:</p>
+                <p class="data">{{ result.vote_average }} / 10</p>
+              </div>
+              <div class="meta__info-release flex">
+                <p class="description">Release:</p>
+                <p v-if="result.first_air_date" class="data">
+                  {{ setDate(result.first_air_date) }}
+                </p>
+                <p v-else class="data">n/a</p>
+              </div>
+            </div>
+            <button :title="result.name">View More Info</button>
+          </div>
         </li>
       </ul>
     </div>
@@ -64,10 +88,18 @@ import apiKey from "../../../config.js";
 export default {
   name: "ShowsList",
   props: ["pageNum"],
-  inject: ["setPath", "setTitleLength", "setDate"],
+  inject: [
+    "setPath",
+    "setTitleLength",
+    "setDate",
+    "setOverviewLength",
+    "scrollToTop",
+    "setShowsInfoRoute",
+  ],
   data() {
     return {
       searchResults: [],
+      isShowInfo: false,
     };
   },
   methods: {
@@ -87,6 +119,36 @@ export default {
         this.totalPages = data.total_pages;
       }
       this.searchResults = data.results;
+      console.log(url);
+    },
+    setInfoCardPosition() {
+      let viewportWidth = window.innerWidth;
+      // only show hover information for screens 768px and above
+      if (viewportWidth >= 1024) {
+        this.isShowInfo = true;
+        const showItems = document.querySelectorAll(".hover__info");
+        showItems.forEach((show) => {
+          // find the distance to the right of each show card
+          let distToRight = show.getBoundingClientRect().right;
+
+          // add an extra 250px to the distance, to make sure that it will be more
+          // than the viewport width, then set the appropriate position for the info card
+          if (
+            distToRight > viewportWidth ||
+            distToRight + 250 > viewportWidth
+          ) {
+            show.style.right = "95%";
+          } else {
+            show.style.right = "-110%";
+          }
+        });
+      } else {
+        this.isShowInfo = false;
+      }
+    },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", this.setInfoCardPosition);
     },
   },
   watch: {
@@ -98,6 +160,14 @@ export default {
   beforeMount() {
     // call the getShows() method
     this.getShows(this.pageNum);
+    // call these methods before the page is shown
+    this.setInfoCardPosition();
+    this.checkWindowSize();
+  },
+  updated() {
+    // call these methods when the page is updated
+    this.setInfoCardPosition();
+    this.checkWindowSize();
   },
 };
 </script>
