@@ -22,12 +22,18 @@
       </div>
 
       <ul class="nav-options flex">
-        <li>
+        <li
+          @click="setActiveSide('movies')"
+          :class="activeSide === 'movies' ? 'active-side' : ''"
+        >
           <router-link :to="newRoute" @click="removeExpandedSearchResults"
             >Movies</router-link
           >
         </li>
-        <li>
+        <li
+          @click="setActiveSide('shows')"
+          :class="activeSide === 'shows' ? 'active-side' : ''"
+        >
           <router-link to="/shows">TV Shows</router-link>
         </li>
       </ul>
@@ -130,7 +136,7 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
-  props: ["closeButton"],
+  props: ["closeButton", "selectedSide"],
   emits: ["no-scroll"],
   data() {
     return {
@@ -144,6 +150,7 @@ export default {
       isLoading: false,
       isHidden: false,
       defaultPage: 1,
+      activeSide: "movies",
     };
   },
   computed: {
@@ -215,6 +222,9 @@ export default {
         this.removeOverlay();
       }
     },
+    setActiveSide(side) {
+      this.activeSide = side;
+    },
   },
   watch: {
     isSearchActive() {
@@ -223,6 +233,10 @@ export default {
     closeButton(newValue) {
       // set the value of the isHidden data property if the closeButton prop has a new value
       this.isHidden = newValue;
+    },
+    selectedSide(side) {
+      // watch the selectedSide prop and set active styles to the active side
+      this.activeSide = side;
     },
   },
 };
@@ -308,7 +322,7 @@ nav {
   background-color: var(--color-clouds);
 }
 
-.nav-options li.active-page a {
+.nav-options li.active-side a {
   background-color: var(--color-clouds);
   color: var(--color-smokey-black);
 }
