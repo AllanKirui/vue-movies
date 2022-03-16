@@ -7,77 +7,79 @@
         :key="result.id"
         class="content-wrapper"
       >
-        <li class="content hover" :title="result.name">
-          <div class="content__poster">
-            <img
-              v-if="result.poster_path"
-              :src="setPath(result.poster_path)"
-              :alt="`poster image for ${result.name}`"
-              class="poster-img"
-            />
-            <img
-              v-else
-              src="../../assets/no-poster-img.svg"
-              width="70"
-              height="35.3"
-              alt="no poster image"
-              class="no-poster-img"
-            />
-            <!-- show a placeholder image before the poster loads -->
-            <img
-              v-if="result.poster_path"
-              src="../../assets/poster-placeholder.png"
-              width="70"
-              height="35.3"
-              alt="placeholder image"
-              class="placeholder-img"
-            />
-            <p class="tag">TV Show</p>
-          </div>
-          <div class="content__info">
-            <h3 class="content__info-title">
-              {{ setTitleLength(result.name) }}
-            </h3>
-            <div class="meta flex flex-jc-sb">
-              <p v-if="result.first_air_date" class="content__info-date">
-                {{ setDate(result.first_air_date) }}
-              </p>
-              <p v-else class="content__info-date">n/a</p>
-              <p class="content__info-rating">
-                <img
-                  src="../../assets/rating-icon.svg"
-                  width="15"
-                  height="14.4"
-                  alt="star icon"
-                />{{ result.vote_average }}
-              </p>
+        <router-link :to="setShowsInfoRoute(result.name, result.id)">
+          <li class="content hover" :title="result.name">
+            <div class="content__poster">
+              <img
+                v-if="result.poster_path"
+                :src="setPath(result.poster_path)"
+                :alt="`poster image for ${result.name}`"
+                class="poster-img"
+              />
+              <img
+                v-else
+                src="../../assets/no-poster-img.svg"
+                width="70"
+                height="35.3"
+                alt="no poster image"
+                class="no-poster-img"
+              />
+              <!-- show a placeholder image before the poster loads -->
+              <img
+                v-if="result.poster_path"
+                src="../../assets/poster-placeholder.png"
+                width="70"
+                height="35.3"
+                alt="placeholder image"
+                class="placeholder-img"
+              />
+              <p class="tag">TV Show</p>
             </div>
-          </div>
-          <!-- tv show info card -->
-          <div v-if="isShowInfo" class="hover__info">
-            <h2 class="hover__info-title">{{ result.name }}</h2>
-            <span class="grey-bg"></span>
-            <p v-if="result.overview" class="hover__info-overview">
-              {{ setOverviewLength(result.overview) }}
-            </p>
-            <p v-else class="hover__info-overview">n/a</p>
-
-            <div class="meta__info">
-              <div class="meta__info-rating flex">
-                <p class="description">Rating:</p>
-                <p class="data">{{ result.vote_average }} / 10</p>
-              </div>
-              <div class="meta__info-release flex">
-                <p class="description">Release:</p>
-                <p v-if="result.first_air_date" class="data">
+            <div class="content__info">
+              <h3 class="content__info-title">
+                {{ setTitleLength(result.name) }}
+              </h3>
+              <div class="meta flex flex-jc-sb">
+                <p v-if="result.first_air_date" class="content__info-date">
                   {{ setDate(result.first_air_date) }}
                 </p>
-                <p v-else class="data">n/a</p>
+                <p v-else class="content__info-date">n/a</p>
+                <p class="content__info-rating">
+                  <img
+                    src="../../assets/rating-icon.svg"
+                    width="15"
+                    height="14.4"
+                    alt="star icon"
+                  />{{ result.vote_average }}
+                </p>
               </div>
             </div>
-            <button :title="result.name">View More Info</button>
-          </div>
-        </li>
+            <!-- tv show info card -->
+            <div v-if="isShowInfo" class="hover__info">
+              <h2 class="hover__info-title">{{ result.name }}</h2>
+              <span class="grey-bg"></span>
+              <p v-if="result.overview" class="hover__info-overview">
+                {{ setOverviewLength(result.overview) }}
+              </p>
+              <p v-else class="hover__info-overview">n/a</p>
+
+              <div class="meta__info">
+                <div class="meta__info-rating flex">
+                  <p class="description">Rating:</p>
+                  <p class="data">{{ result.vote_average }} / 10</p>
+                </div>
+                <div class="meta__info-release flex">
+                  <p class="description">Release:</p>
+                  <p v-if="result.first_air_date" class="data">
+                    {{ setDate(result.first_air_date) }}
+                  </p>
+                  <p v-else class="data">n/a</p>
+                </div>
+              </div>
+              <button :title="result.name">View More Info</button>
+            </div>
+          </li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -140,7 +142,6 @@ export default {
         this.totalPages = data.total_pages;
       }
       this.searchResults = data.results;
-      console.log(url);
     },
     switchPages(newPage) {
       this.getShows(newPage);
