@@ -43,6 +43,144 @@
           class="placeholder-img"
         />
       </div>
+      <div class="content-text">
+        <!-- tv show name and tagline -->
+        <div class="title">
+          <h1 class="content-title">{{ result.name }}</h1>
+          <p v-if="result.tagline" class="content-tagline">
+            {{ result.tagline }}
+          </p>
+        </div>
+
+        <div class="meta">
+          <!-- tv show rating and runtime -->
+          <div class="meta-section-1 flex">
+            <p class="content-rating">
+              <img
+                src="../../assets/rating-icon.svg"
+                width="15"
+                height="14.4"
+                alt="star icon"
+              />{{ result.vote_average }}
+            </p>
+            <p v-if="result.episode_run_time" class="content-runtime">
+              {{ setTime(result.episode_run_time) }}
+            </p>
+            <p v-else class="content-runtime">n/a</p>
+            <p>seasons {{ result.number_of_seasons }}</p>
+            <p>episodes {{ result.number_of_episodes }}</p>
+          </div>
+
+          <!-- tv show overview -->
+          <div class="meta-section-2">
+            <p v-if="result.overview" class="content-overview text-white">
+              {{ result.overview }}
+            </p>
+            <p v-else class="content-overview">n/a</p>
+          </div>
+
+          <!-- tv show country of production -->
+          <div class="meta-section-3 flex flex-fd-c">
+            <div
+              v-if="result.production_countries.length > 0"
+              class="content-country comma-separated spaced flex"
+            >
+              <p>Countries:</p>
+              <div
+                v-for="country in result.production_countries"
+                :key="country.name"
+              >
+                <!-- show commas for all items except the last -->
+                <p>
+                  {{ country.name
+                  }}<span
+                    v-if="
+                      result.production_countries.indexOf(country) !==
+                      result.production_countries.length - 1
+                    "
+                    >,&nbsp;</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div v-else class="content-country spaced flex">
+              <p>Countries:</p>
+              <p>n/a</p>
+            </div>
+            <!-- tv show genre -->
+            <div
+              v-if="result.genres.length > 0"
+              class="content-genre comma-separated spaced flex"
+            >
+              <p>Genres:</p>
+              <div
+                v-for="genre in result.genres"
+                :key="genre.id"
+                class="text-white"
+              >
+                <!-- show commas for all items except the last -->
+                <p>
+                  {{ genre.name
+                  }}<span
+                    v-if="
+                      result.genres.indexOf(genre) !== result.genres.length - 1
+                    "
+                    >,&nbsp;</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div v-else class="content-genre spaced flex">
+              <p>Genres:</p>
+              <p>n/a</p>
+            </div>
+            <!-- tv show first air date -->
+            <div class="content-release spaced flex">
+              <p>First air date:</p>
+              <p v-if="result.first_air_date">
+                {{ setDate(result.first_air_date) }}
+              </p>
+              <p v-else>n/a</p>
+            </div>
+            <!-- tv show last air date -->
+            <div class="content-last-air spaced flex">
+              <p>Last air date:</p>
+              <p v-if="result.last_air_date" class="text-white">
+                {{ setDate(result.last_air_date) }}
+              </p>
+              <p v-else>n/a</p>
+            </div>
+            <!-- tv show creators -->
+            <div
+              v-if="result.created_by.length > 0"
+              class="content-creators comma-separated spaced flex"
+            >
+              <p>Created by:</p>
+              <div
+                v-for="creator in result.created_by"
+                :key="creator.id"
+                class="text-white"
+              >
+                <!-- show commas for all items except the last -->
+                <p>
+                  {{ creator.name
+                  }}<span
+                    v-if="
+                      result.created_by.indexOf(creator) !==
+                      result.created_by.length - 1
+                    "
+                    >,&nbsp;</span
+                  >
+                </p>
+              </div>
+            </div>
+            <div v-else class="content-creators spaced flex">
+              <p>Created by:</p>
+              <p>n/a</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -136,6 +274,7 @@ export default {
   grid-column: 1/2;
   background-color: var(--color-jet-black);
   position: relative;
+  max-height: 450px;
 }
 
 .content-poster img {
@@ -201,20 +340,12 @@ export default {
   color: var(--color-silver-chalice);
 }
 
-.meta .meta-section-2 .content-overview,
-.meta .meta-section-3 .content-genre div p {
-  color: var(--color-white);
-}
-
-.meta .meta-section-3 .content-country > p:first-child,
-.meta .meta-section-3 .content-genre > p:first-child,
-.meta .meta-section-3 .content-release > p:first-child {
-  width: 4.375rem;
+.meta .meta-section-3 .spaced > p:first-child {
+  width: 7rem;
   margin-right: 2rem;
 }
 
-.meta .meta-section-3 .content-country p span,
-.meta .meta-section-3 .content-genre p span {
+.meta .meta-section-3 .comma-separated p span {
   color: var(--color-silver-chalice);
 }
 
