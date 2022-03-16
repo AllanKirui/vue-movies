@@ -6,6 +6,7 @@ import TheMovies from "./components/TheMovies.vue";
 import TheShows from "./components/TheShows.vue";
 import MovieInfo from "./components/movies/MovieInfo.vue";
 import ExpandedSearch from "./components/search/ExpandedSearch.vue";
+import ShowInfo from "./components/tv/ShowInfo.vue";
 
 // create the router
 const router = createRouter({
@@ -15,6 +16,7 @@ const router = createRouter({
     { path: "/shows", component: TheShows },
     { path: "/movies/info", component: MovieInfo },
     { path: "/movies/search", component: ExpandedSearch },
+    { path: "/shows/info", component: ShowInfo },
   ],
 });
 
