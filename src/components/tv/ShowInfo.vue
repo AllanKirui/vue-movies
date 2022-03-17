@@ -183,13 +183,25 @@
       </div>
     </div>
   </div>
+
+  <!-- if we're loading, show the content placeholders -->
+  <div v-else>
+    <InfoPlaceholder />
+    <ContentPlaceholder />
+  </div>
 </template>
 
 <script>
 import apiKey from "../../../config.js";
+import InfoPlaceholder from "../ui/InfoPlaceholder.vue";
+import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
 
 export default {
   name: "ShowInfo",
+  components: {
+    InfoPlaceholder,
+    ContentPlaceholder,
+  },
   emits: ["show-button", "activated-side"],
   inject: ["setPath", "setBackdropPath", "setDate", "setTime", "scrollToTop"],
   data() {
