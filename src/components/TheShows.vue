@@ -1,6 +1,6 @@
 <template>
   <div class="movies-list-wrapper flex flex-fd-c">
-    <ShowsList :page-num="activePage" />
+    <ShowsList />
   </div>
 </template>
 
@@ -13,18 +13,9 @@ export default {
     ShowsList,
   },
   emits: ["activated-side"],
-  data() {
-    return {
-      activePage: null,
-    };
-  },
   beforeMount() {
     // emit a custom event that sets active styling on the header links
     this.$emit("activated-side", "shows");
-  },
-  updated() {
-    let newPage = +this.$route.query.page;
-    this.activePage = newPage;
   },
 };
 </script>
