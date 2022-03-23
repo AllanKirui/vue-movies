@@ -63,12 +63,19 @@
                 alt="star icon"
               />{{ result.vote_average }}
             </p>
-            <p v-if="result.episode_run_time" class="content-runtime">
+            <p
+              v-if="result.episode_run_time.length !== 0"
+              class="content-runtime"
+            >
               {{ setTime(result.episode_run_time) }}
             </p>
             <p v-else class="content-runtime">n/a</p>
-            <p>seasons {{ result.number_of_seasons }}</p>
-            <p>episodes {{ result.number_of_episodes }}</p>
+            <p v-if="result.number_of_seasons">
+              seasons {{ result.number_of_seasons }}
+            </p>
+            <p v-if="result.number_of_episodes">
+              episodes {{ result.number_of_episodes }}
+            </p>
           </div>
 
           <!-- tv show overview -->
