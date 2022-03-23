@@ -222,6 +222,13 @@
         </a>
       </div>
     </div>
+
+    <!-- load similar tv shows after the tv show information is shown -->
+    <SimilarShows
+      :show-id="showId"
+      :is-loaded="isLoaded"
+      @send-id="getNewShowId"
+    />
   </div>
 
   <!-- if we're loading, show the content placeholders -->
@@ -233,12 +240,14 @@
 
 <script>
 import apiKey from "../../../config.js";
+import SimilarShows from "./SimilarShows.vue";
 import InfoPlaceholder from "../ui/InfoPlaceholder.vue";
 import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
 
 export default {
   name: "ShowInfo",
   components: {
+    SimilarShows,
     InfoPlaceholder,
     ContentPlaceholder,
   },
@@ -293,6 +302,9 @@ export default {
       } else {
         this.videos = [];
       }
+    },
+    getNewShowId(id) {
+      this.showId = id;
     },
   },
   watch: {
