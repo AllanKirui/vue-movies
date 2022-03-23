@@ -1,6 +1,6 @@
 <template>
   <div class="movies-list-wrapper flex flex-fd-c">
-    <MoviesList :page-num="activePage" />
+    <MoviesList />
   </div>
 </template>
 
@@ -11,15 +11,6 @@ export default {
   name: "TheMovies",
   components: {
     MoviesList,
-  },
-  data() {
-    return {
-      activePage: null,
-    };
-  },
-  updated() {
-    let newPage = +this.$route.query.page;
-    this.activePage = newPage;
   },
 };
 </script>
