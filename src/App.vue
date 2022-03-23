@@ -120,6 +120,32 @@ export default {
       // set the active part of the app to TV Shows
       this.selectedSide = side;
     },
+    setTrailerLink(videoLinks) {
+      const links = [];
+      // loop through the available links
+      for (const link of videoLinks) {
+        // check if the video is of type Trailer
+        if (
+          link.type.toLowerCase() === "trailer" ||
+          link.type.toLowerCase() === "clip"
+        ) {
+          // split the name property
+          const nameArray = link.name.toLowerCase().split(" ");
+          // check if it contains the string Official or Final or Trailer
+          if (
+            nameArray.indexOf("official") !== -1 ||
+            nameArray.indexOf("final") !== -1 ||
+            nameArray.indexOf("trailer") !== -1
+          ) {
+            // check if the trailer source is YouTube
+            if (link.site.toLowerCase() !== "youtube") return;
+            // add the link to the links array
+            links.push(link);
+          }
+        }
+      }
+      return links;
+    },
   },
   provide() {
     // send the various methods to the components that need them
@@ -133,6 +159,7 @@ export default {
       setTime: this.setTimeFormat,
       setMovieInfoRoute: this.setMovieInfoRoute,
       setShowsInfoRoute: this.setShowsInfoRoute,
+      setTrailerLink: this.setTrailerLink,
     };
   },
 };
