@@ -200,7 +200,14 @@ export default {
     ContentPlaceholder,
   },
   emits: ["show-button", "activated-side"],
-  inject: ["setPath", "setBackdropPath", "setDate", "setTime", "scrollToTop"],
+  inject: [
+    "setPath",
+    "setBackdropPath",
+    "setDate",
+    "setTime",
+    "scrollToTop",
+    "setTrailerLink",
+  ],
   data() {
     return {
       result: null,
@@ -237,34 +244,12 @@ export default {
 
       // call the setTrailerLink method if there are results
       if (this.videos.length > 0) {
-        this.setTrailerLink(this.videos);
+        const availableLinks = this.setTrailerLink(this.videos);
+        // only use 1 trailer if there is more than 1 available
+        this.trailerLink = availableLinks[0];
       } else {
         this.videos = [];
       }
-    },
-    setTrailerLink(videoLinks) {
-      const links = [];
-      // loop through the available links
-      for (const link of videoLinks) {
-        // check if the video is of type Trailer
-        if (link.type.toLowerCase() === "trailer") {
-          // split the name property
-          const nameArray = link.name.toLowerCase().split(" ");
-          // check if it contains the string Official or Final or Trailer
-          if (
-            nameArray.indexOf("official") !== -1 ||
-            nameArray.indexOf("final") !== -1 ||
-            nameArray.indexOf("trailer") !== -1
-          ) {
-            // check if the trailer source is YouTube
-            if (link.site.toLowerCase() !== "youtube") return;
-            // add the link to the links array
-            links.push(link);
-          }
-        }
-      }
-      // only use 1 trailer if there is more than 1 available
-      this.trailerLink = links[0];
     },
     getNewMovieInfo(id) {
       this.movieId = id;
