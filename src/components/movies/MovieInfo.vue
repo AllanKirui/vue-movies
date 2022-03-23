@@ -29,8 +29,8 @@
         />
         <img
           v-else
-          src="../../assets/no-poster-img.svg"
-          width="200"
+          src="../../assets/poster-placeholder.png"
+          width="320"
           alt="no poster image"
           class="no-poster-img"
         />
@@ -331,7 +331,7 @@ export default {
 
 .content-poster img.no-poster-img {
   padding: 7.5rem 1.25rem;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .content-text {
