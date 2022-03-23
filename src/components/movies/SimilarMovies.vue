@@ -24,7 +24,7 @@
               />
               <img
                 v-else
-                src="../../assets/no-poster-img.svg"
+                src="../../assets/poster-placeholder.png"
                 width="70"
                 height="35.3"
                 alt="no poster image"
@@ -61,7 +61,7 @@
               </div>
             </div>
             <!-- movie info card -->
-            <div v-if="isShowInfo" class="hover__info">
+            <div v-if="isShowHoverInfo" class="hover__info">
               <h2 class="hover__info-title">{{ movie.title }}</h2>
               <span class="grey-bg"></span>
               <p v-if="movie.overview" class="hover__info-overview">
@@ -110,7 +110,7 @@ export default {
     return {
       similarMovies: [],
       isResults: false,
-      isShowInfo: false,
+      isShowHoverInfo: false,
     };
   },
   methods: {
@@ -156,7 +156,7 @@ export default {
       let viewportWidth = window.innerWidth;
       // only show hover information for screens 768px and above
       if (viewportWidth >= 1024) {
-        this.isShowInfo = true;
+        this.isShowHoverInfo = true;
         const movieItems = document.querySelectorAll(".hover__info");
         movieItems.forEach((movie) => {
           // find the distance to the right of each movie card
@@ -174,7 +174,7 @@ export default {
           }
         });
       } else {
-        this.isShowInfo = false;
+        this.isShowHoverInfo = false;
       }
     },
     checkWindowSize() {

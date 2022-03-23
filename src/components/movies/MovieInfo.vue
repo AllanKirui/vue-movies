@@ -175,7 +175,7 @@
     <SimilarMovies
       :movie-id="movieId"
       :is-loaded="isLoaded"
-      @send-id="getNewMovieInfo"
+      @send-id="getNewMovieId"
     />
   </div>
 
@@ -251,7 +251,7 @@ export default {
         this.videos = [];
       }
     },
-    getNewMovieInfo(id) {
+    getNewMovieId(id) {
       this.movieId = id;
     },
   },
