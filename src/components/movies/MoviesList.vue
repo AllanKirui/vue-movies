@@ -104,7 +104,6 @@ import ThePagination from "../ui/ThePagination.vue";
 export default {
   name: "MoviesList",
   components: { ContentPlaceholder, ThePagination },
-  props: ["pageNum"],
   inject: [
     "setPath",
     "setTitleLength",
@@ -120,6 +119,7 @@ export default {
       isLoading: false,
       totalPages: null,
       selectedPage: 1, // the default page is 1
+      defaultPage: 1,
       activePage: null,
     };
   },
@@ -199,11 +199,14 @@ export default {
   beforeMount() {
     // get the page number from the route's query parameter
     const newPage = +this.$route.query.page;
-    // if there is a new page, switch pages
+    // if there is a new page, switch pages else go to the first page
     if (newPage) {
       this.switchPages(newPage);
-      return;
+    } else {
+      this.switchPages(this.defaultPage);
     }
+  },
+  beforeUpdate() {
     // call these methods before the page is shown
     this.setInfoCardPosition();
     this.checkWindowSize();
