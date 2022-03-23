@@ -182,6 +182,39 @@
         </div>
       </div>
     </div>
+
+    <!-- show link to trailer, if movie has a trailer -->
+    <div v-if="result && videos.length !== 0" class="trailer-wrapper wrapper">
+      <h2 class="heading">Watch trailer</h2>
+      <div class="trailer-card">
+        <div class="filter"></div>
+        <img
+          :src="
+            result.backdrop_path ? setBackdropPath(result.backdrop_path) : ''
+          "
+          :alt="result.name"
+          class="backdrop"
+        />
+        <img
+          src="../../assets/video-placeholder.png"
+          alt="placeholder image"
+          class="backdrop-placeholder"
+        />
+        <a
+          :href="`https://youtu.be/${trailerLink.key}`"
+          target="_blank"
+          :title="`Watch ${result.name} Trailer on YouTube`"
+        >
+          <img
+            src="../../assets/play-icon.svg"
+            width="50"
+            height="50"
+            alt="play icon"
+            class="play-icon"
+          />
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- if we're loading, show the content placeholders -->
@@ -203,7 +236,14 @@ export default {
     ContentPlaceholder,
   },
   emits: ["show-button", "activated-side"],
-  inject: ["setPath", "setBackdropPath", "setDate", "setTime", "scrollToTop"],
+  inject: [
+    "setPath",
+    "setBackdropPath",
+    "setDate",
+    "setTime",
+    "scrollToTop",
+    "setTrailerLink",
+  ],
   data() {
     return {
       result: null,
@@ -230,18 +270,37 @@ export default {
       this.isLoaded = true;
       this.isLoading = false;
     },
+    async getVideos(id) {
+      const videos_url = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${apiKey}`;
+
+      // fetch data
+      const response = await fetch(videos_url);
+      const data = await response.json();
+      this.videos = data.results;
+
+      // call the setTrailerLink method if there are results
+      if (this.videos.length > 0) {
+        const availableLinks = this.setTrailerLink(this.videos);
+        // only use 1 trailer if there is more than 1 available
+        this.trailerLink = availableLinks[0];
+      } else {
+        this.videos = [];
+      }
+    },
   },
   watch: {
     showId(newValue) {
       // call the getShows() method to fetch tv shows when the showId prop has a value
       if (newValue) {
         this.getShows(newValue);
+        this.getVideos(newValue);
       }
     },
     idFromSearch(newValue) {
       // watch the id gotten from mini search and fetch tv shows if it has a value
       if (newValue) {
         this.getShows(newValue);
+        this.getVideos(newValue);
         // set the value of the show id data prop to be the value of the id from search
         this.showId = newValue;
       }
