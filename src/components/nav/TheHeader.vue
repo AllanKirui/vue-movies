@@ -45,7 +45,15 @@
 
     <!-- show this conditionally -->
     <div v-if="!isHidden" class="nav-right flex flex-ai-c">
-      <form class="search-form nav" @submit.prevent="getMovies(searchLink)">
+      <!-- conditionally get movies or tv shows based on the active side of the site -->
+      <form
+        class="search-form nav"
+        @submit.prevent="
+          activeSide === 'movies'
+            ? getMovies(movieSearchLink)
+            : getShows(tvSearchLink)
+        "
+      >
         <label for="search">Search</label>
         <input
           name="search"
@@ -114,6 +122,7 @@
       v-if="!isLoading && isSearchActive"
       :search-results="resultsData"
       :search-term="searchTerm"
+      :active-side="activeSide"
       @more-results="showExpandedSearchResults"
       @clear-results="removeOverlay"
     ></search-handler>
@@ -132,7 +141,8 @@
 import apiKey from "../../../config.js";
 import SearchHandler from "../search/SearchHandler.vue";
 import SearchPlaceholder from "../ui/SearchPlaceholder.vue";
-const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
+const movieSearchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query="`;
+const tvSearchAPI = `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&query="`;
 
 export default {
   name: "TheHeader",
@@ -146,7 +156,8 @@ export default {
     return {
       isMenuOpen: false,
       searchTerm: "",
-      searchLink: searchAPI,
+      movieSearchLink: movieSearchAPI,
+      tvSearchLink: tvSearchAPI,
       isSearchActive: false,
       searchResults: [],
       resultsData: null,
@@ -178,6 +189,26 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
     },
     async getMovies(url) {
+      this.isSearchActive = true;
+      this.isLoading = true;
+      // perform resets before a new fetch request
+      this.searchResults = [];
+      this.isMoreResults = false;
+      this.searchResults.push(this.isSearchActive);
+
+      if (this.searchTerm === "") {
+        this.isLoading = false;
+        // show no results, change routes
+        window.location.reload();
+        return;
+      }
+
+      const response = await fetch(url + this.searchTerm);
+      const data = await response.json();
+      this.isLoading = false;
+      this.checkResults(data.results);
+    },
+    async getShows(url) {
       this.isSearchActive = true;
       this.isLoading = true;
       // perform resets before a new fetch request
