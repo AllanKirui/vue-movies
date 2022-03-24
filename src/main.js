@@ -17,6 +17,7 @@ const router = createRouter({
     { path: "/movies/info", component: MovieInfo },
     { path: "/movies/search", component: ExpandedSearch },
     { path: "/shows/info", component: ShowInfo },
+    { path: "/shows/search", component: ExpandedSearch },
   ],
 });
 
