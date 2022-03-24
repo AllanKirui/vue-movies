@@ -59,7 +59,7 @@
           </li>
         </router-link>
       </ul>
-
+      <!-- set the route to view more movie results -->
       <router-link
         :to="newRoute"
         v-if="isMoreResults"
@@ -130,6 +130,16 @@
           </li>
         </router-link>
       </ul>
+      <!-- set the route to view more tv show results -->
+      <router-link
+        :to="newRoute"
+        v-if="isMoreResults"
+        @click="$emit('more-results')"
+        class="view-more-btn"
+        title="View More Results"
+      >
+        View More Results
+      </router-link>
     </div>
 
     <!-- Code to show if there are no results found -->
@@ -169,10 +179,19 @@ export default {
   },
   computed: {
     newRoute() {
-      const route = {
-        path: "/movies/search",
-        query: { keyword: this.searchTerm, page: 1 },
-      };
+      let route = null;
+      // conditionally set a route to ExpandedSearch component showing either movie or tv show results
+      if (this.activatedSide === "movies") {
+        route = {
+          path: "/movies/search",
+          query: { keyword: this.searchTerm, page: 1 },
+        };
+      } else {
+        route = {
+          path: "/shows/search",
+          query: { keyword: this.searchTerm, page: 1 },
+        };
+      }
       return route;
     },
   },
