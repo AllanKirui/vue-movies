@@ -191,7 +191,10 @@
     </div>
 
     <!-- show link to trailer, if movie has a trailer -->
-    <div v-if="result && videos.length !== 0" class="trailer-wrapper wrapper">
+    <div
+      v-if="result && videos.length !== 0 && trailerLink"
+      class="trailer-wrapper wrapper"
+    >
       <h2 class="heading">Watch trailer</h2>
       <div class="trailer-card">
         <div class="filter"></div>
