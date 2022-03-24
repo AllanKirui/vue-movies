@@ -1,72 +1,136 @@
 <template>
   <div :class="[isSearchActive ? 'active' : '', 'results-wrapper']">
-    <ul v-for="result in results" :key="result.id">
-      <!-- set the route for showing a movie's information -->
-      <router-link :to="setMovieInfoRoute(result.title, result.id)">
-        <li
-          class="result flex"
-          @click="$emit('clear-results')"
-          :title="result.title"
-        >
-          <div class="result__poster">
-            <img
-              v-if="result.poster_path"
-              :src="setPath(result.poster_path)"
-              :alt="`poster image for ${result.title}`"
-              class="poster-img"
-            />
-            <img
-              v-else
-              src="../../assets/no-poster-img.svg"
-              width="70"
-              height="35.3"
-              alt="no poster image"
-              class="no-poster-img"
-            />
-            <!-- show a placeholder image before the poster loads -->
-            <img
-              v-if="result.poster_path"
-              src="../../assets/poster-placeholder.png"
-              width="70"
-              height="35.3"
-              alt="placeholder image"
-              class="placeholder-img"
-            />
-          </div>
-          <div class="result__info flex flex-fd-c">
-            <h3 class="result__info-title">{{ result.title }}</h3>
-            <p v-if="result.overview" class="result__info-overview">
-              {{ setOverviewLength(result.overview) }}
-            </p>
-            <p v-else class="result__info-overview">n/a</p>
-            <div class="flex">
-              <p v-if="result.release_date" class="result__info-date">
-                {{ result.release_date }}
-              </p>
-              <p v-else class="result__info-date">n/a</p>
-              <p class="result__info-rating flex flex-ai-c">
-                <img
-                  src="../../assets/rating-icon.svg"
-                  width="15"
-                  height="14.4"
-                  alt="star icon"
-                />{{ result.vote_average }}
-              </p>
+    <!-- show movie search handler for movies side of the site -->
+    <div v-if="activatedSide === 'movies'">
+      <ul v-for="result in results" :key="result.id">
+        <!-- set the route for showing a movie's information -->
+        <router-link :to="setMovieInfoRoute(result.title, result.id)">
+          <li
+            class="result flex"
+            @click="$emit('clear-results')"
+            :title="result.title"
+          >
+            <div class="result__poster">
+              <img
+                v-if="result.poster_path"
+                :src="setPath(result.poster_path)"
+                :alt="`poster image for ${result.title}`"
+                class="poster-img"
+              />
+              <img
+                v-else
+                src="../../assets/no-poster-img.svg"
+                width="70"
+                height="35.3"
+                alt="no poster image"
+                class="no-poster-img"
+              />
+              <!-- show a placeholder image before the poster loads -->
+              <img
+                v-if="result.poster_path"
+                src="../../assets/poster-placeholder.png"
+                width="70"
+                height="35.3"
+                alt="placeholder image"
+                class="placeholder-img"
+              />
             </div>
-          </div>
-        </li>
-      </router-link>
-    </ul>
+            <div class="result__info flex flex-fd-c">
+              <h3 class="result__info-title">{{ result.title }}</h3>
+              <p v-if="result.overview" class="result__info-overview">
+                {{ setOverviewLength(result.overview) }}
+              </p>
+              <p v-else class="result__info-overview">n/a</p>
+              <div class="flex">
+                <p v-if="result.release_date" class="result__info-date">
+                  {{ result.release_date }}
+                </p>
+                <p v-else class="result__info-date">n/a</p>
+                <p class="result__info-rating flex flex-ai-c">
+                  <img
+                    src="../../assets/rating-icon.svg"
+                    width="15"
+                    height="14.4"
+                    alt="star icon"
+                  />{{ result.vote_average }}
+                </p>
+              </div>
+            </div>
+          </li>
+        </router-link>
+      </ul>
 
-    <router-link
-      :to="newRoute"
-      v-if="isMoreResults"
-      @click="$emit('more-results')"
-      class="view-more-btn"
-      title="View More Results"
-    >
-      View More Results
-    </router-link>
+      <router-link
+        :to="newRoute"
+        v-if="isMoreResults"
+        @click="$emit('more-results')"
+        class="view-more-btn"
+        title="View More Results"
+      >
+        View More Results
+      </router-link>
+    </div>
+
+    <!-- show tv show search handler for tv show side of the site -->
+    <div v-else>
+      <ul v-for="show in results" :key="show.id">
+        <!-- set the route for showing a tv show's information -->
+        <router-link :to="setShowsInfoRoute(show.name, show.id)">
+          <li
+            class="result flex"
+            @click="$emit('clear-results')"
+            :title="show.name"
+          >
+            <div class="result__poster">
+              <img
+                v-if="show.poster_path"
+                :src="setPath(show.poster_path)"
+                :alt="`poster image for ${show.name}`"
+                class="poster-img"
+              />
+              <img
+                v-else
+                src="../../assets/no-poster-img.svg"
+                width="70"
+                height="35.3"
+                alt="no poster image"
+                class="no-poster-img"
+              />
+              <!-- show a placeholder image before the poster loads -->
+              <img
+                v-if="show.poster_path"
+                src="../../assets/poster-placeholder.png"
+                width="70"
+                height="35.3"
+                alt="placeholder image"
+                class="placeholder-img"
+              />
+            </div>
+            <div class="result__info flex flex-fd-c">
+              <h3 class="result__info-title">{{ show.name }}</h3>
+              <p v-if="show.overview" class="result__info-overview">
+                {{ setOverviewLength(show.overview) }}
+              </p>
+              <p v-else class="result__info-overview">n/a</p>
+              <div class="flex">
+                <p v-if="show.first_air_date" class="result__info-date">
+                  {{ show.first_air_date }}
+                </p>
+                <p v-else class="result__info-date">n/a</p>
+                <p class="result__info-rating flex flex-ai-c">
+                  <img
+                    src="../../assets/rating-icon.svg"
+                    width="15"
+                    height="14.4"
+                    alt="star icon"
+                  />{{ show.vote_average }}
+                </p>
+              </div>
+            </div>
+          </li>
+        </router-link>
+      </ul>
+    </div>
 
     <!-- Code to show if there are no results found -->
     <div
@@ -87,14 +151,20 @@
 <script>
 export default {
   name: "SearchHandler",
-  props: ["searchResults", "searchTerm"],
+  props: ["searchResults", "searchTerm", "activeSide"],
   emits: ["more-results", "clear-results"],
-  inject: ["setOverviewLength", "setPath", "setMovieInfoRoute"],
+  inject: [
+    "setOverviewLength",
+    "setPath",
+    "setMovieInfoRoute",
+    "setShowsInfoRoute",
+  ],
   data() {
     return {
       isSearchActive: this.searchResults.isSearchActive,
       results: this.searchResults.data,
       isMoreResults: this.searchResults.isMoreResults,
+      activatedSide: null, // to hold either 'movies' or 'shows'
     };
   },
   computed: {
@@ -105,6 +175,9 @@ export default {
       };
       return route;
     },
+  },
+  beforeMount() {
+    this.activatedSide = this.activeSide;
   },
 };
 </script>
