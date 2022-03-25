@@ -312,6 +312,11 @@ export default {
       this.$emit("show-button", true);
     }
   },
+  beforeUpdate() {
+    // call these methods before the page is shown
+    this.setInfoCardPosition();
+    this.checkWindowSize();
+  },
   updated() {
     // call these methods when the page is updated
     this.setInfoCardPosition();
