@@ -56,7 +56,7 @@
     </form>
   </div>
 
-  <div class="results-container wrapper flex flex-fd-c">
+  <div class="results-container wrapper expanded-search flex flex-fd-c">
     <div class="heading-wrapper flex flex-jc-sb flex-ai-c">
       <h1 v-if="queryParam" class="search-term">
         Showing results for: <span class="text-white">{{ userInput }}</span>
@@ -155,7 +155,7 @@
         </ul>
       </div>
       <!-- else show code indicating lack thereof -->
-      <div v-if="isNoResults" class="no-results">
+      <div v-if="isNoResults" class="no-results expanded-search">
         <img
           src="../../assets/search-icon-light.svg"
           width="50"
@@ -172,7 +172,7 @@
     <ContentPlaceholder v-if="isLoading" />
   </div>
 
-  <div class="pagination">
+  <div class="pagination expanded-search">
     <ThePagination
       v-if="totalPages && !isLoading"
       :received-pages="totalPages"
@@ -324,78 +324,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.search-container {
-  margin-top: 2.1875rem;
-  padding: 0 0.9375rem;
-}
-
-.search-form input {
-  width: 100%;
-}
-
-.results-container {
-  margin: 2.5rem 0;
-}
-
-.heading-wrapper {
-  color: var(--color-spanish-gray);
-  margin-bottom: 2.5rem;
-}
-
-.pages-found {
-  font-size: var(--font-size-18);
-}
-
-.search-term .text-white {
-  margin-left: 0.3125rem;
-}
-
-.content__poster img.no-poster-img {
-  padding: 50% 0;
-  object-fit: contain;
-}
-
-.no-results {
-  position: relative;
-  top: 6.25rem;
-  width: 100%;
-  text-align: center;
-  font-size: var(--font-size-18);
-  color: var(--color-clouds);
-}
-
-.no-results img {
-  margin-bottom: 0.625rem;
-}
-
-.pagination {
-  text-align: center;
-}
-
-.expanded-search-placeholder {
-  margin-top: -2.5rem;
-}
-
-@media screen and (max-width: 768px) {
-  .results-container {
-    margin-top: 1rem;
-  }
-
-  .heading-wrapper {
-    margin-bottom: 1rem;
-    flex-direction: column;
-    align-items: start;
-  }
-
-  .search-term {
-    font-size: var(--font-size-24);
-    margin-bottom: 0.625rem;
-  }
-
-  .no-results {
-    top: 3.125rem;
-  }
-}
-</style>
