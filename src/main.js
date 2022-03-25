@@ -13,6 +13,7 @@ import ShowInfo from "./components/tv/ShowInfo.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    { path: "/", redirect: "/movies" },
     { path: "/movies", component: TheMovies },
     { path: "/shows", component: TheShows },
     { path: "/movies/info", component: MovieInfo },
