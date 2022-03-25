@@ -235,17 +235,23 @@ export default {
 
       this.isResults = true;
       this.isLoading = false;
-      if (data.results.length === 0) {
-        this.isNoResults = true;
-      } else {
-        this.isNoResults = false;
-      }
-      this.totalPages = data.total_pages;
+      this.totalPages = this.getFiftyPages(data.total_pages);
+      this.isNoResults = this.checkDataLength(data.results);
+      // this.totalPages = data.total_pages;
       this.searchResults = data.results;
     },
     switchPages(newPage) {
       this.getShows(this.searchLink, newPage);
       this.selectedPage = newPage;
+    },
+    getFiftyPages(receivedPages) {
+      // only get the first 50 pages
+      if (receivedPages > 50) return 50;
+      return receivedPages;
+    },
+    checkDataLength(results) {
+      if (results.length === 0) return true;
+      return false;
     },
     updateRoute(searchTerm, activePage) {
       // update the query parameter on the route link
