@@ -5,7 +5,8 @@ import App from "./App.vue";
 import TheMovies from "./components/TheMovies.vue";
 import TheShows from "./components/TheShows.vue";
 import MovieInfo from "./components/movies/MovieInfo.vue";
-import ExpandedSearch from "./components/search/ExpandedSearch.vue";
+import ExpandedMoviesearch from "./components/search/ExpandedMoviesearch.vue";
+import ExpandedTvsearch from "./components/search/ExpandedTvsearch.vue";
 import ShowInfo from "./components/tv/ShowInfo.vue";
 
 // create the router
@@ -15,9 +16,9 @@ const router = createRouter({
     { path: "/movies", component: TheMovies },
     { path: "/shows", component: TheShows },
     { path: "/movies/info", component: MovieInfo },
-    { path: "/movies/search", component: ExpandedSearch },
+    { path: "/movies/search", component: ExpandedMoviesearch },
     { path: "/shows/info", component: ShowInfo },
-    { path: "/shows/search", component: ExpandedSearch },
+    { path: "/shows/search", component: ExpandedTvsearch },
   ],
 });
 
