@@ -305,6 +305,12 @@ export default {
     this.searchTerm = this.$route.query.keyword;
     // emit a custom event to show the close button on the header
     this.$emit("show-button", true);
+
+    // check if the active path is /shows/search then show the close button
+    const activePath = this.$route.path;
+    if (activePath === "/shows/search") {
+      this.$emit("show-button", true);
+    }
   },
   updated() {
     // call these methods when the page is updated
