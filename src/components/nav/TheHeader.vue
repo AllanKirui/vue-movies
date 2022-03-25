@@ -109,8 +109,19 @@
 
     <!-- show the close button -->
     <div v-else class="button-wrapper">
+      <!-- go to the first page for movies -->
       <router-link
+        v-if="activeSide === 'movies'"
         :to="moviesRoute"
+        @click="removeExpandedSearchResults"
+        title="Close Search"
+      >
+        Close Search
+      </router-link>
+      <!-- go to the first page for tv shows -->
+      <router-link
+        v-else
+        :to="showsRoute"
         @click="removeExpandedSearchResults"
         title="Close Search"
       >
