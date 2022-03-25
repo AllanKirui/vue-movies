@@ -143,6 +143,7 @@
   <teleport to="body">
     <div
       :class="[isSearchActive ? 'active-overlay' : '', 'overlay']"
+      title="Close Search"
       @click="removeOverlay"
     ></div>
   </teleport>
@@ -260,6 +261,7 @@ export default {
       };
     },
     removeOverlay() {
+      this.isLoading = false;
       this.isSearchActive = !this.isSearchActive;
       this.searchResults[0] = false;
       this.searchTerm = "";
