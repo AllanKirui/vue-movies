@@ -103,6 +103,7 @@ import ThePagination from "../ui/ThePagination.vue";
 export default {
   name: "ShowsList",
   components: { ContentPlaceholder, ThePagination },
+  emits: ["show-button"],
   inject: [
     "setPath",
     "setTitleLength",
@@ -215,6 +216,8 @@ export default {
     // call these methods when the page is updated
     this.setInfoCardPosition();
     this.checkWindowSize();
+    // emit a custom event to hide the close button on the header
+    this.$emit("show-button", false);
   },
 };
 </script>
