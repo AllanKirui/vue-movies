@@ -90,7 +90,7 @@
                 />
                 <img
                   v-else
-                  src="../../assets/no-poster-img.svg"
+                  src="../../assets/poster-placeholder.png"
                   width="70"
                   height="35.3"
                   alt="no poster image"
