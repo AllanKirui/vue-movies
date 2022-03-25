@@ -72,20 +72,20 @@
     <div v-if="!isLoading">
       <div>
         <ul
-          v-for="result in searchResults"
-          :key="result.id"
+          v-for="movie in searchResults"
+          :key="movie.id"
           class="content-wrapper"
         >
           <router-link
-            :to="setMovieInfoRoute(result.title, result.id)"
+            :to="setMovieInfoRoute(movie.title, movie.id)"
             @click="$emit('show-button', false)"
           >
-            <li class="content hover" :title="result.title">
+            <li class="content hover" :title="movie.title">
               <div class="content__poster">
                 <img
-                  v-if="result.poster_path"
-                  :src="setPath(result.poster_path)"
-                  :alt="`poster image for ${result.title}`"
+                  v-if="movie.poster_path"
+                  :src="setPath(movie.poster_path)"
+                  :alt="`poster image for ${movie.title}`"
                   class="poster-img"
                 />
                 <img
@@ -98,7 +98,7 @@
                 />
                 <!-- show a placeholder image before the poster loads -->
                 <img
-                  v-if="result.poster_path"
+                  v-if="movie.poster_path"
                   src="../../assets/poster-placeholder.png"
                   width="70"
                   height="35.3"
@@ -109,11 +109,11 @@
               </div>
               <div class="content__info">
                 <h3 class="content__info-title">
-                  {{ setTitleLength(result.title) }}
+                  {{ setTitleLength(movie.title) }}
                 </h3>
                 <div class="meta flex flex-jc-sb">
-                  <p v-if="result.release_date" class="content__info-date">
-                    {{ setDate(result.release_date) }}
+                  <p v-if="movie.release_date" class="content__info-date">
+                    {{ setDate(movie.release_date) }}
                   </p>
                   <p v-else class="content__info-date">n/a</p>
                   <p class="content__info-rating">
@@ -122,33 +122,33 @@
                       width="15"
                       height="14.4"
                       alt="star icon"
-                    />{{ result.vote_average }}
+                    />{{ movie.vote_average }}
                   </p>
                 </div>
               </div>
               <!-- movie info card -->
               <div v-if="isShowInfo" class="hover__info">
-                <h2 class="hover__info-title">{{ result.title }}</h2>
+                <h2 class="hover__info-title">{{ movie.title }}</h2>
                 <span class="grey-bg"></span>
-                <p v-if="result.overview" class="hover__info-overview">
-                  {{ setOverviewLength(result.overview) }}
+                <p v-if="movie.overview" class="hover__info-overview">
+                  {{ setOverviewLength(movie.overview) }}
                 </p>
                 <p v-else class="hover__info-overview">n/a</p>
 
                 <div class="meta__info">
                   <div class="meta__info-rating flex">
                     <p class="description">Rating:</p>
-                    <p class="data">{{ result.vote_average }} / 10</p>
+                    <p class="data">{{ movie.vote_average }} / 10</p>
                   </div>
                   <div class="meta__info-release flex">
                     <p class="description">Release:</p>
-                    <p v-if="result.release_date" class="data">
-                      {{ setDate(result.release_date) }}
+                    <p v-if="movie.release_date" class="data">
+                      {{ setDate(movie.release_date) }}
                     </p>
                     <p v-else class="data">n/a</p>
                   </div>
                 </div>
-                <button :title="result.title">View More Info</button>
+                <button :title="movie.title">View More Info</button>
               </div>
             </li>
           </router-link>
