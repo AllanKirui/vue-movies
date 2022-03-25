@@ -1,0 +1,390 @@
+<template>
+  <div class="search-container">
+    <form
+      class="search-form expanded-search"
+      @submit.prevent="getShows(searchLink, defaultPage)"
+    >
+      <label for="search">Search</label>
+      <input
+        name="search"
+        type="text"
+        placeholder="Search for movies or TV shows..."
+        v-model.trim="searchTerm"
+      />
+      <button title="search" class="search-btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="21"
+          viewBox="0 0 5.5562499 5.5562502"
+        >
+          <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+            <g
+              id="g2499"
+              transform="matrix(0.99256808,0,0,0.99256808,-633.03941,-286.23689)"
+              style="display: inline; stroke: #090909; stroke-opacity: 1"
+            >
+              <circle
+                style="
+                  fill: none;
+                  fill-opacity: 1;
+                  stroke: #090909;
+                  stroke-width: 0.40755;
+                  stroke-opacity: 1;
+                "
+                id="circle2495"
+                cx="640.03369"
+                cy="290.65128"
+                r="2.0451832"
+              />
+              <path
+                style="
+                  fill: none;
+                  stroke: #090909;
+                  stroke-width: 0.396875;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-opacity: 1;
+                "
+                d="m 641.51906,292.13667 1.72321,1.7232"
+                id="path2497"
+              />
+            </g>
+          </g>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <div class="results-container wrapper flex flex-fd-c">
+    <div class="heading-wrapper flex flex-jc-sb flex-ai-c">
+      <h1 v-if="queryParam" class="search-term">
+        Showing results for: <span class="text-white">{{ userInput }}</span>
+      </h1>
+      <p v-if="isResults && !isLoading && !isNoResults" class="pages-found">
+        Showing page
+        <span class="text-white">{{ selectedPage }}</span> of
+        <span class="text-white">{{ totalPages }}</span>
+      </p>
+    </div>
+
+    <!-- show the data once we're done loading -->
+    <div v-if="!isLoading">
+      <div>
+        <ul
+          v-for="show in searchResults"
+          :key="show.id"
+          class="content-wrapper"
+        >
+          <router-link
+            :to="setShowsInfoRoute(show.name, show.id)"
+            @click="$emit('show-button', false)"
+          >
+            <li class="content hover" :title="show.name">
+              <div class="content__poster">
+                <img
+                  v-if="show.poster_path"
+                  :src="setPath(show.poster_path)"
+                  :alt="`poster image for ${show.name}`"
+                  class="poster-img"
+                />
+                <img
+                  v-else
+                  src="../../assets/no-poster-img.svg"
+                  width="70"
+                  height="35.3"
+                  alt="no poster image"
+                  class="no-poster-img"
+                />
+                <!-- show a placeholder image before the poster loads -->
+                <img
+                  v-if="show.poster_path"
+                  src="../../assets/poster-placeholder.png"
+                  width="70"
+                  height="35.3"
+                  alt="placeholder image"
+                  class="placeholder-img"
+                />
+                <p class="tag">Movie</p>
+              </div>
+              <div class="content__info">
+                <h3 class="content__info-title">
+                  {{ setTitleLength(show.name) }}
+                </h3>
+                <div class="meta flex flex-jc-sb">
+                  <p v-if="show.first_air_date" class="content__info-date">
+                    {{ setDate(show.first_air_date) }}
+                  </p>
+                  <p v-else class="content__info-date">n/a</p>
+                  <p class="content__info-rating">
+                    <img
+                      src="../../assets/rating-icon.svg"
+                      width="15"
+                      height="14.4"
+                      alt="star icon"
+                    />{{ show.vote_average }}
+                  </p>
+                </div>
+              </div>
+              <!-- movie info card -->
+              <div v-if="isShowInfo" class="hover__info">
+                <h2 class="hover__info-title">{{ show.name }}</h2>
+                <span class="grey-bg"></span>
+                <p v-if="show.overview" class="hover__info-overview">
+                  {{ setOverviewLength(show.overview) }}
+                </p>
+                <p v-else class="hover__info-overview">n/a</p>
+
+                <div class="meta__info">
+                  <div class="meta__info-rating flex">
+                    <p class="description">Rating:</p>
+                    <p class="data">{{ show.vote_average }} / 10</p>
+                  </div>
+                  <div class="meta__info-release flex">
+                    <p class="description">Release:</p>
+                    <p v-if="show.first_air_date" class="data">
+                      {{ setDate(show.first_air_date) }}
+                    </p>
+                    <p v-else class="data">n/a</p>
+                  </div>
+                </div>
+                <button :title="show.name">View More Info</button>
+              </div>
+            </li>
+          </router-link>
+        </ul>
+      </div>
+      <!-- else show code indicating lack thereof -->
+      <div v-if="isNoResults" class="no-results">
+        <img
+          src="../../assets/search-icon-light.svg"
+          width="50"
+          height="50"
+          alt="no results found image"
+        />
+        <p>Oops! No results found</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- if we're loading, show the content placeholder -->
+  <div class="expanded-search-placeholder">
+    <ContentPlaceholder v-if="isLoading" />
+  </div>
+
+  <div class="pagination">
+    <ThePagination
+      v-if="totalPages && !isLoading"
+      :received-pages="totalPages"
+      :chosen-page="selectedPage"
+      @switch-page="switchPages"
+    />
+  </div>
+</template>
+
+<script>
+import apiKey from "../../../config.js";
+import ContentPlaceholder from "../ui/ContentPlaceholder.vue";
+import ThePagination from "../ui/ThePagination.vue";
+const searchAPI = `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}`;
+
+export default {
+  name: "ExpandedSearch",
+  components: { ContentPlaceholder, ThePagination },
+  emits: ["show-button", "activated-side"],
+  inject: [
+    "setPath",
+    "setTitleLength",
+    "setOverviewLength",
+    "setDate",
+    "scrollToTop",
+    "setShowsInfoRoute",
+  ],
+  data() {
+    return {
+      searchTerm: "",
+      userInput: "",
+      queryParam: "", // to hold the page to fetch and the query
+      searchLink: searchAPI,
+      searchResults: [],
+      isResults: false,
+      isNoResults: false,
+      totalPages: null,
+      defaultPage: 1,
+      selectedPage: 1,
+      isShowInfo: false,
+      isLoading: false,
+    };
+  },
+  methods: {
+    async getShows(url, page) {
+      this.updateRoute(this.searchTerm, page);
+      this.isLoading = true;
+      // if there's a new searchTerm, emit a custom event to make fetch() get the first page
+      if (page === this.defaultPage) {
+        this.selectedPage = 1;
+      }
+      this.userInput = this.searchTerm;
+      this.queryParam = `&page=${page}&query="${this.searchTerm}`;
+      // perform resets before a new fetch request
+      this.searchResults = [];
+
+      // fetch data
+      const response = await fetch(url + this.queryParam);
+      const data = await response.json();
+
+      this.isResults = true;
+      this.isLoading = false;
+      if (data.results.length === 0) {
+        this.isNoResults = true;
+      } else {
+        this.isNoResults = false;
+      }
+      this.totalPages = data.total_pages;
+      this.searchResults = data.results;
+    },
+    switchPages(newPage) {
+      this.getShows(this.searchLink, newPage);
+      this.selectedPage = newPage;
+    },
+    updateRoute(searchTerm, activePage) {
+      // update the query parameter on the route link
+      this.$router.push({
+        path: "/shows/search",
+        query: { keyword: searchTerm, page: activePage },
+      });
+    },
+    setInfoCardPosition() {
+      let viewportWidth = window.innerWidth;
+      // only show hover information for screens 768px and above
+      if (viewportWidth >= 1024) {
+        this.isShowInfo = true;
+        const showItems = document.querySelectorAll(".hover__info");
+        showItems.forEach((show) => {
+          // find the distance to the right of each movie card
+          let distToRight = show.getBoundingClientRect().right;
+
+          // add an extra 250px to the distance, to make sure that it will be more
+          // than the viewport width, then set the appropriate position for the info card
+          if (
+            distToRight > viewportWidth ||
+            distToRight + 250 > viewportWidth
+          ) {
+            show.style.right = "95%";
+          } else {
+            show.style.right = "-110%";
+          }
+        });
+      } else {
+        this.isShowInfo = false;
+      }
+    },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", this.setInfoCardPosition);
+    },
+  },
+  watch: {
+    selectedPage() {
+      // when the selectedPage data property changes, call the scrollToTop method
+      this.scrollToTop();
+    },
+  },
+  beforeMount() {
+    // get the page number from the route's query parameter
+    const newPage = +this.$route.query.page;
+    // if there is a new page, switch pages
+    if (newPage) {
+      this.switchPages(newPage);
+    }
+    // emit a custom event that sets active styling on the header links
+    this.$emit("activated-side", "shows");
+  },
+  created() {
+    // get the search term from the keyword prop on the query parameter
+    this.searchTerm = this.$route.query.keyword;
+    // emit a custom event to show the close button on the header
+    this.$emit("show-button", true);
+  },
+  updated() {
+    // call these methods when the page is updated
+    this.setInfoCardPosition();
+    this.checkWindowSize();
+  },
+};
+</script>
+
+<style scoped>
+.search-container {
+  margin-top: 2.1875rem;
+  padding: 0 0.9375rem;
+}
+
+.search-form input {
+  width: 100%;
+}
+
+.results-container {
+  margin: 2.5rem 0;
+}
+
+.heading-wrapper {
+  color: var(--color-spanish-gray);
+  margin-bottom: 2.5rem;
+}
+
+.pages-found {
+  font-size: var(--font-size-18);
+}
+
+.search-term .text-white {
+  margin-left: 0.3125rem;
+}
+
+.content__poster img.no-poster-img {
+  padding: 50% 0;
+  object-fit: contain;
+}
+
+.no-results {
+  position: relative;
+  top: 6.25rem;
+  width: 100%;
+  text-align: center;
+  font-size: var(--font-size-18);
+  color: var(--color-clouds);
+}
+
+.no-results img {
+  margin-bottom: 0.625rem;
+}
+
+.pagination {
+  text-align: center;
+}
+
+.expanded-search-placeholder {
+  margin-top: -2.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .results-container {
+    margin-top: 1rem;
+  }
+
+  .heading-wrapper {
+    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .search-term {
+    font-size: var(--font-size-24);
+    margin-bottom: 0.625rem;
+  }
+
+  .no-results {
+    top: 3.125rem;
+  }
+}
+</style>
