@@ -4,12 +4,14 @@
       <!-- footer left/top -->
       <div class="footer__left flex flex-fd-c">
         <div class="footer__left-logo">
-          <img
-            src="../assets/logo.svg"
-            width="170"
-            height="57"
-            alt="vue movies logo"
-          />
+          <router-link :to="moviesRoute" @click="scrollToTop" title="Home">
+            <img
+              src="../assets/logo.svg"
+              width="170"
+              height="57"
+              alt="vue movies logo"
+            />
+          </router-link>
         </div>
         <div class="footer__left-text">
           <p>
@@ -64,6 +66,22 @@
     </div>
   </footer>
 </template>
+
+<script>
+export default {
+  name: "TheFooter",
+  inject: ["scrollToTop"],
+  computed: {
+    moviesRoute() {
+      const route = {
+        path: "/movies",
+        query: { page: 1 },
+      };
+      return route;
+    },
+  },
+};
+</script>
 
 <style scoped>
 footer {

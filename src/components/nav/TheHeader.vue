@@ -11,14 +11,16 @@
       </button>
 
       <div class="logo">
-        <img
-          src="../../assets/logo.svg"
-          width="191"
-          height="71"
-          alt="vue movies logo"
-          class="logo-img"
-        />
-        <h2 class="logo-text">Vue Movies</h2>
+        <router-link :to="moviesRoute" title="Home">
+          <img
+            src="../../assets/logo.svg"
+            width="191"
+            height="71"
+            alt="vue movies logo"
+            class="logo-img"
+          />
+          <h2 class="logo-text">Vue Movies</h2>
+        </router-link>
       </div>
 
       <ul class="nav-options flex">
