@@ -2,8 +2,8 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 import App from "./App.vue";
-import TheMovies from "./components/TheMovies.vue";
-import TheShows from "./components/TheShows.vue";
+import TheMovies from "./components/movies/TheMovies.vue";
+import TheShows from "./components/tv/TheShows.vue";
 import MovieInfo from "./components/movies/MovieInfo.vue";
 import ExpandedMoviesearch from "./components/search/ExpandedMoviesearch.vue";
 import ExpandedTvsearch from "./components/search/ExpandedTvsearch.vue";
