@@ -1,6 +1,9 @@
 <template>
   <div class="movies-list-wrapper flex flex-fd-c">
-    <ShowsList @show-button="$emit('show-button', false)" />
+    <ShowsList
+      :chosen-page="chosenPage"
+      @show-button="$emit('show-button', false)"
+    />
   </div>
 </template>
 
@@ -13,9 +16,19 @@ export default {
   components: {
     ShowsList,
   },
+  data() {
+    return {
+      chosenPage: null,
+    };
+  },
   beforeMount() {
     // emit a custom event that sets active styling on the header links
     this.$emit("activated-side", "shows");
+  },
+  updated() {
+    // get the page number from the route's query parameter
+    const newPage = +this.$route.query.page;
+    this.chosenPage = newPage;
   },
 };
 </script>

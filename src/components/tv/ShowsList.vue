@@ -103,6 +103,7 @@ import ThePagination from "../ui/ThePagination.vue";
 export default {
   name: "ShowsList",
   components: { ContentPlaceholder, ThePagination },
+  props: ["chosenPage"],
   emits: ["show-button"],
   inject: [
     "setPath",
@@ -192,6 +193,12 @@ export default {
       if (newValue) {
         this.getShows(newValue);
         this.selectedPage = newValue;
+      }
+    },
+    chosenPage(newValue) {
+      // if the chosenPage prop has a value, switch to that page
+      if (newValue) {
+        this.switchPages(newValue);
       }
     },
   },
