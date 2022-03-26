@@ -104,6 +104,7 @@ import ThePagination from "../ui/ThePagination.vue";
 export default {
   name: "MoviesList",
   components: { ContentPlaceholder, ThePagination },
+  props: ["chosenPage"],
   emits: ["show-button"],
   inject: [
     "setPath",
@@ -196,6 +197,12 @@ export default {
         this.selectedPage = newValue;
       }
     },
+    chosenPage(newValue) {
+      // if the chosenPage prop has a value, switch to that page
+      if (newValue) {
+        this.switchPages(newValue);
+      }
+    },
   },
   beforeMount() {
     // get the page number from the route's query parameter
@@ -220,6 +227,8 @@ export default {
     this.checkWindowSize();
     // emit a custom event to hide the close button on the header
     this.$emit("show-button", false);
+
+    // console.log("ML: ", this.$route.fullPath);
   },
 };
 </script>
