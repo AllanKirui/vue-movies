@@ -395,13 +395,13 @@ nav {
 
 .logo .logo-img {
   position: relative;
-  background: var(--color-jet-black);
   z-index: 2;
 }
 
 .logo .logo-text {
   position: absolute;
   top: 50%;
+  left: 3px;
   transform: translateY(-50%);
   color: var(--color-clouds);
   z-index: 1;
