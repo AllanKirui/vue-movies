@@ -184,6 +184,7 @@ export default {
   --color-silver-chalice: #b0b0b0;
 
   /* Font sizes */
+  --font-size-14: 0.875rem;
   --font-size-16: 1rem;
   --font-size-18: 1.125rem;
   --font-size-20: 1.25rem;
@@ -249,6 +250,10 @@ ul {
 
 .flex-ai-c {
   align-items: center;
+}
+
+.flex-ai-fe {
+  align-items: flex-end;
 }
 
 .flex-fw-w {
