@@ -10,10 +10,13 @@
     @show-button="showCloseButton"
     @activated-side="setActivatedSide"
   ></router-view>
+
+  <TheFooter />
 </template>
 
 <script>
 import TheHeader from "./components/nav/TheHeader.vue";
+import TheFooter from "./components/TheFooter.vue";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const backdropImgPath = "https://image.tmdb.org/t/p/w1280";
 
@@ -21,6 +24,7 @@ export default {
   name: "App",
   components: {
     TheHeader,
+    TheFooter,
   },
   data() {
     return {
