@@ -227,8 +227,6 @@ export default {
     this.checkWindowSize();
     // emit a custom event to hide the close button on the header
     this.$emit("show-button", false);
-
-    // console.log("ML: ", this.$route.fullPath);
   },
 };
 </script>
