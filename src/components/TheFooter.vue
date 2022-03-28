@@ -121,7 +121,7 @@ footer p a::before {
   transform: translateX(-50%);
   width: 100%;
   height: 2px;
-  background-color: var(--color-clouds);
+  background-color: var(--color-silver-chalice);
   transition: width 0.2s ease-in-out;
 }
 
