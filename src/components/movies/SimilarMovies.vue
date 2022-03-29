@@ -111,6 +111,7 @@ export default {
       similarMovies: [],
       isResults: false,
       isShowHoverInfo: false,
+      overviewLength: 150, // to show 150 characters for overview
     };
   },
   methods: {

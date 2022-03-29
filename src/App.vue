@@ -39,13 +39,13 @@ export default {
     setBackdropPath(backdrop_path) {
       return backdropImgPath + backdrop_path;
     },
-    setOverviewLength(overview) {
-      if (overview.length <= 150) {
+    setOverviewLength(overview, size) {
+      if (overview.length <= size) {
         return overview;
       }
 
       let shortOverview = "";
-      for (let i = 0; i <= 150; i++) {
+      for (let i = 0; i <= size; i++) {
         shortOverview += overview[i];
       }
       return shortOverview + "...";

@@ -59,7 +59,7 @@
               <h2 class="hover__info-title">{{ result.name }}</h2>
               <span class="grey-bg"></span>
               <p v-if="result.overview" class="hover__info-overview">
-                {{ setOverviewLength(result.overview) }}
+                {{ setOverviewLength(result.overview, overviewLength) }}
               </p>
               <p v-else class="hover__info-overview">n/a</p>
 
@@ -122,6 +122,7 @@ export default {
       selectedPage: 1, // the default page is 1
       defaultPage: 1,
       activePage: null,
+      overviewLength: 150, // to show 150 characters for overview
     };
   },
   methods: {

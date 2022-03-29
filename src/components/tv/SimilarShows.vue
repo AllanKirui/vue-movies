@@ -61,7 +61,7 @@
               <h2 class="hover__info-title">{{ show.name }}</h2>
               <span class="grey-bg"></span>
               <p v-if="show.overview" class="hover__info-overview">
-                {{ setOverviewLength(show.overview) }}
+                {{ setOverviewLength(show.overview, overviewLength) }}
               </p>
               <p v-else class="hover__info-overview">n/a</p>
 
@@ -107,6 +107,7 @@ export default {
       similarShows: [],
       isResults: false,
       isShowHoverInfo: false,
+      overviewLength: 150, // to show 150 characters for overview
     };
   },
   methods: {
