@@ -2,19 +2,19 @@
   <div :class="[isSearchActive ? 'active' : '', 'results-wrapper']">
     <!-- show movie search handler for movies side of the site -->
     <div v-if="activatedSide === 'movies'">
-      <ul v-for="result in results" :key="result.id">
+      <ul v-for="movie in results" :key="movie.id">
         <!-- set the route for showing a movie's information -->
-        <router-link :to="setMovieInfoRoute(result.title, result.id)">
+        <router-link :to="setMovieInfoRoute(movie.title, movie.id)">
           <li
             class="result flex"
             @click="$emit('clear-results')"
-            :title="result.title"
+            :title="movie.title"
           >
             <div class="result__poster">
               <img
-                v-if="result.poster_path"
-                :src="setPath(result.poster_path)"
-                :alt="`poster image for ${result.title}`"
+                v-if="movie.poster_path"
+                :src="setPath(movie.poster_path)"
+                :alt="`poster image for ${movie.title}`"
                 class="poster-img"
               />
               <img
@@ -27,7 +27,7 @@
               />
               <!-- show a placeholder image before the poster loads -->
               <img
-                v-if="result.poster_path"
+                v-if="movie.poster_path"
                 src="../../assets/poster-placeholder.png"
                 width="70"
                 height="35.3"
@@ -36,14 +36,14 @@
               />
             </div>
             <div class="result__info flex flex-fd-c">
-              <h3 class="result__info-title">{{ result.title }}</h3>
-              <p v-if="result.overview" class="result__info-overview">
-                {{ setOverviewLength(result.overview) }}
+              <h3 class="result__info-title">{{ movie.title }}</h3>
+              <p v-if="movie.overview" class="result__info-overview">
+                {{ setOverviewLength(movie.overview, overviewLength) }}
               </p>
               <p v-else class="result__info-overview">n/a</p>
               <div class="flex">
-                <p v-if="result.release_date" class="result__info-date">
-                  {{ result.release_date }}
+                <p v-if="movie.release_date" class="result__info-date">
+                  {{ movie.release_date }}
                 </p>
                 <p v-else class="result__info-date">n/a</p>
                 <p class="result__info-rating flex flex-ai-c">
@@ -52,7 +52,7 @@
                     width="15"
                     height="14.4"
                     alt="star icon"
-                  />{{ result.vote_average }}
+                  />{{ movie.vote_average }}
                 </p>
               </div>
             </div>
@@ -109,7 +109,7 @@
             <div class="result__info flex flex-fd-c">
               <h3 class="result__info-title">{{ show.name }}</h3>
               <p v-if="show.overview" class="result__info-overview">
-                {{ setOverviewLength(show.overview) }}
+                {{ setOverviewLength(show.overview, overviewLength) }}
               </p>
               <p v-else class="result__info-overview">n/a</p>
               <div class="flex">
@@ -175,6 +175,7 @@ export default {
       results: this.searchResults.data,
       isMoreResults: this.searchResults.isMoreResults,
       activatedSide: null, // to hold either 'movies' or 'shows'
+      overviewLength: 150, // to show 150 characters for overview
     };
   },
   computed: {
