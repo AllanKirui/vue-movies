@@ -369,20 +369,20 @@ html::-webkit-scrollbar-track,
   visibility: visible;
 }
 
-.carousel__pagination {
+.carousel .carousel__pagination {
   margin-top: -2rem;
   position: relative;
   top: 0;
 }
 
-.carousel__pagination-button {
+.carousel .carousel__pagination-button {
   width: 5px;
   height: 8px;
   border-radius: 50px;
   background-color: var(--color-spanish-gray);
 }
 
-.carousel__pagination-button.carousel__pagination-button--active {
+.carousel .carousel__pagination-button.carousel__pagination-button--active {
   background-color: var(--color-white);
 }
 
