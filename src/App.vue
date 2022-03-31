@@ -373,16 +373,18 @@ html::-webkit-scrollbar-track,
   margin-top: -2rem;
   position: relative;
   top: 0;
+  z-index: 2 !important;
 }
 
 .carousel .carousel__pagination-button {
   width: 5px;
-  height: 8px;
+  height: 5px;
   border-radius: 50px;
   background-color: var(--color-spanish-gray);
 }
 
 .carousel .carousel__pagination-button.carousel__pagination-button--active {
+  height: 7px;
   background-color: var(--color-white);
 }
 
@@ -397,7 +399,7 @@ html::-webkit-scrollbar-track,
   bottom: 0;
   width: 100%;
   min-height: 30%;
-  padding: 0.875rem 1rem;
+  padding: 0.875rem 1rem 1.5rem;
   background: rgba(0, 0, 0, 0.75);
   text-shadow: 1px 1px 2px var(--color-jet-black);
 }
@@ -433,7 +435,7 @@ html::-webkit-scrollbar-track,
 .showcase__info .meta .view-info-link {
   padding: 8px 12px;
   border-radius: 5px;
-  font-size: var(--font-size-14);
+  font-size: var(--font-size-16);
   background-color: var(--color-smokey-black);
   color: var(--color-clouds);
   cursor: pointer;
