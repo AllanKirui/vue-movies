@@ -1,7 +1,7 @@
 <template>
-  <div class="showcase-wrapper">
+  <div v-if="!isLoading" class="showcase-wrapper">
     <!-- show the data once we're done loading -->
-    <Carousel v-if="!isLoading" :settings="settings">
+    <Carousel :settings="settings">
       <Slide v-for="movie in results" :key="movie.id">
         <div class="carousel__item">
           <!-- movie poster -->
@@ -71,12 +71,16 @@
       </template>
     </Carousel>
   </div>
+
+  <!-- if we're loading, show the content placeholder -->
+  <ShowcasePlaceholder v-else />
 </template>
 
 <script>
 import apiKey from "../../../config.js";
 import { Carousel, Pagination, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
+import ShowcasePlaceholder from "../ui/ShowcasePlaceholder.vue";
 
 export default {
   name: "MovieShowcase",
@@ -86,7 +90,7 @@ export default {
     "setOverviewLength",
     "setMovieInfoRoute",
   ],
-  components: { Carousel, Pagination, Slide },
+  components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
   data() {
     return {
       isLoading: false,
@@ -104,7 +108,7 @@ export default {
   methods: {
     async getMovies() {
       this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US`;
+      const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
 
       // perform resets before a new fetch request
       this.searchResults = [];
