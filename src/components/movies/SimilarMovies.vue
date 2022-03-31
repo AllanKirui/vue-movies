@@ -65,7 +65,7 @@
               <h2 class="hover__info-title">{{ movie.title }}</h2>
               <span class="grey-bg"></span>
               <p v-if="movie.overview" class="hover__info-overview">
-                {{ setOverviewLength(movie.overview) }}
+                {{ setOverviewLength(movie.overview, overviewLength) }}
               </p>
               <p v-else class="hover__info-overview">n/a</p>
 
