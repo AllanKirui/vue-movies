@@ -1,5 +1,6 @@
 <template>
   <div class="showcase-wrapper">
+    <!-- show the data once we're done loading -->
     <Carousel v-if="!isLoading" :settings="settings">
       <Slide v-for="movie in results" :key="movie.id">
         <div class="carousel__item">
@@ -18,8 +19,6 @@
               alt="placeholder image"
               class="placeholder-img"
             />
-            <!-- width="70"
-              height="35.3" -->
           </div>
 
           <!-- movie text -->
@@ -58,6 +57,7 @@
               <router-link
                 :to="setMovieInfoRoute(movie.title, movie.id)"
                 :title="movie.title"
+                class="view-info-link"
                 >View Info</router-link
               >
             </div>
@@ -70,7 +70,6 @@
         <Pagination />
       </template>
     </Carousel>
-    <div v-else style="color: #fff">Loading...</div>
   </div>
 </template>
 
@@ -133,117 +132,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.carousel__slide {
-  padding: 0 10px 10px;
-  position: relative;
-}
-
-.carousel__item {
-  max-height: calc(95vh - 5rem);
-  width: 100%;
-  background-color: var(--color-jet-black);
-  color: var(--color-white);
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.carousel__slide > .carousel__item {
-  transform: scale(0.92);
-}
-
-.carousel__slide--active > .carousel__item {
-  transform: scale(1);
-}
-
-.carousel__slide > .carousel__item .showcase__info {
-  visibility: hidden;
-}
-
-.carousel__slide--active > .carousel__item .showcase__info {
-  visibility: visible;
-}
-
-.carousel__pagination {
-  margin-top: -2rem;
-  position: relative;
-  top: 0;
-}
-
-.carousel__pagination-button {
-  width: 5px;
-  height: 8px;
-  border-radius: 50px;
-  background-color: var(--color-spanish-gray);
-}
-
-.carousel__pagination-button.carousel__pagination-button--active {
-  background-color: var(--color-white);
-}
-
-.showcase__poster img {
-  width: 100%;
-  object-fit: cover;
-}
-
-.showcase__info {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  min-height: 30%;
-  padding: 0.875rem 1rem;
-  background: rgba(0, 0, 0, 0.75);
-  text-shadow: 1px 1px 2px var(--color-jet-black);
-}
-
-.showcase__info-title {
-  text-align: left;
-  margin-bottom: 0.5rem;
-}
-
-.showcase__info-rating {
-  margin-right: 1rem;
-}
-
-.showcase__info-rating img {
-  margin-right: 0.3125rem;
-}
-
-.meta {
-  font-size: var(--font-size-18);
-  text-align: left;
-  color: var(--color-white);
-}
-
-.meta .meta-section-1 {
-  margin-bottom: 1rem;
-}
-
-.meta .meta-section-2 {
-  width: 90%;
-  margin-bottom: 1rem;
-}
-
-.meta a {
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-size: var(--font-size-14);
-  /* font-weight: bold; */
-  background-color: var(--color-smokey-black);
-  color: var(--color-clouds);
-  cursor: pointer;
-  text-shadow: none;
-  transition: all 0.15s ease-in-out;
-}
-
-.meta a:hover {
-  color: var(--color-smokey-black);
-  background-color: var(--color-clouds);
-}
-</style>
