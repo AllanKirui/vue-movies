@@ -377,6 +377,7 @@ html::-webkit-scrollbar-track,
   transition: transform 0.2s ease-in-out;
 }
 
+.showcase__poster img.poster-img,
 .content__poster img.poster-img {
   position: absolute;
   top: 0;
