@@ -1,5 +1,6 @@
 <template>
   <div class="movies-list-wrapper flex flex-fd-c">
+    <ShowShowcase />
     <ShowsList
       :chosen-page="chosenPage"
       @show-button="$emit('show-button', false)"
@@ -8,12 +9,14 @@
 </template>
 
 <script>
+import ShowShowcase from "./ShowShowcase.vue";
 import ShowsList from "./ShowsList.vue";
 
 export default {
   name: "TheMovies",
   emits: ["activated-side", "show-button"],
   components: {
+    ShowShowcase,
     ShowsList,
   },
   data() {
