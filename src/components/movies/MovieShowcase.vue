@@ -11,6 +11,15 @@
               :alt="`poster image for ${movie.title}`"
               class="poster-img"
             />
+            <!-- show a placeholder image before the backdrop loads -->
+            <img
+              v-if="movie.poster_path"
+              src="../../assets/video-placeholder.png"
+              alt="placeholder image"
+              class="placeholder-img"
+            />
+            <!-- width="70"
+              height="35.3" -->
           </div>
 
           <!-- movie text -->
@@ -134,8 +143,8 @@ export default {
 .carousel__item {
   max-height: calc(95vh - 5rem);
   width: 100%;
-  background-color: var(--vc-clr-primary);
-  color: var(--vc-clr-white);
+  background-color: var(--color-jet-black);
+  color: var(--color-white);
   border-radius: 6px;
   display: flex;
   justify-content: center;
