@@ -1,7 +1,9 @@
 <template>
   <div v-if="!isLoading" class="showcase-wrapper">
     <!-- show the data once we're done loading -->
-    <Carousel :settings="settings">
+    <Carousel
+      :settings="!screenSize ? setSlides() : setSlidesWithViewportWidth()"
+    >
       <Slide v-for="show in results" :key="show.id">
         <div class="carousel__item">
           <!-- tv show poster -->
@@ -95,14 +97,8 @@ export default {
     return {
       isLoading: false,
       results: [],
-      settings: {
-        // carousel settings
-        wrapAround: true,
-        itemsToShow: 1.25,
-        snapAlign: "center",
-        autoplay: 8000, // 8 second duration
-      },
       overviewLength: 300, // to show 300 characters for overview
+      screenSize: null,
     };
   },
   methods: {
@@ -130,9 +126,52 @@ export default {
         this.results.push(results);
       }
     },
+    setSlidesWithViewportWidth() {
+      // gets slides by calculating the viewport width first
+      let viewportWidth = window.innerWidth;
+      let slideItems = this.getSlideItems(viewportWidth);
+
+      // return carousel settings
+      return this.setCarouselSettings(slideItems);
+    },
+    setSlides() {
+      let slideItems = this.getSlideItems(this.screenSize);
+
+      // return carousel settings
+      return this.setCarouselSettings(slideItems);
+    },
+    setCarouselSettings(size) {
+      // return carousel settings
+      return {
+        wrapAround: true,
+        itemsToShow: size,
+        snapAlign: "center",
+        autoplay: 8000, // 8 second duration
+      };
+    },
+    getSlideItems(size) {
+      // returns how many slide items to show based on screen size
+      if (size <= 1023) {
+        return 1; // one full width slide
+      } else {
+        return 1.25; // one full width item plus two partial slide
+      }
+    },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", () => {
+        this.screenSize = window.innerWidth;
+      });
+    },
   },
   beforeMount() {
     this.getShows();
+    // get the window's width before data is shown on the screen
+    this.screenSize = window.innerWidth;
+  },
+  mounted() {
+    // call the method after data has been loaded to the screen
+    this.checkWindowSize();
   },
 };
 </script>
