@@ -44,6 +44,13 @@
                 </p>
                 <p v-else class="showcase__info-overview">n/a</p>
               </div>
+
+              <!-- more info button -->
+              <router-link
+                :to="setMovieInfoRoute(movie.title, movie.id)"
+                :title="movie.title"
+                >View Info</router-link
+              >
             </div>
           </div>
         </div>
@@ -65,7 +72,12 @@ import "vue3-carousel/dist/carousel.css";
 
 export default {
   name: "MovieShowcase",
-  inject: ["setBackdropPath", "setDate", "setOverviewLength"],
+  inject: [
+    "setBackdropPath",
+    "setDate",
+    "setOverviewLength",
+    "setMovieInfoRoute",
+  ],
   components: { Carousel, Pagination, Slide },
   data() {
     return {
@@ -76,7 +88,7 @@ export default {
         wrapAround: true,
         itemsToShow: 1.25,
         snapAlign: "center",
-        autoplay: 5000,
+        autoplay: 8000, // 8 second duration
       },
       overviewLength: 300, // to show 300 characters for overview
     };
@@ -84,7 +96,7 @@ export default {
   methods: {
     async getMovies() {
       this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US`;
+      const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-US`;
 
       // perform resets before a new fetch request
       this.searchResults = [];
@@ -206,6 +218,23 @@ export default {
 
 .meta .meta-section-2 {
   width: 90%;
-  margin-bottom: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.meta a {
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: var(--font-size-14);
+  /* font-weight: bold; */
+  background-color: var(--color-smokey-black);
+  color: var(--color-clouds);
+  cursor: pointer;
+  text-shadow: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.meta a:hover {
+  color: var(--color-smokey-black);
+  background-color: var(--color-clouds);
 }
 </style>
