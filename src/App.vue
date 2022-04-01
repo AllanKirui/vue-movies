@@ -373,13 +373,11 @@ html::-webkit-scrollbar-track,
   margin-top: -2rem;
   position: relative;
   top: 0;
-  z-index: 2 !important;
 }
 
 .carousel .carousel__pagination-button {
   width: 5px;
   height: 5px;
-  border-radius: 50px;
   background-color: var(--color-spanish-gray);
 }
 
@@ -393,10 +391,21 @@ html::-webkit-scrollbar-track,
   object-fit: cover;
 }
 
-.showcase__info {
+.mobile-info {
+  color: var(--color-clouds);
+}
+
+.showcase__info.hide-for-small {
   position: absolute;
   left: 0;
   bottom: 0;
+}
+
+.showcase__info.hide-for-large {
+  width: 100vw;
+}
+
+.showcase__info {
   width: 100%;
   min-height: 30%;
   padding: 0.875rem 1rem 1.5rem;
@@ -793,6 +802,12 @@ html::-webkit-scrollbar-track,
 }
 
 @media screen and (max-width: 1023px) {
+  /* showcase styles */
+  .carousel__slide {
+    padding: 0 0 10px;
+  }
+
+  /* movie/shows list styles */
   .content-wrapper .content {
     height: 22.5rem;
     margin-bottom: 0px !important;
@@ -810,7 +825,19 @@ html::-webkit-scrollbar-track,
   }
 }
 
+@media screen and (min-width: 769px) {
+  /* showcase styles */
+  .showcase__poster img {
+    width: 100%;
+    height: 100%;
+  }
+  .mobile-info {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 768px) {
+  /* movie/shows list styles */
   .content-wrapper {
     margin: 0 -0.75%;
   }
@@ -839,6 +866,64 @@ html::-webkit-scrollbar-track,
 
   .no-results {
     top: 3.125rem;
+  }
+
+  /* showcase styles */
+  .carousel {
+    height: fit-content;
+    background-color: var(--color-jet-black);
+  }
+
+  .carousel__slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: fit-content;
+  }
+
+  .carousel__item {
+    border-radius: unset;
+  }
+
+  .showcase__poster {
+    position: relative;
+    height: fit-content;
+  }
+
+  .showcase__poster img.placeholder-img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .showcase__info.hide-for-small {
+    display: none;
+  }
+
+  .showcase__info {
+    background-color: var(--color-jet-black);
+  }
+
+  .showcase__info-title {
+    font-size: var(--font-size-22);
+  }
+
+  .showcase__info .meta {
+    font-size: var(--font-size-16);
+  }
+
+  .showcase__info .meta .meta-section-2 {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .showcase__info .meta .view-info-link {
+    background-color: var(--color-clouds);
+    color: var(--color-smokey-black);
+  }
+
+  .showcase__info .meta .view-info-link:hover {
+    color: var(--color-clouds);
+    background-color: var(--color-smokey-black);
   }
 }
 
