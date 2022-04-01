@@ -14,8 +14,8 @@
         <router-link :to="moviesRoute" title="Home">
           <img
             src="../../assets/logo.svg"
-            width="191"
-            height="71"
+            width="170"
+            height="57"
             alt="vue movies logo"
             class="logo-img"
           />
@@ -391,8 +391,8 @@ nav {
 
 .logo {
   position: relative;
-  width: 11.9375rem;
-  height: 4.4375rem;
+  width: 10.625rem;
+  height: 3.5625rem;
 }
 
 .logo .logo-img {
