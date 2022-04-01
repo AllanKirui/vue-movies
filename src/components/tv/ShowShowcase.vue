@@ -132,6 +132,10 @@ export default {
     "setDate",
     "setOverviewLength",
     "setShowsInfoRoute",
+    "setSlidesBeforeScreenResize",
+    "setSlidesAfterScreenResize",
+    "setCarouselSettings",
+    // "getSlideItems",
   ],
   components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
   data() {
@@ -173,38 +177,6 @@ export default {
         }
       } else {
         this.results.push(results);
-      }
-    },
-    setSlidesBeforeScreenResize() {
-      // gets slides by calculating the viewport width before screen resizing
-      let viewportWidth = window.innerWidth;
-      let slideItems = this.getSlideItems(viewportWidth);
-
-      // return carousel settings
-      return this.setCarouselSettings(slideItems);
-    },
-    setSlidesAfterScreenResize() {
-      // gets slides by calculating the viewport width after screen resizing
-      let slideItems = this.getSlideItems(this.screenSize);
-
-      // return carousel settings
-      return this.setCarouselSettings(slideItems);
-    },
-    setCarouselSettings(size) {
-      // return carousel settings
-      return {
-        wrapAround: true,
-        itemsToShow: size,
-        snapAlign: "center",
-        autoplay: 8000, // 8 second duration
-      };
-    },
-    getSlideItems(size) {
-      // returns how many slide items to show based on screen size
-      if (size <= 1023) {
-        return 1; // one full width slide
-      } else {
-        return 1.25; // one full width item plus two partial slide
       }
     },
     checkWindowSize() {
