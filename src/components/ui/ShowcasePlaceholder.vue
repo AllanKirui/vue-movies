@@ -160,5 +160,10 @@ export default {
   .hide-for-small {
     display: none;
   }
+
+  .showcase__info-title {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 </style>
