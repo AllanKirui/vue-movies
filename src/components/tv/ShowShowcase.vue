@@ -1,9 +1,7 @@
 <template>
   <div v-if="!isLoading" class="showcase-wrapper">
     <!-- show the data once we're done loading -->
-    <Carousel
-      :settings="!screenSize ? setSlides() : setSlidesWithViewportWidth()"
-    >
+    <Carousel :settings="carouselSettings">
       <Slide v-for="show in results" :key="show.id">
         <div class="carousel__item">
           <!-- tv show poster -->
@@ -68,7 +66,6 @@
       </Slide>
 
       <template #addons>
-        <!-- <Navigation /> -->
         <Pagination />
       </template>
     </Carousel>
@@ -101,6 +98,14 @@ export default {
       screenSize: null,
     };
   },
+  computed: {
+    carouselSettings() {
+      // return settings before and after the screen has been resized
+      return !this.screenSize
+        ? this.setSlidesAfterScreenResize()
+        : this.setSlidesBeforeScreenResize();
+    },
+  },
   methods: {
     async getShows() {
       this.isLoading = true;
@@ -126,15 +131,16 @@ export default {
         this.results.push(results);
       }
     },
-    setSlidesWithViewportWidth() {
-      // gets slides by calculating the viewport width first
+    setSlidesBeforeScreenResize() {
+      // gets slides by calculating the viewport width before screen resizing
       let viewportWidth = window.innerWidth;
       let slideItems = this.getSlideItems(viewportWidth);
 
       // return carousel settings
       return this.setCarouselSettings(slideItems);
     },
-    setSlides() {
+    setSlidesAfterScreenResize() {
+      // gets slides by calculating the viewport width after screen resizing
       let slideItems = this.getSlideItems(this.screenSize);
 
       // return carousel settings
