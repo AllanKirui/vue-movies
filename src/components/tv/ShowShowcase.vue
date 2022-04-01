@@ -15,14 +15,58 @@
             <!-- show a placeholder image before the backdrop loads -->
             <img
               v-if="show.poster_path"
-              src="../../assets/video-placeholder.png"
+              src="../../assets/showcase-placeholder.png"
               alt="placeholder image"
               class="placeholder-img"
             />
           </div>
 
-          <!-- tv show text -->
-          <div class="showcase__info">
+          <!-- tv show text for large screens -->
+          <div class="showcase__info hide-for-small">
+            <h2 class="showcase__info-title">
+              {{ show.name }}
+            </h2>
+
+            <div class="meta">
+              <div class="meta-section-1 flex">
+                <!-- tv show rating -->
+                <p class="showcase__info-rating">
+                  <img
+                    src="../../assets/rating-icon.svg"
+                    width="15"
+                    height="14.4"
+                    alt="star icon"
+                  />{{ show.vote_average }}
+                </p>
+                <!-- tv show release date -->
+                <p v-if="show.first_air_date" class="showcase__info-date">
+                  {{ setDate(show.first_air_date) }}
+                </p>
+                <p v-else class="showcase__info-date">n/a</p>
+              </div>
+
+              <!-- tv show overview -->
+              <div class="meta-section-2">
+                <p v-if="show.overview" class="showcase__info-overview">
+                  {{ setOverviewLength(show.overview, overviewLength) }}
+                </p>
+                <p v-else class="showcase__info-overview">n/a</p>
+              </div>
+
+              <!-- more info button -->
+              <router-link
+                :to="setShowsInfoRoute(show.name, show.id)"
+                :title="show.name"
+                class="view-info-link"
+                >View Info</router-link
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- tv show text for small screens -->
+        <div class="mobile-info">
+          <div class="showcase__info hide-for-large">
             <h2 class="showcase__info-title">
               {{ show.name }}
             </h2>
