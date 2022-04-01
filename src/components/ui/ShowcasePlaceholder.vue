@@ -3,16 +3,7 @@
     <Carousel :settings="carouselSettings">
       <Slide v-for="item in 8" :key="item">
         <div class="carousel__item">
-          <!-- poster placeholder for large screens -->
-          <div class="showcase__poster animated-bg hide-for-small">
-            <img
-              src="../../assets/video-placeholder.png"
-              alt="placeholder image"
-              class="placeholder-img"
-            />
-          </div>
-          <!-- poster placeholder for small screens -->
-          <div class="showcase__poster animated-bg hide-for-large">
+          <div class="showcase__poster animated-bg">
             <img
               src="../../assets/showcase-placeholder.png"
               alt="placeholder image"
