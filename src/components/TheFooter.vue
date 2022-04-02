@@ -10,7 +10,9 @@
               width="170"
               height="57"
               alt="vue movies logo"
+              class="logo-img"
             />
+            <h2 class="logo-text">Vue Movies</h2>
           </router-link>
         </div>
         <div class="footer__left-text">
@@ -133,6 +135,27 @@ footer p a:hover::before {
 .footer__center,
 .footer__left {
   gap: 1rem;
+}
+
+.footer__left-logo {
+  position: relative;
+  width: 10.625rem;
+  height: 3.5625rem;
+}
+
+.footer__left-logo .logo-img {
+  position: relative;
+  z-index: 2;
+}
+
+.footer__left-logo .logo-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  color: var(--color-clouds);
+  z-index: 1;
 }
 
 .footer__right {
