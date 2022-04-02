@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isLoading" class="showcase-wrapper">
     <!-- show the data once we're done loading -->
-    <Carousel :settings="settings">
+    <Carousel :settings="carouselSettings">
       <Slide v-for="movie in results" :key="movie.id">
         <div class="carousel__item">
           <!-- movie poster -->
@@ -15,14 +15,58 @@
             <!-- show a placeholder image before the backdrop loads -->
             <img
               v-if="movie.poster_path"
-              src="../../assets/video-placeholder.png"
+              src="../../assets/showcase-placeholder.png"
               alt="placeholder image"
               class="placeholder-img"
             />
           </div>
 
-          <!-- movie text -->
-          <div class="showcase__info">
+          <!-- movie text for large screens -->
+          <div class="showcase__info hide-for-small">
+            <h2 class="showcase__info-title">
+              {{ movie.title }}
+            </h2>
+
+            <div class="meta">
+              <div class="meta-section-1 flex">
+                <!-- movie rating -->
+                <p class="showcase__info-rating">
+                  <img
+                    src="../../assets/rating-icon.svg"
+                    width="15"
+                    height="14.4"
+                    alt="star icon"
+                  />{{ movie.vote_average }}
+                </p>
+                <!-- movie release date -->
+                <p v-if="movie.release_date" class="showcase__info-date">
+                  {{ setDate(movie.release_date) }}
+                </p>
+                <p v-else class="showcase__info-date">n/a</p>
+              </div>
+
+              <!-- movie overview -->
+              <div class="meta-section-2">
+                <p v-if="movie.overview" class="showcase__info-overview">
+                  {{ setOverviewLength(movie.overview, overviewLength) }}
+                </p>
+                <p v-else class="showcase__info-overview">n/a</p>
+              </div>
+
+              <!-- more info button -->
+              <router-link
+                :to="setMovieInfoRoute(movie.title, movie.id)"
+                :title="movie.title"
+                class="view-info-link"
+                >View Info</router-link
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- movie text for small screens -->
+        <div class="mobile-info">
+          <div class="showcase__info hide-for-large">
             <h2 class="showcase__info-title">
               {{ movie.title }}
             </h2>
@@ -66,7 +110,6 @@
       </Slide>
 
       <template #addons>
-        <!-- <Navigation /> -->
         <Pagination />
       </template>
     </Carousel>
@@ -89,21 +132,26 @@ export default {
     "setDate",
     "setOverviewLength",
     "setMovieInfoRoute",
+    "setSlidesBeforeScreenResize",
+    "setSlidesAfterScreenResize",
+    "setCarouselSettings",
   ],
   components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
   data() {
     return {
       isLoading: false,
       results: [],
-      settings: {
-        // carousel settings
-        wrapAround: true,
-        itemsToShow: 1.25,
-        snapAlign: "center",
-        autoplay: 8000, // 8 second duration
-      },
       overviewLength: 300, // to show 300 characters for overview
+      screenSize: null,
     };
+  },
+  computed: {
+    carouselSettings() {
+      // return settings before and after the screen has been resized
+      return !this.screenSize
+        ? this.setSlidesAfterScreenResize()
+        : this.setSlidesBeforeScreenResize();
+    },
   },
   methods: {
     async getMovies() {
@@ -130,9 +178,21 @@ export default {
         this.results.push(results);
       }
     },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", () => {
+        this.screenSize = window.innerWidth;
+      });
+    },
   },
   beforeMount() {
     this.getMovies();
+    // get the window's width before data is shown on the screen
+    this.screenSize = window.innerWidth;
+  },
+  mounted() {
+    // call the method after data has been loaded to the screen
+    this.checkWindowSize();
   },
 };
 </script>
