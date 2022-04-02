@@ -135,7 +135,6 @@ export default {
     "setSlidesBeforeScreenResize",
     "setSlidesAfterScreenResize",
     "setCarouselSettings",
-    // "getSlideItems",
   ],
   components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
   data() {
