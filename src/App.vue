@@ -970,6 +970,7 @@ html::-webkit-scrollbar-track,
 }
 
 @media screen and (max-width: 576px) {
+  /* movie/shows list styles */
   .content-wrapper {
     margin: 0 -1%;
   }
@@ -978,6 +979,16 @@ html::-webkit-scrollbar-track,
     width: 47%;
     margin: 0 1%;
     margin-bottom: 6.25rem !important;
+  }
+
+  /* pagination styles */
+  #pagination-wrapper {
+    margin: 0 auto 3.75rem;
+  }
+
+  .page-btn {
+    min-width: 2.5rem;
+    min-height: 2.25rem;
   }
 }
 
