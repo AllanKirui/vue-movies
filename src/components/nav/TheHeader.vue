@@ -1,14 +1,17 @@
 <template>
   <nav class="flex flex-jc-sb">
     <div class="nav-left flex flex-ai-c">
-      <button
-        :class="[isMenuOpen ? 'open' : '', 'burger']"
-        @click="setActiveStatus"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="burger-wrapper">
+        <button
+          :class="[isMenuOpen ? 'open' : '', 'burger']"
+          :title="isMenuOpen ? 'Close Menu' : 'Open Menu'"
+          @click="setActiveStatus"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
       <div class="logo">
         <router-link :to="moviesRoute" title="Home">
@@ -425,6 +428,10 @@ nav {
   z-index: 3;
 }
 
+.burger-wrapper {
+  margin-right: 1.875rem;
+}
+
 .burger {
   background-color: transparent;
   width: 24px;
@@ -432,7 +439,6 @@ nav {
   outline: none;
   cursor: pointer;
   z-index: 2;
-  margin-right: 30px;
 }
 
 .burger span {
@@ -449,29 +455,35 @@ nav {
 }
 
 .burger span:first-child {
-  transform-origin: 0;
+  transform-origin: 0px 20px;
 }
 
 .burger span:last-child {
   margin-bottom: 0;
-  transform-origin: 24px;
+  transform-origin: 29px 8px;
 }
 
 .burger.open span:first-child {
-  top: -2px;
+  top: 1px;
+  left: -12px;
   transform: rotateZ(45deg);
 }
 
 .burger.open span:last-child {
-  top: 6px;
+  top: -2px;
+  left: -6px;
   transform: rotateZ(45deg);
 }
 
 .burger.open span:nth-child(2) {
-  width: 38px;
-  top: 2px;
-  right: 7px;
+  width: 1.25rem;
+  height: 1.25rem;
   transform: rotateZ(-45deg);
+  transform-origin: 17px 0;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  right: 7px;
 }
 
 .nav-options {
