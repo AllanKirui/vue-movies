@@ -309,6 +309,7 @@ ul {
   overflow: hidden;
 }
 
+.menu-overlay.active-overlay,
 .overlay.active-overlay {
   position: absolute;
   top: 80px;
