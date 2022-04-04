@@ -221,11 +221,26 @@
     </form>
   </div>
 
+  <!-- options menu -->
+  <div :class="[isMenuOpen ? 'open' : '', 'menu-wrapper']">
+    <ul class="menu">
+      <li class="menu__item"><a href="#">Movies</a></li>
+      <li class="menu__item"><a href="#">TV Shows</a></li>
+      <li class="menu__item"><a href="#">Popular</a></li>
+      <li class="menu__item"><a href="#">Top Rated</a></li>
+    </ul>
+  </div>
+
   <teleport to="body">
     <div
       :class="[isSearchActive ? 'active-overlay' : '', 'overlay']"
       title="Close Search"
       @click="removeOverlay"
+    ></div>
+    <div
+      :class="[isMenuOpen ? 'active-overlay' : '', 'menu-overlay']"
+      title="Close Menu"
+      @click="removeMenuOverlay"
     ></div>
   </teleport>
 </template>
@@ -361,6 +376,9 @@ export default {
       this.searchTerm = "";
       this.isShowMobileSearch = false;
     },
+    removeMenuOverlay() {
+      this.isMenuOpen = false;
+    },
     showExpandedSearchResults() {
       // hide the mini-search, SearchHandler component
       this.isHidden = true;
@@ -384,6 +402,9 @@ export default {
   },
   watch: {
     isSearchActive() {
+      this.$emit("no-scroll");
+    },
+    isMenuOpen() {
       this.$emit("no-scroll");
     },
     closeButton(newValue) {
@@ -484,6 +505,43 @@ nav {
   border: 2px solid #fff;
   border-radius: 50px;
   right: 7px;
+}
+
+.menu-wrapper {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  max-width: 15.625rem;
+  width: 100%;
+  padding: 1rem 0;
+  border-bottom-right-radius: 8px;
+  background-color: var(--color-clouds);
+  transform: translateX(-101%);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 4;
+}
+
+.menu-wrapper.open {
+  transform: translateX(0);
+}
+
+.menu-wrapper .menu .menu__item a {
+  transition: all 0.1s ease-in-out;
+}
+
+.menu-wrapper .menu .menu__item:hover a {
+  background-color: var(--color-smokey-black);
+  color: var(--color-clouds);
+}
+
+.menu-wrapper .menu .menu__item a {
+  display: inline-block;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--font-size-18);
+  font-weight: bold;
+  color: var(--color-jet-black);
 }
 
 .nav-options {
