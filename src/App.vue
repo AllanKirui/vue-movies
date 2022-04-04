@@ -150,7 +150,6 @@ export default {
       }
       return links;
     },
-
     setSlidesBeforeScreenResize() {
       // gets slides by calculating the viewport width before screen resizing
       let viewportWidth = window.innerWidth;
@@ -858,6 +857,10 @@ html::-webkit-scrollbar-track,
 @media screen and (max-width: 939px) {
   .search-form.nav {
     display: none;
+  }
+
+  .overlay.active-overlay {
+    top: 158px;
   }
 }
 
