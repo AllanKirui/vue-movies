@@ -176,6 +176,7 @@ export default {
       isMoreResults: this.searchResults.isMoreResults,
       activatedSide: null, // to hold either 'movies' or 'shows'
       overviewLength: 150, // to show 150 characters for overview
+      screenSize: null,
     };
   },
   computed: {
@@ -196,8 +197,35 @@ export default {
       return route;
     },
   },
+  methods: {
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", () => {
+        this.screenSize = window.innerWidth;
+      });
+    },
+  },
+  watch: {
+    screenSize(oldValue) {
+      // update the overviewlength for small screens (500px, 375px and below)
+      if (oldValue && oldValue < 500) {
+        this.overviewLength = 90;
+      }
+      if (oldValue && oldValue > 500) {
+        this.overviewLength = 150;
+      }
+      if (oldValue && oldValue < 375) {
+        this.overviewLength = 40;
+      }
+    },
+  },
   beforeMount() {
     this.activatedSide = this.activeSide;
+    this.screenSize = window.innerWidth;
+  },
+  mounted() {
+    // call the method after data has been loaded to the screen
+    this.checkWindowSize();
   },
 };
 </script>
