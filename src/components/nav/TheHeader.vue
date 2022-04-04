@@ -131,6 +131,13 @@
       </router-link>
     </div>
 
+    <!-- mobile search activator button -->
+    <div class="mobile-search-activator flex flex-ai-c">
+      <button @click="activateMobileSearch" :title="searchButtonText">
+        {{ searchButtonText }}
+      </button>
+    </div>
+
     <search-handler
       v-if="!isLoading && isSearchActive"
       :search-results="resultsData"
@@ -141,6 +148,72 @@
     ></search-handler>
     <search-placeholder v-else-if="isLoading"></search-placeholder>
   </nav>
+
+  <!-- search bar for small screens -->
+  <div
+    class="mobile-search-wrapper"
+    :class="isShowMobileSearch ? 'search-active' : ''"
+  >
+    <form
+      class="search-form mobile-search"
+      @submit.prevent="
+        activeSide === 'movies'
+          ? getMovies(movieSearchLink)
+          : getShows(tvSearchLink)
+      "
+    >
+      <label for="search">Search</label>
+      <input
+        name="search"
+        type="text"
+        placeholder="Search for movies or TV shows..."
+        v-model.trim="searchTerm"
+        :class="searchTerm ? 'active-search' : ''"
+      />
+      <button title="search" class="search-btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="21"
+          height="21"
+          viewBox="0 0 5.5562499 5.5562502"
+        >
+          <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+            <g
+              id="g2499"
+              transform="matrix(0.99256808,0,0,0.99256808,-633.03941,-286.23689)"
+              style="display: inline; stroke: #090909; stroke-opacity: 1"
+            >
+              <circle
+                style="
+                  fill: none;
+                  fill-opacity: 1;
+                  stroke: #090909;
+                  stroke-width: 0.40755;
+                  stroke-opacity: 1;
+                "
+                id="circle2495"
+                cx="640.03369"
+                cy="290.65128"
+                r="2.0451832"
+              />
+              <path
+                style="
+                  fill: none;
+                  stroke: #090909;
+                  stroke-width: 0.396875;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-opacity: 1;
+                "
+                d="m 641.51906,292.13667 1.72321,1.7232"
+                id="path2497"
+              />
+            </g>
+          </g>
+        </svg>
+      </button>
+    </form>
+  </div>
 
   <teleport to="body">
     <div
@@ -180,6 +253,7 @@ export default {
       isHidden: false,
       defaultPage: 1,
       activeSide: "movies",
+      isShowMobileSearch: false,
     };
   },
   computed: {
@@ -197,8 +271,14 @@ export default {
       };
       return route;
     },
+    searchButtonText() {
+      return this.isShowMobileSearch ? "Close Search" : "Search";
+    },
   },
   methods: {
+    activateMobileSearch() {
+      this.isShowMobileSearch = !this.isShowMobileSearch;
+    },
     setActiveStatus() {
       this.isMenuOpen = !this.isMenuOpen;
     },
@@ -306,6 +386,7 @@ nav {
   padding: 0 0.9375rem;
   background-color: var(--color-jet-black);
   position: relative;
+  z-index: 3;
 }
 
 .burger {
@@ -362,6 +443,7 @@ nav {
   padding: 0;
 }
 
+.mobile-search-activator button,
 .nav-options a {
   padding: 8px 12px;
   border: none;
@@ -374,6 +456,11 @@ nav {
   transition: all 0.15s ease-in-out;
 }
 
+.mobile-search-activator button {
+  font-weight: normal;
+}
+
+.mobile-search-activator button:hover,
 .nav-options a:hover {
   color: var(--color-smokey-black);
   background-color: var(--color-clouds);
@@ -486,6 +573,22 @@ nav {
   background-color: var(--color-smokey-black);
   color: var(--color-clouds);
 }
+
+/* start of mobile search styles */
+.mobile-search-wrapper {
+  display: none;
+  padding: 0.9375rem;
+  background-color: var(--color-jet-black);
+}
+
+.mobile-search-wrapper.search-active {
+  display: block;
+}
+
+.search-form.mobile-search input {
+  width: 100%;
+}
+/* end of mobile search styles */
 
 /* styling for registered components */
 .results-wrapper,
