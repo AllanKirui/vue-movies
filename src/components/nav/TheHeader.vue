@@ -283,6 +283,10 @@ export default {
   methods: {
     activateMobileSearch() {
       this.isShowMobileSearch = !this.isShowMobileSearch;
+      // remove the search results if the prop isShowMobileSearch is false
+      if (!this.isShowMobileSearch) {
+        this.removeOverlay();
+      }
     },
     setActiveStatus() {
       this.isMenuOpen = !this.isMenuOpen;
