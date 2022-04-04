@@ -132,7 +132,10 @@
     </div>
 
     <!-- mobile search activator button -->
-    <div class="mobile-search-activator flex flex-ai-c">
+    <div
+      v-if="isShowSearchButton"
+      class="mobile-search-activator flex flex-ai-c"
+    >
       <button @click="activateMobileSearch" :title="searchButtonText">
         {{ searchButtonText }}
       </button>
@@ -254,6 +257,8 @@ export default {
       defaultPage: 1,
       activeSide: "movies",
       isShowMobileSearch: false,
+      isShowSearchButton: false,
+      screenSize: null,
     };
   },
   computed: {
@@ -347,6 +352,7 @@ export default {
       this.isSearchActive = !this.isSearchActive;
       this.searchResults[0] = false;
       this.searchTerm = "";
+      this.isShowMobileSearch = false;
     },
     showExpandedSearchResults() {
       // hide the mini-search, SearchHandler component
@@ -362,6 +368,12 @@ export default {
     setActiveSide(side) {
       this.activeSide = side;
     },
+    checkWindowSize() {
+      // listen to the resize event and call the method to set the info card's position
+      window.addEventListener("resize", () => {
+        this.screenSize = window.innerWidth;
+      });
+    },
   },
   watch: {
     isSearchActive() {
@@ -375,6 +387,26 @@ export default {
       // watch the selectedSide prop and set active styles to the active side
       this.activeSide = side;
     },
+    screenSize(oldValue) {
+      // show the mobile search form and search buttons based on screen size
+      if (oldValue && oldValue > 939) {
+        this.isShowMobileSearch = false;
+        this.isShowSearchButton = false;
+      }
+      if (oldValue && oldValue < 939) {
+        this.isShowSearchButton = true;
+        if (this.isSearchActive) {
+          this.isShowMobileSearch = true;
+        }
+      }
+    },
+  },
+  beforeMount() {
+    this.screenSize = window.innerWidth;
+  },
+  mounted() {
+    // call the method after data has been loaded to the screen
+    this.checkWindowSize();
   },
 };
 </script>
@@ -458,6 +490,7 @@ nav {
 
 .mobile-search-activator button {
   font-weight: normal;
+  font-size: var(--font-size-16);
 }
 
 .mobile-search-activator button:hover,
