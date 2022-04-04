@@ -284,7 +284,7 @@ export default {
     activateMobileSearch() {
       this.isShowMobileSearch = !this.isShowMobileSearch;
       // remove the search results if the prop isShowMobileSearch is false
-      if (!this.isShowMobileSearch) {
+      if (!this.isShowMobileSearch && this.isSearchActive) {
         this.removeOverlay();
       }
     },
@@ -521,6 +521,8 @@ nav {
 
 .logo .logo-img {
   position: relative;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 2;
 }
 
@@ -693,6 +695,13 @@ ul {
 
   .result__info > div {
     position: relative;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo .logo-img {
+    width: 140px;
+    height: 47px;
   }
 }
 </style>
