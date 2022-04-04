@@ -668,4 +668,27 @@ ul {
   margin-right: 0.625rem;
   background-color: var(--color-jet-black);
 }
+
+@media screen and (max-width: 939px) {
+  .results-wrapper,
+  .placeholder-wrapper {
+    top: calc(100% + 78px);
+  }
+}
+
+@media screen and (max-width: 678px) {
+  ul.nav-options {
+    display: none;
+  }
+
+  .results-wrapper,
+  .placeholder-wrapper {
+    top: calc(100% + 78px);
+    height: calc(100vh - 158px);
+  }
+
+  .result__info > div {
+    position: relative;
+  }
+}
 </style>
