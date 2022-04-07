@@ -127,6 +127,8 @@ import ShowcasePlaceholder from "../ui/ShowcasePlaceholder.vue";
 
 export default {
   name: "MovieShowcase",
+  components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
+  props: ["chosenCategory"],
   inject: [
     "setBackdropPath",
     "setDate",
@@ -136,7 +138,6 @@ export default {
     "setSlidesAfterScreenResize",
     "setCarouselSettings",
   ],
-  components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
   data() {
     return {
       isLoading: false,
@@ -156,10 +157,10 @@ export default {
   methods: {
     async getMovies() {
       this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
+      const url = `https://api.themoviedb.org/3/movie/${this.chosenCategory}?api_key=${apiKey}&language=en-US&page=1`;
 
       // perform resets before a new fetch request
-      this.searchResults = [];
+      this.results = [];
 
       // fetch data
       const response = await fetch(url);
@@ -183,6 +184,14 @@ export default {
       window.addEventListener("resize", () => {
         this.screenSize = window.innerWidth;
       });
+    },
+  },
+  watch: {
+    chosenCategory(newValue) {
+      // if there's a new value, get movies with the chosen category
+      if (newValue) {
+        this.getMovies();
+      }
     },
   },
   beforeMount() {

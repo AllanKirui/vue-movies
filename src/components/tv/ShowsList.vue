@@ -103,7 +103,7 @@ import ThePagination from "../ui/ThePagination.vue";
 export default {
   name: "ShowsList",
   components: { ContentPlaceholder, ThePagination },
-  props: ["chosenPage"],
+  props: ["chosenPage", "chosenCategory"],
   emits: ["show-button"],
   inject: [
     "setPath",
@@ -129,7 +129,7 @@ export default {
     async getShows(page) {
       this.updateRoute(page);
       this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&page=${page}`;
+      const url = `https://api.themoviedb.org/3/tv/${this.chosenCategory}?api_key=${apiKey}&page=${page}`;
       // perform resets before a new fetch request
       this.searchResults = [];
 
@@ -200,6 +200,12 @@ export default {
       // if the chosenPage prop has a value, switch to that page
       if (newValue) {
         this.switchPages(newValue);
+      }
+    },
+    chosenCategory(newValue) {
+      // if there's a new value, get movies with the chosen category
+      if (newValue) {
+        this.getShows(this.defaultPage);
       }
     },
   },
