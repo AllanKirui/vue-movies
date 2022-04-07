@@ -3,10 +3,12 @@
     :close-button="isShowCloseBtn"
     :selected-side="selectedSide"
     @no-scroll="setScrollBehaviour"
+    @set-category="setActiveCategory"
   />
 
   <!-- listen to a custom event that hides the close button on the header -->
   <router-view
+    :chosen-category="activeCategory"
     @show-button="showCloseButton"
     @activated-side="setActivatedSide"
   ></router-view>
@@ -30,6 +32,7 @@ export default {
     return {
       isShowCloseBtn: false,
       selectedSide: null,
+      activeCategory: "popular", // can either get 'popular' or 'top_rated' movies
     };
   },
   methods: {
@@ -182,6 +185,9 @@ export default {
         return 1.25; // one full width item plus two partial slide
       }
     },
+    setActiveCategory(category) {
+      this.activeCategory = category;
+    },
   },
   provide() {
     // send the various methods to the components that need them
@@ -199,6 +205,7 @@ export default {
       setSlidesBeforeScreenResize: this.setSlidesBeforeScreenResize,
       setSlidesAfterScreenResize: this.setSlidesAfterScreenResize,
       setCarouselSettings: this.setCarouselSettings,
+      setCategory: this.setActiveCategory,
     };
   },
 };
