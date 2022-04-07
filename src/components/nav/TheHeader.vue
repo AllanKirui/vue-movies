@@ -224,29 +224,38 @@
   <!-- options menu -->
   <div :class="[isMenuOpen ? 'open' : '', 'menu-wrapper']">
     <ul class="menu">
+      <!-- movies route -->
       <li
         :class="[
           activeSide === 'movies' ? 'active-menu-item' : '',
           'menu__item',
         ]"
+        title="Go to Movies"
       >
         <router-link :to="moviesRoute" @click="removeExpandedSearchResults"
           >Movies</router-link
         >
       </li>
-
+      <!-- tv shows route -->
       <li
         :class="[
           activeSide === 'shows' ? 'active-menu-item' : '',
           'menu__item',
         ]"
+        title="Go to Shows"
       >
         <router-link :to="showsRoute" @click="removeExpandedSearchResults"
           >TV Shows</router-link
         >
       </li>
 
-      <li class="menu__item">
+      <li
+        :class="[
+          activeCategory === 'popular' ? 'active-category' : '',
+          'menu__item category',
+        ]"
+        :title="`View popular ${activeSide}`"
+      >
         <!-- either show top_rated or popular categories for movies/tv shows -->
         <router-link
           v-if="activeSide === 'movies'"
@@ -262,7 +271,13 @@
         >
       </li>
 
-      <li class="menu__item">
+      <li
+        :class="[
+          activeCategory === 'top_rated' ? 'active-category' : '',
+          'menu__item category',
+        ]"
+        :title="`View top rated ${activeSide}`"
+      >
         <!-- either show top_rated or popular categories for movies/tv shows -->
         <router-link
           v-if="activeSide === 'movies'"
@@ -600,6 +615,12 @@ nav {
   color: var(--color-clouds);
 }
 
+.menu-wrapper .menu .menu__item.active-category a,
+.menu-wrapper .menu .menu__item.category:hover a {
+  background-color: var(--color-black-blue);
+  color: var(--color-clouds);
+}
+
 .menu-wrapper .menu .menu__item a {
   display: inline-block;
   width: 100%;
@@ -613,6 +634,10 @@ nav {
   background-color: var(--color-smokey-black);
   color: var(--color-clouds);
 }
+
+/* background-color: var(--color-black-blue);
+  color: var(--color-white);
+} */
 
 .nav-options {
   list-style: none;
