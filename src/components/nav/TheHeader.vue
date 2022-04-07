@@ -230,7 +230,9 @@
           'menu__item',
         ]"
       >
-        <a href="#">Movies</a>
+        <router-link :to="moviesRoute" @click="removeExpandedSearchResults"
+          >Movies</router-link
+        >
       </li>
 
       <li
@@ -239,7 +241,9 @@
           'menu__item',
         ]"
       >
-        <a href="#">TV Shows</a>
+        <router-link :to="showsRoute" @click="removeExpandedSearchResults"
+          >TV Shows</router-link
+        >
       </li>
 
       <li class="menu__item">
