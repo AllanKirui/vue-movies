@@ -607,12 +607,19 @@ nav {
 }
 
 .menu-wrapper .menu .menu__item a {
+  display: inline-block;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--font-size-18);
+  font-weight: bold;
+  color: var(--color-jet-black);
   transition: all 0.1s ease-in-out;
 }
 
 .menu-wrapper .menu .menu__item:hover a {
   background-color: var(--color-smokey-black);
   color: var(--color-clouds);
+  padding: 0.75rem 1.75rem;
 }
 
 .menu-wrapper .menu .menu__item.active-category a,
@@ -621,23 +628,10 @@ nav {
   color: var(--color-clouds);
 }
 
-.menu-wrapper .menu .menu__item a {
-  display: inline-block;
-  width: 100%;
-  padding: 0.75rem 1.5rem;
-  font-size: var(--font-size-18);
-  font-weight: bold;
-  color: var(--color-jet-black);
-}
-
 .menu-wrapper .menu .menu__item.active-menu-item a {
   background-color: var(--color-smokey-black);
   color: var(--color-clouds);
 }
-
-/* background-color: var(--color-black-blue);
-  color: var(--color-white);
-} */
 
 .nav-options {
   list-style: none;
