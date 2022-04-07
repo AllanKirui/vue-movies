@@ -1,8 +1,9 @@
 <template>
   <div class="movies-list-wrapper flex flex-fd-c">
-    <ShowShowcase />
+    <ShowShowcase :chosen-category="activeCategory" />
     <ShowsList
       :chosen-page="chosenPage"
+      :chosen-category="activeCategory"
       @show-button="$emit('show-button', false)"
     />
   </div>
@@ -15,6 +16,7 @@ import ShowsList from "./ShowsList.vue";
 export default {
   name: "TheMovies",
   emits: ["activated-side", "show-button"],
+  props: ["chosenCategory"],
   components: {
     ShowShowcase,
     ShowsList,
@@ -22,7 +24,15 @@ export default {
   data() {
     return {
       chosenPage: null,
+      activeCategory: "popular", // default category is popular movie/tv shows
     };
+  },
+  watch: {
+    chosenCategory(newValue) {
+      if (newValue) {
+        this.activeCategory = newValue;
+      }
+    },
   },
   beforeMount() {
     // emit a custom event that sets active styling on the header links
