@@ -224,10 +224,31 @@
   <!-- options menu -->
   <div :class="[isMenuOpen ? 'open' : '', 'menu-wrapper']">
     <ul class="menu">
-      <li class="menu__item"><a href="#">Movies</a></li>
-      <li class="menu__item"><a href="#">TV Shows</a></li>
-      <li class="menu__item"><a href="#">Popular</a></li>
-      <li class="menu__item"><a href="#">Top Rated</a></li>
+      <li
+        :class="[
+          activeSide === 'movies' ? 'active-menu-item' : '',
+          'menu__item',
+        ]"
+      >
+        <a href="#">Movies</a>
+      </li>
+
+      <li
+        :class="[
+          activeSide === 'shows' ? 'active-menu-item' : '',
+          'menu__item',
+        ]"
+      >
+        <a href="#">TV Shows</a>
+      </li>
+
+      <li class="menu__item">
+        <a href="#">Popular</a>
+      </li>
+
+      <li class="menu__item">
+        <a href="#">Top Rated</a>
+      </li>
     </ul>
   </div>
 
@@ -546,6 +567,11 @@ nav {
   font-size: var(--font-size-18);
   font-weight: bold;
   color: var(--color-jet-black);
+}
+
+.menu-wrapper .menu .menu__item.active-menu-item a {
+  background-color: var(--color-smokey-black);
+  color: var(--color-clouds);
 }
 
 .nav-options {
