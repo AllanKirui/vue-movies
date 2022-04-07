@@ -313,8 +313,8 @@ ul {
 .overlay.active-overlay {
   position: absolute;
   top: 80px;
-  left: 0;
-  width: 100%;
+  left: -3px;
+  width: calc(100% + 5px);
   height: calc(100vh - 80px);
   background-color: rgba(9, 9, 9, 0.5);
   backdrop-filter: blur(10px);
