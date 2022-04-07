@@ -338,7 +338,7 @@ export default {
       this.isMoreResults = false;
       this.searchResults.push(this.isSearchActive);
       // close the menu if it's open
-      this.isMenuOpen = false;
+      this.removeMenuOverlay();
 
       if (this.searchTerm === "") {
         this.isLoading = false;
@@ -360,7 +360,7 @@ export default {
       this.isMoreResults = false;
       this.searchResults.push(this.isSearchActive);
       // close the menu if it's open
-      this.isMenuOpen = false;
+      this.removeMenuOverlay();
 
       if (this.searchTerm === "") {
         this.isLoading = false;
@@ -414,11 +414,13 @@ export default {
       if (this.isSearchActive) {
         this.removeOverlay();
       }
+      // close the menu if it's open
+      this.removeMenuOverlay();
     },
     setActiveSide(side) {
       this.activeSide = side;
       // close the menu if it's open
-      this.isMenuOpen = false;
+      this.removeMenuOverlay();
     },
     checkWindowSize() {
       // listen to the resize event and call the method to set the info card's position
