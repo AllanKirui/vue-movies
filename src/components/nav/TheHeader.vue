@@ -417,6 +417,8 @@ export default {
     },
     setActiveSide(side) {
       this.activeSide = side;
+      // close the menu if it's open
+      this.isMenuOpen = false;
     },
     checkWindowSize() {
       // listen to the resize event and call the method to set the info card's position
