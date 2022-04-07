@@ -322,6 +322,10 @@ ul {
   z-index: 2;
 }
 
+.menu-overlay.active-overlay {
+  z-index: 3;
+}
+
 /* start of scrollbar styles */
 html::-webkit-scrollbar,
 .results-wrapper::-webkit-scrollbar {
