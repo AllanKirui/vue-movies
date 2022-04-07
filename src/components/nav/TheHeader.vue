@@ -247,11 +247,35 @@
       </li>
 
       <li class="menu__item">
-        <a href="#">Popular</a>
+        <!-- either show top_rated or popular categories for movies/tv shows -->
+        <router-link
+          v-if="activeSide === 'movies'"
+          :to="moviesRoute"
+          @click="setActiveCategory('popular')"
+          >Popular</router-link
+        >
+        <router-link
+          v-else
+          :to="showsRoute"
+          @click="setActiveCategory('popular')"
+          >Popular</router-link
+        >
       </li>
 
       <li class="menu__item">
-        <a href="#">Top Rated</a>
+        <!-- either show top_rated or popular categories for movies/tv shows -->
+        <router-link
+          v-if="activeSide === 'movies'"
+          :to="moviesRoute"
+          @click="setActiveCategory('top_rated')"
+          >Top Rated</router-link
+        >
+        <router-link
+          v-else
+          :to="showsRoute"
+          @click="setActiveCategory('top_rated')"
+          >Top Rated</router-link
+        >
       </li>
     </ul>
   </div>
@@ -284,7 +308,7 @@ export default {
     "search-placeholder": SearchPlaceholder,
   },
   props: ["closeButton", "selectedSide"],
-  emits: ["no-scroll"],
+  emits: ["no-scroll", "set-category"],
   data() {
     return {
       isMenuOpen: false,
@@ -302,6 +326,7 @@ export default {
       isShowMobileSearch: false,
       isShowSearchButton: false,
       screenSize: null,
+      activeCategory: "popular",
     };
   },
   computed: {
@@ -431,6 +456,13 @@ export default {
       window.addEventListener("resize", () => {
         this.screenSize = window.innerWidth;
       });
+    },
+    setActiveCategory(category) {
+      // remove expanded search results if active
+      this.removeExpandedSearchResults();
+      // emit a custom event to carry the selected category
+      this.activeCategory = category;
+      this.$emit("set-category", category);
     },
   },
   watch: {
