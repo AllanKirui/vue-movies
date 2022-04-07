@@ -316,6 +316,8 @@ export default {
       this.searchResults = [];
       this.isMoreResults = false;
       this.searchResults.push(this.isSearchActive);
+      // close the menu if it's open
+      this.isMenuOpen = false;
 
       if (this.searchTerm === "") {
         this.isLoading = false;
@@ -336,6 +338,8 @@ export default {
       this.searchResults = [];
       this.isMoreResults = false;
       this.searchResults.push(this.isSearchActive);
+      // close the menu if it's open
+      this.isMenuOpen = false;
 
       if (this.searchTerm === "") {
         this.isLoading = false;
