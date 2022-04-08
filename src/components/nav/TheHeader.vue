@@ -607,30 +607,44 @@ nav {
 }
 
 .menu-wrapper .menu .menu__item a {
+  position: relative;
   display: inline-block;
   width: 100%;
   padding: 0.75rem 1.5rem;
   font-size: var(--font-size-18);
   font-weight: bold;
   color: var(--color-jet-black);
-  transition: all 0.1s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+
+.menu-wrapper .menu .menu__item a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 50px;
+  transition: background 0.15s ease-in-out;
 }
 
 .menu-wrapper .menu .menu__item:hover a {
-  background-color: var(--color-smokey-black);
-  color: var(--color-clouds);
   padding: 0.75rem 1.75rem;
 }
 
-.menu-wrapper .menu .menu__item.active-category a,
-.menu-wrapper .menu .menu__item.category:hover a {
-  background-color: var(--color-black-blue);
-  color: var(--color-clouds);
+.menu-wrapper .menu .menu__item:hover a::before {
+  background-color: var(--color-jet-black);
 }
 
-.menu-wrapper .menu .menu__item.active-menu-item a {
-  background-color: var(--color-smokey-black);
-  color: var(--color-clouds);
+.menu-wrapper .menu .menu__item.active-category a::before,
+.menu-wrapper .menu .menu__item.category:hover a::before {
+  background-color: var(--color-spanish-gray);
+}
+
+.menu-wrapper .menu .menu__item.active-menu-item a::before {
+  background-color: var(--color-jet-black);
 }
 
 .nav-options {
