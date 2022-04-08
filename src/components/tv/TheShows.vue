@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       chosenPage: null,
-      activeCategory: "popular", // default category is popular movie/tv shows
+      activeCategory: this.chosenCategory,
     };
   },
   watch: {
