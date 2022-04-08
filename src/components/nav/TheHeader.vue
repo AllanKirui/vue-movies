@@ -248,7 +248,7 @@
           >TV Shows</router-link
         >
       </li>
-
+      <!-- popular category route -->
       <li
         :class="[
           activeCategory === 'popular' ? 'active-category' : '',
@@ -259,18 +259,18 @@
         <!-- either show top_rated or popular categories for movies/tv shows -->
         <router-link
           v-if="activeSide === 'movies'"
-          :to="moviesRoute"
+          :to="popularMoviesRoute"
           @click="setActiveCategory('popular')"
           >Popular</router-link
         >
         <router-link
           v-else
-          :to="showsRoute"
+          :to="popularShowsRoute"
           @click="setActiveCategory('popular')"
           >Popular</router-link
         >
       </li>
-
+      <!-- top rated category route -->
       <li
         :class="[
           activeCategory === 'top_rated' ? 'active-category' : '',
@@ -281,13 +281,13 @@
         <!-- either show top_rated or popular categories for movies/tv shows -->
         <router-link
           v-if="activeSide === 'movies'"
-          :to="moviesRoute"
+          :to="topRatedMoviesRoute"
           @click="setActiveCategory('top_rated')"
           >Top Rated</router-link
         >
         <router-link
           v-else
-          :to="showsRoute"
+          :to="topRatedShowsRoute"
           @click="setActiveCategory('top_rated')"
           >Top Rated</router-link
         >
@@ -348,7 +348,7 @@ export default {
     moviesRoute() {
       const route = {
         path: "/movies",
-        query: { page: this.defaultPage },
+        query: { category: this.activeCategory, page: this.defaultPage },
       };
       return route;
     },
@@ -356,6 +356,34 @@ export default {
       const route = {
         path: "/shows",
         query: { page: this.defaultPage },
+      };
+      return route;
+    },
+    popularMoviesRoute() {
+      const route = {
+        path: "/movies",
+        query: { category: "popular", page: this.defaultPage },
+      };
+      return route;
+    },
+    topRatedMoviesRoute() {
+      const route = {
+        path: "/movies",
+        query: { category: "top_rated", page: this.defaultPage },
+      };
+      return route;
+    },
+    popularShowsRoute() {
+      const route = {
+        path: "/shows",
+        query: { category: "popular", page: this.defaultPage },
+      };
+      return route;
+    },
+    topRatedShowsRoute() {
+      const route = {
+        path: "/shows",
+        query: { category: "top_rated", page: this.defaultPage },
       };
       return route;
     },
