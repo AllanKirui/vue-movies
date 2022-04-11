@@ -251,7 +251,7 @@
       <!-- popular category route -->
       <li
         :class="[
-          activeCategory === 'popular' ? 'active-category' : '',
+          category === 'popular' ? 'active-category' : '',
           'menu__item category',
         ]"
         :title="`View popular ${activeSide}`"
@@ -273,7 +273,7 @@
       <!-- top rated category route -->
       <li
         :class="[
-          activeCategory === 'top_rated' ? 'active-category' : '',
+          category === 'top_rated' ? 'active-category' : '',
           'menu__item category',
         ]"
         :title="`View top rated ${activeSide}`"
@@ -322,7 +322,7 @@ export default {
     "search-handler": SearchHandler,
     "search-placeholder": SearchPlaceholder,
   },
-  props: ["closeButton", "selectedSide"],
+  props: ["closeButton", "selectedSide", "selectedCategory"],
   emits: ["no-scroll", "set-category"],
   data() {
     return {
@@ -341,14 +341,15 @@ export default {
       isShowMobileSearch: false,
       isShowSearchButton: false,
       screenSize: null,
-      activeCategory: "popular",
+      defaultCategory: "popular",
+      category: null,
     };
   },
   computed: {
     moviesRoute() {
       const route = {
         path: "/movies",
-        query: { category: this.activeCategory, page: this.defaultPage },
+        query: { category: this.category, page: this.defaultPage },
       };
       return route;
     },
@@ -504,8 +505,12 @@ export default {
       // remove expanded search results if active
       this.removeExpandedSearchResults();
       // emit a custom event to carry the selected category
-      this.activeCategory = category;
+      this.category = category;
       this.$emit("set-category", category);
+    },
+    getCategory() {
+      // check if there is a chosen category, or use the default instead
+      this.category = this.category ? this.category : this.defaultCategory;
     },
   },
   watch: {
@@ -523,22 +528,27 @@ export default {
       // watch the selectedSide prop and set active styles to the active side
       this.activeSide = side;
     },
-    screenSize(oldValue) {
+    screenSize(newValue) {
       // show the mobile search form and search buttons based on screen size
-      if (oldValue && oldValue > 939) {
+      if (newValue && newValue > 939) {
         this.isShowMobileSearch = false;
         this.isShowSearchButton = false;
       }
-      if (oldValue && oldValue < 939) {
+      if (newValue && newValue < 939) {
         this.isShowSearchButton = true;
         if (this.isSearchActive) {
           this.isShowMobileSearch = true;
         }
       }
     },
+    selectedCategory(category) {
+      // watch the selectedSide prop and set active styles to the active category
+      this.category = category;
+    },
   },
   beforeMount() {
     this.screenSize = window.innerWidth;
+    this.getCategory();
   },
   mounted() {
     // call the method after data has been loaded to the screen

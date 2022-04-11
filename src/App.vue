@@ -2,15 +2,17 @@
   <TheHeader
     :close-button="isShowCloseBtn"
     :selected-side="selectedSide"
+    :selected-category="category"
     @no-scroll="setScrollBehaviour"
     @set-category="setActiveCategory"
   />
 
   <!-- listen to a custom event that hides the close button on the header -->
   <router-view
-    :chosen-category="activeCategory"
+    :chosen-category="category"
     @show-button="showCloseButton"
     @activated-side="setActivatedSide"
+    @update-category="setActiveCategory"
   ></router-view>
 
   <TheFooter />
@@ -32,7 +34,8 @@ export default {
     return {
       isShowCloseBtn: false,
       selectedSide: null,
-      activeCategory: "popular", // can either get 'popular' or 'top_rated' movies
+      defaultCategory: "popular",
+      category: null, // can either get 'popular' or 'top_rated' movies
     };
   },
   methods: {
@@ -186,7 +189,12 @@ export default {
       }
     },
     setActiveCategory(category) {
-      this.activeCategory = category;
+      this.category = category;
+      this.defaultCategory = category;
+    },
+    getCategory() {
+      // check if there is a chosen category, or use the default instead
+      this.category = this.category ? this.category : this.defaultCategory;
     },
   },
   provide() {
@@ -205,8 +213,10 @@ export default {
       setSlidesBeforeScreenResize: this.setSlidesBeforeScreenResize,
       setSlidesAfterScreenResize: this.setSlidesAfterScreenResize,
       setCarouselSettings: this.setCarouselSettings,
-      setCategory: this.setActiveCategory,
     };
+  },
+  beforeMount() {
+    this.getCategory();
   },
 };
 </script>
