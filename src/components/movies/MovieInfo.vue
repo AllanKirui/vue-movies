@@ -199,7 +199,8 @@ export default {
     InfoPlaceholder,
     ContentPlaceholder,
   },
-  emits: ["show-button", "activated-side"],
+  props: ["chosen-category"],
+  emits: ["show-button", "activated-side", "update-category"],
   inject: [
     "setPath",
     "setBackdropPath",
@@ -278,6 +279,8 @@ export default {
     this.movieId = +this.$route.query.id;
     // emit a custom event that sets active styling on the header links
     this.$emit("activated-side", "movies");
+    // emit a custom event to carry the chosenCategory prop to remove Vue warnings
+    this.$emit("update-category", this.chosenCategory);
   },
   updated() {
     // get the id which has been updated from outside the component
