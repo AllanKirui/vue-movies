@@ -189,8 +189,10 @@ export default {
       }
     },
     setActiveCategory(category) {
-      this.category = category;
-      this.defaultCategory = category;
+      if (category) {
+        this.category = category;
+        this.defaultCategory = category;
+      }
     },
     getCategory() {
       // check if there is a chosen category, or use the default instead
