@@ -920,6 +920,12 @@ html::-webkit-scrollbar-track,
     margin-bottom: 4.375rem !important;
   }
 
+  .trailer-wrapper .heading,
+  .results-container .heading {
+    margin-bottom: 2.1875rem;
+    font-size: var(--font-size-24);
+  }
+
   /* expanded search styles */
   .results-container.expanded-search {
     margin-top: 1rem;
