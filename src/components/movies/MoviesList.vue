@@ -216,6 +216,9 @@ export default {
       }
     },
     chosenCategory(newValue) {
+      // reset the selected page prop
+      this.selectedPage = 1;
+      // call the getCategory method
       this.getCategory();
       // if there's a new value, get movies with the chosen category
       if (newValue) {
