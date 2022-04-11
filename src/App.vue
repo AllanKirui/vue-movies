@@ -526,6 +526,15 @@ html::-webkit-scrollbar-track,
   margin-left: auto;
 }
 
+.trailer-wrapper .heading,
+.results-container .heading {
+  margin-bottom: 2.1875rem;
+  font-size: var(--font-size-28);
+  font-weight: 400;
+  color: var(--color-clouds);
+  text-shadow: 1px 1px 2px var(--color-jet-black);
+}
+
 .content-wrapper .content {
   width: 23.5%;
   height: 29.6875rem;
