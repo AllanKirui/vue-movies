@@ -2,6 +2,7 @@
   <!-- show the data once we're done loading -->
   <div v-if="!isLoading" class="results-container wrapper">
     <div>
+      <h2 class="heading">{{ categoryHeading }}</h2>
       <ul
         v-for="result in searchResults"
         :key="result.id"
@@ -126,6 +127,17 @@ export default {
       defaultCategory: "popular",
       category: null,
     };
+  },
+  computed: {
+    categoryHeading() {
+      let heading = "";
+      if (this.category && this.category === "top_rated") {
+        heading = "Top rated shows";
+      } else {
+        heading = "Popular shows";
+      }
+      return heading;
+    },
   },
   methods: {
     async getShows(page) {
