@@ -120,7 +120,7 @@ export default {
       isShowInfo: false,
       isLoading: false,
       totalPages: null,
-      selectedPage: 1, // the default page is 1
+      selectedPage: 1,
       defaultPage: 1,
       activePage: null,
       overviewLength: 150, // to show 150 characters for overview
