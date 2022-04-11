@@ -6,7 +6,7 @@
         <div class="footer__left-logo">
           <router-link :to="moviesRoute" @click="scrollToTop" title="Home">
             <img
-              src="../assets/logo.svg"
+              src="../../assets/logo.svg"
               width="170"
               height="57"
               alt="vue movies logo"
@@ -39,7 +39,7 @@
       <div class="footer__center flex flex-fd-c">
         <div class="footer__center-logo">
           <img
-            src="../assets/git.svg"
+            src="../../assets/git.svg"
             width="45"
             height="45"
             alt="github logo"
@@ -57,7 +57,7 @@
         <div class="footer__right-logo">
           <a href="https://google.com">
             <img
-              src="../assets/primary-long.svg"
+              src="../../assets/primary-long.svg"
               width="250"
               height="18"
               alt="the movie db logo"

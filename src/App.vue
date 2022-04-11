@@ -20,7 +20,7 @@
 
 <script>
 import TheHeader from "./components/nav/TheHeader.vue";
-import TheFooter from "./components/TheFooter.vue";
+import TheFooter from "./components/footer/TheFooter.vue";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const backdropImgPath = "https://image.tmdb.org/t/p/w1280";
 
