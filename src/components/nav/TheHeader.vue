@@ -356,7 +356,7 @@ export default {
     showsRoute() {
       const route = {
         path: "/shows",
-        query: { page: this.defaultPage },
+        query: { category: this.category, page: this.defaultPage },
       };
       return route;
     },

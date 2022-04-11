@@ -144,6 +144,8 @@ export default {
       results: [],
       overviewLength: 300, // to show 300 characters for overview
       screenSize: null,
+      category: null,
+      defaultCategory: "popular",
     };
   },
   computed: {
@@ -185,9 +187,16 @@ export default {
         this.screenSize = window.innerWidth;
       });
     },
+    getCategory() {
+      // check if there is a chosen category, or use the default instead
+      this.category = this.chosenCategory
+        ? this.chosenCategory
+        : this.defaultCategory;
+    },
   },
   watch: {
     chosenCategory(newValue) {
+      this.getCategory();
       // if there's a new value, get movies with the chosen category
       if (newValue) {
         this.getShows();
@@ -195,6 +204,7 @@ export default {
     },
   },
   beforeMount() {
+    this.getCategory();
     this.getShows();
     // get the window's width before data is shown on the screen
     this.screenSize = window.innerWidth;

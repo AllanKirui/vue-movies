@@ -119,10 +119,12 @@ export default {
       isShowInfo: false,
       isLoading: false,
       totalPages: null,
-      selectedPage: 1, // the default page is 1
+      selectedPage: 1,
       defaultPage: 1,
       activePage: null,
       overviewLength: 150, // to show 150 characters for overview
+      defaultCategory: "popular",
+      category: null,
     };
   },
   methods: {
@@ -181,7 +183,16 @@ export default {
     },
     updateRoute(activePage) {
       // update the query parameter on the route link
-      this.$router.push({ path: "/shows", query: { page: activePage } });
+      this.$router.push({
+        path: "/shows",
+        query: { category: this.category, page: activePage },
+      });
+    },
+    getCategory() {
+      // check if there is a chosen category, or use the default instead
+      this.category = this.chosenCategory
+        ? this.chosenCategory
+        : this.defaultCategory;
     },
   },
   watch: {
@@ -203,6 +214,10 @@ export default {
       }
     },
     chosenCategory(newValue) {
+      // reset the selected page prop
+      this.selectedPage = 1;
+      // call the getCategory method
+      this.getCategory();
       // if there's a new value, get movies with the chosen category
       if (newValue) {
         this.getShows(this.defaultPage);
@@ -210,6 +225,7 @@ export default {
     },
   },
   beforeMount() {
+    this.getCategory();
     // get the page number from the route's query parameter
     const newPage = +this.$route.query.page;
     // if there is a new page, switch pages else go to the first page
