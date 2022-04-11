@@ -568,12 +568,12 @@ nav {
 }
 
 .burger-wrapper {
-  margin-right: 1.875rem;
+  margin-right: 1.5rem;
 }
 
 .burger {
   background-color: transparent;
-  width: 24px;
+  width: 1.875rem;
   border: none;
   outline: none;
   cursor: pointer;
