@@ -205,12 +205,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.heading {
-  margin-bottom: 2.1875rem;
-  font-size: var(--font-size-28);
-  font-weight: 400;
-  color: var(--color-clouds);
-}
-</style>

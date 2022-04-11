@@ -403,13 +403,6 @@ export default {
   position: relative;
 }
 
-.trailer-wrapper .heading {
-  margin-bottom: 2.1875rem;
-  font-size: var(--font-size-28);
-  font-weight: 400;
-  color: var(--color-clouds);
-}
-
 .trailer-wrapper .trailer-card {
   max-width: 37.5rem;
   max-height: 21.875rem;
