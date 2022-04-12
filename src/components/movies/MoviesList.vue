@@ -11,49 +11,51 @@
         <!-- set the route for showing a movie's information -->
         <router-link :to="setMovieInfoRoute(result.title, result.id)">
           <li class="content hover" :title="result.title">
-            <div class="content__poster">
-              <img
-                v-if="result.poster_path"
-                :src="setPath(result.poster_path)"
-                :alt="`poster image for ${result.title}`"
-                class="poster-img"
-              />
-              <img
-                v-else
-                src="../../assets/poster-placeholder.png"
-                width="70"
-                height="35.3"
-                alt="no poster image"
-                class="no-poster-img"
-              />
-              <!-- show a placeholder image before the poster loads -->
-              <img
-                v-if="result.poster_path"
-                src="../../assets/poster-placeholder.png"
-                width="70"
-                height="35.3"
-                alt="placeholder image"
-                class="placeholder-img"
-              />
-              <p class="tag">Movie</p>
-            </div>
-            <div class="content__info">
-              <h3 class="content__info-title">
-                {{ setTitleLength(result.title) }}
-              </h3>
-              <div class="meta flex flex-jc-sb">
-                <p v-if="result.release_date" class="content__info-date">
-                  {{ setDate(result.release_date) }}
-                </p>
-                <p v-else class="content__info-date">n/a</p>
-                <p class="content__info-rating">
-                  <img
-                    src="../../assets/rating-icon.svg"
-                    width="15"
-                    height="14.4"
-                    alt="star icon"
-                  />{{ result.vote_average }}
-                </p>
+            <div class="container">
+              <div class="content__poster">
+                <img
+                  v-if="result.poster_path"
+                  :src="setPath(result.poster_path)"
+                  :alt="`poster image for ${result.title}`"
+                  class="poster-img"
+                />
+                <img
+                  v-else
+                  src="../../assets/poster-placeholder.png"
+                  width="70"
+                  height="35.3"
+                  alt="no poster image"
+                  class="no-poster-img"
+                />
+                <!-- show a placeholder image before the poster loads -->
+                <img
+                  v-if="result.poster_path"
+                  src="../../assets/poster-placeholder.png"
+                  width="70"
+                  height="35.3"
+                  alt="placeholder image"
+                  class="placeholder-img"
+                />
+                <p class="tag">Movie</p>
+              </div>
+              <div class="content__info">
+                <h3 class="content__info-title">
+                  {{ setTitleLength(result.title) }}
+                </h3>
+                <div class="meta flex flex-jc-sb">
+                  <p v-if="result.release_date" class="content__info-date">
+                    {{ setDate(result.release_date) }}
+                  </p>
+                  <p v-else class="content__info-date">n/a</p>
+                  <p class="content__info-rating">
+                    <img
+                      src="../../assets/rating-icon.svg"
+                      width="15"
+                      height="14.4"
+                      alt="star icon"
+                    />{{ result.vote_average }}
+                  </p>
+                </div>
               </div>
             </div>
             <!-- movie info card -->

@@ -10,49 +10,51 @@
       >
         <router-link :to="setShowsInfoRoute(result.name, result.id)">
           <li class="content hover" :title="result.name">
-            <div class="content__poster">
-              <img
-                v-if="result.poster_path"
-                :src="setPath(result.poster_path)"
-                :alt="`poster image for ${result.name}`"
-                class="poster-img"
-              />
-              <img
-                v-else
-                src="../../assets/poster-placeholder.png"
-                width="70"
-                height="35.3"
-                alt="no poster image"
-                class="no-poster-img"
-              />
-              <!-- show a placeholder image before the poster loads -->
-              <img
-                v-if="result.poster_path"
-                src="../../assets/poster-placeholder.png"
-                width="70"
-                height="35.3"
-                alt="placeholder image"
-                class="placeholder-img"
-              />
-              <p class="tag">TV Show</p>
-            </div>
-            <div class="content__info">
-              <h3 class="content__info-title">
-                {{ setTitleLength(result.name) }}
-              </h3>
-              <div class="meta flex flex-jc-sb">
-                <p v-if="result.first_air_date" class="content__info-date">
-                  {{ setDate(result.first_air_date) }}
-                </p>
-                <p v-else class="content__info-date">n/a</p>
-                <p class="content__info-rating">
-                  <img
-                    src="../../assets/rating-icon.svg"
-                    width="15"
-                    height="14.4"
-                    alt="star icon"
-                  />{{ result.vote_average }}
-                </p>
+            <div class="container">
+              <div class="content__poster">
+                <img
+                  v-if="result.poster_path"
+                  :src="setPath(result.poster_path)"
+                  :alt="`poster image for ${result.name}`"
+                  class="poster-img"
+                />
+                <img
+                  v-else
+                  src="../../assets/poster-placeholder.png"
+                  width="70"
+                  height="35.3"
+                  alt="no poster image"
+                  class="no-poster-img"
+                />
+                <!-- show a placeholder image before the poster loads -->
+                <img
+                  v-if="result.poster_path"
+                  src="../../assets/poster-placeholder.png"
+                  width="70"
+                  height="35.3"
+                  alt="placeholder image"
+                  class="placeholder-img"
+                />
+                <p class="tag">TV Show</p>
+              </div>
+              <div class="content__info">
+                <h3 class="content__info-title">
+                  {{ setTitleLength(result.name) }}
+                </h3>
+                <div class="meta flex flex-jc-sb">
+                  <p v-if="result.first_air_date" class="content__info-date">
+                    {{ setDate(result.first_air_date) }}
+                  </p>
+                  <p v-else class="content__info-date">n/a</p>
+                  <p class="content__info-rating">
+                    <img
+                      src="../../assets/rating-icon.svg"
+                      width="15"
+                      height="14.4"
+                      alt="star icon"
+                    />{{ result.vote_average }}
+                  </p>
+                </div>
               </div>
             </div>
             <!-- tv show info card -->

@@ -641,7 +641,8 @@ html::-webkit-scrollbar-track,
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
-.content-wrapper .content.hover:hover .hover__info {
+.content-wrapper .content.hover .hover__info:hover,
+.content-wrapper .content.hover .container:hover ~ .hover__info {
   opacity: 0.98;
   visibility: visible;
   transition: 0.4s ease 0.5s;
