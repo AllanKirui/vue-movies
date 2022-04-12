@@ -1,7 +1,11 @@
 <template>
   <div class="movies-list-wrapper flex flex-fd-c">
-    <MovieShowcase :chosen-category="activeCategory" />
+    <MovieShowcase
+      :chosen-category="activeCategory"
+      @loading-status="setLoadingStatus"
+    />
     <MoviesList
+      :is-loaded="isShowcaseLoaded"
       :chosen-page="chosenPage"
       :chosen-category="activeCategory"
       @show-button="$emit('show-button', false)"
@@ -25,7 +29,13 @@ export default {
     return {
       chosenPage: null,
       activeCategory: this.chosenCategory,
+      isShowcaseLoaded: null,
     };
+  },
+  methods: {
+    setLoadingStatus(status) {
+      this.isShowcaseLoaded = status;
+    },
   },
   watch: {
     chosenCategory(newValue) {

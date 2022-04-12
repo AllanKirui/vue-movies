@@ -1,6 +1,6 @@
 <template>
   <!-- show the data once we're done loading -->
-  <div v-if="!isLoading" class="results-container wrapper">
+  <div v-if="!isLoading && isLoaded" class="results-container wrapper">
     <div>
       <h2 class="heading">{{ categoryHeading }}</h2>
       <ul
@@ -107,7 +107,7 @@ import ThePagination from "../ui/ThePagination.vue";
 export default {
   name: "MoviesList",
   components: { ContentPlaceholder, ThePagination },
-  props: ["chosenPage", "chosenCategory"],
+  props: ["chosenPage", "chosenCategory", "isLoaded"],
   emits: ["show-button"],
   inject: [
     "setPath",

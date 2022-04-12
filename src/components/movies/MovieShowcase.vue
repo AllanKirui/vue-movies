@@ -129,6 +129,7 @@ export default {
   name: "MovieShowcase",
   components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
   props: ["chosenCategory"],
+  emits: ["loading-status"],
   inject: [
     "setBackdropPath",
     "setDate",
@@ -146,6 +147,7 @@ export default {
       screenSize: null,
       category: null,
       defaultCategory: "popular",
+      isLoaded: null,
     };
   },
   computed: {
@@ -158,6 +160,7 @@ export default {
   },
   methods: {
     async getMovies() {
+      this.isLoaded = false;
       this.isLoading = true;
       const url = `https://api.themoviedb.org/3/movie/${this.category}?api_key=${apiKey}&language=en-US&page=1`;
 
@@ -169,6 +172,9 @@ export default {
       const data = await response.json();
 
       this.isLoading = false;
+      this.isLoaded = true;
+      // emit a custom event to carry the loading status
+      this.$emit("loading-status", this.isLoaded);
       this.checkResults(data.results);
     },
     checkResults(results) {
