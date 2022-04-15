@@ -1,5 +1,6 @@
 <template>
   <TheHeader
+    v-if="!isError404"
     :close-button="isShowCloseBtn"
     :selected-side="selectedSide"
     :selected-category="category"
@@ -13,9 +14,10 @@
     @show-button="showCloseButton"
     @activated-side="setActivatedSide"
     @update-category="setActiveCategory"
+    @error-404="showNotFoundError"
   ></router-view>
 
-  <TheFooter />
+  <TheFooter v-if="!isError404" />
 </template>
 
 <script>
@@ -36,6 +38,7 @@ export default {
       selectedSide: null,
       defaultCategory: "popular",
       category: null, // can either get 'popular' or 'top_rated' movies
+      isError404: false,
     };
   },
   methods: {
@@ -197,6 +200,9 @@ export default {
     getCategory() {
       // check if there is a chosen category, or use the default instead
       this.category = this.category ? this.category : this.defaultCategory;
+    },
+    showNotFoundError() {
+      this.isError404 = !this.isError404;
     },
   },
   provide() {
