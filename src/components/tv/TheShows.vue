@@ -1,6 +1,7 @@
 <template>
   <div class="movies-list-wrapper flex flex-fd-c">
     <ShowShowcase
+      :chosen-page="showcasePage"
       :chosen-category="activeCategory"
       @loading-status="setLoadingStatus"
     />
@@ -30,6 +31,7 @@ export default {
       chosenPage: null,
       activeCategory: this.chosenCategory,
       isShowcaseLoaded: null,
+      showcasePage: null,
     };
   },
   methods: {
@@ -41,6 +43,12 @@ export default {
     chosenCategory(newValue) {
       if (newValue) {
         this.activeCategory = newValue;
+      }
+    },
+    chosenPage(newValue) {
+      if (newValue) {
+        // Add 1 so that tv showcase is showing 1 page ahead of the tv list below
+        this.showcasePage = newValue + 1;
       }
     },
   },
