@@ -8,6 +8,7 @@ import MovieInfo from "./components/movies/MovieInfo.vue";
 import ExpandedMoviesearch from "./components/search/ExpandedMoviesearch.vue";
 import ExpandedTvsearch from "./components/search/ExpandedTvsearch.vue";
 import ShowInfo from "./components/tv/ShowInfo.vue";
+import NotFound from "./components/ui/NotFound.vue";
 
 // create the router
 const router = createRouter({
@@ -20,6 +21,7 @@ const router = createRouter({
     { path: "/movies/search", component: ExpandedMoviesearch },
     { path: "/shows/info", component: ShowInfo },
     { path: "/shows/search", component: ExpandedTvsearch },
+    { path: "/:notFound(.*)", component: NotFound },
   ],
 });
 
