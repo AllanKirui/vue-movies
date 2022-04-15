@@ -128,7 +128,7 @@ import ShowcasePlaceholder from "../ui/ShowcasePlaceholder.vue";
 export default {
   name: "ShowShowcase",
   components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
-  props: ["chosenCategory"],
+  props: ["chosenCategory", "chosenPage"],
   emits: ["loading-status"],
   inject: [
     "setBackdropPath",
@@ -148,6 +148,8 @@ export default {
       category: null,
       defaultCategory: "popular",
       isLoaded: null,
+      selectedPage: null,
+      defaultPage: 2,
     };
   },
   computed: {
@@ -159,10 +161,10 @@ export default {
     },
   },
   methods: {
-    async getShows() {
+    async getShows(page) {
       this.isLoaded = false;
       this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/tv/${this.chosenCategory}?api_key=${apiKey}&language=en-US&page=1`;
+      const url = `https://api.themoviedb.org/3/tv/${this.chosenCategory}?api_key=${apiKey}&language=en-US&page=${page}`;
 
       // perform resets before a new fetch request
       this.results = [];
@@ -199,21 +201,45 @@ export default {
         ? this.chosenCategory
         : this.defaultCategory;
     },
+    getPage(routePage) {
+      // check if there is a page from the route, selected page prop, or use the default instead
+      this.selectedPage = routePage
+        ? routePage
+        : this.selectedPage
+        ? this.selectedPage
+        : this.defaultPage;
+    },
   },
   watch: {
     chosenCategory(newValue) {
       this.getCategory();
-      // if there's a new value, get movies with the chosen category
-      if (newValue) {
-        this.getShows();
+      // only run this fetch request if the chosen page from the pagination is less
+      // than 3 and if there's a new category
+      if (this.chosenPage < 3 && newValue) {
+        // reset the selected page when switching categories
+        this.selectedPage = 2;
+        this.getShows(this.selectedPage);
       }
+    },
+    chosenPage(newValue) {
+      this.selectedPage = newValue;
+      this.getShows(newValue);
     },
   },
   beforeMount() {
-    this.getCategory();
-    this.getShows();
     // get the window's width before data is shown on the screen
     this.screenSize = window.innerWidth;
+    // get the value of the category and page from the route
+    const newCategory = this.$route.query.category;
+    // Add 1 so that movie showcase is showing 1 page ahead of the movie list below
+    const newPage = +this.$route.query.page + 1;
+
+    this.getPage(newPage);
+    this.getCategory();
+
+    // if we are on the top rated category, don't make a new fetch request
+    if (newCategory === "top_rated") return;
+    this.getShows(this.selectedPage);
   },
   mounted() {
     // call the method after data has been loaded to the screen
