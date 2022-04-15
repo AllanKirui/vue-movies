@@ -315,9 +315,10 @@ export default {
   grid-column: 1/2;
   background-color: var(--color-jet-black);
   position: relative;
+  border-radius: 10px;
 }
 
-.content-poster img {
+.content-poster > img {
   width: 100%;
   height: 100%;
   object-fit: cover;

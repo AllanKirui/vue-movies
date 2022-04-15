@@ -371,6 +371,7 @@ export default {
   background-color: var(--color-jet-black);
   position: relative;
   max-height: 450px;
+  border-radius: 10px;
 }
 
 .content-poster img {
