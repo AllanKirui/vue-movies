@@ -12,6 +12,12 @@
               :alt="`poster image for ${movie.title}`"
               class="poster-img"
             />
+            <img
+              v-else
+              src="../../assets/showcase-placeholder.png"
+              alt="placeholder image"
+              class="placeholder-img"
+            />
             <!-- show a placeholder image before the backdrop loads -->
             <img
               v-if="movie.poster_path"
