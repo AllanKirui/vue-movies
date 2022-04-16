@@ -6,7 +6,9 @@
       <p class="error-description">
         Looks like the page you are looking for was not found.
       </p>
-      <a href="#" class="home-link" title="Go Home">Return to Homepage</a>
+      <router-link :to="moviesRoute" class="home-link" title="Go Home"
+        >Return to Homepage</router-link
+      >
     </div>
     <div class="not-found-img-pc">
       <img
@@ -30,6 +32,22 @@
 <script>
 export default {
   name: "NotFound",
+  emits: ["error-404"],
+  data() {
+    return {
+      category: "popular",
+      defaultPage: 1,
+    };
+  },
+  computed: {
+    moviesRoute() {
+      const route = {
+        path: "/movies",
+        query: { category: this.category, page: this.defaultPage },
+      };
+      return route;
+    },
+  },
   beforeMount() {
     this.$emit("error-404");
   },
