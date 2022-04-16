@@ -92,11 +92,49 @@ export default {
   color: var(--color-clouds);
 }
 
+.not-found-img-pc img {
+  max-width: 100%;
+}
+
 .not-found-img-tree {
   position: absolute;
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
   z-index: 1;
+}
+
+@media screen and (max-width: 1023px) {
+  .not-found-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    padding: 0 2rem;
+  }
+
+  .error-code {
+    font-size: 5rem;
+  }
+
+  .error-alert {
+    font-size: var(--font-size-22);
+  }
+
+  .error-description {
+    font-size: var(--font-size-18);
+  }
+
+  .home-link {
+    font-size: var(--font-size-18);
+  }
+
+  .not-found-img-pc img {
+    width: 17.5rem;
+    height: 15.0625rem;
+  }
+
+  .not-found-img-tree {
+    display: none;
+  }
 }
 </style>
