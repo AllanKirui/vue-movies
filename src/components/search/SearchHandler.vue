@@ -206,15 +206,15 @@ export default {
     },
   },
   watch: {
-    screenSize(oldValue) {
+    screenSize(newValue) {
       // update the overviewlength for small screens (500px, 375px and below)
-      if (oldValue && oldValue < 500) {
+      if (newValue && newValue < 500) {
         this.overviewLength = 90;
       }
-      if (oldValue && oldValue > 500) {
+      if (newValue && newValue > 500) {
         this.overviewLength = 150;
       }
-      if (oldValue && oldValue < 375) {
+      if (newValue && newValue < 375) {
         this.overviewLength = 40;
       }
     },

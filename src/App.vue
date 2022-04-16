@@ -49,9 +49,7 @@ export default {
       return backdropImgPath + backdrop_path;
     },
     setOverviewLength(overview, size) {
-      if (overview.length <= size) {
-        return overview;
-      }
+      if (overview.length <= size) return overview;
 
       let shortOverview = "";
       for (let i = 0; i <= size; i++) {
@@ -60,9 +58,7 @@ export default {
       return shortOverview + "...";
     },
     setTitleLength(title) {
-      if (title.length <= 20) {
-        return title;
-      }
+      if (title.length <= 20) return title;
 
       let shortTitle = "";
       for (let i = 0; i <= 20; i++) {
@@ -137,7 +133,7 @@ export default {
       const links = [];
       // loop through the available links
       for (const link of videoLinks) {
-        // check if the video is of type Trailer
+        // check if the video is of type Trailer or Clip
         if (
           link.type.toLowerCase() === "trailer" ||
           link.type.toLowerCase() === "clip"
