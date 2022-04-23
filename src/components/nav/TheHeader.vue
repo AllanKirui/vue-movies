@@ -349,14 +349,14 @@ export default {
     moviesRoute() {
       const route = {
         path: "/movies",
-        query: { category: this.category, page: this.defaultPage },
+        query: { category: this.defaultCategory, page: this.defaultPage },
       };
       return route;
     },
     showsRoute() {
       const route = {
         path: "/shows",
-        query: { category: this.category, page: this.defaultPage },
+        query: { category: this.defaultCategory, page: this.defaultPage },
       };
       return route;
     },
