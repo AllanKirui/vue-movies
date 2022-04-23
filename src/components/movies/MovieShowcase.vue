@@ -20,7 +20,7 @@
             />
             <!-- show a placeholder image before the backdrop loads -->
             <img
-              v-if="movie.poster_path"
+              v-if="movie.backdrop_path"
               src="../../assets/showcase-placeholder.png"
               alt="placeholder image"
               class="placeholder-img"
