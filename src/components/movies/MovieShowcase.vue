@@ -156,6 +156,7 @@ export default {
       isLoaded: null,
       selectedPage: null,
       defaultPage: 2,
+      hasLoadedFromHook: false,
     };
   },
   computed: {
@@ -223,13 +224,19 @@ export default {
       // than 3 and if there's a new category
       if (this.chosenPage < 3 && newValue) {
         // reset the selected page when switching categories
-        this.selectedPage = 2;
+        this.selectedPage = this.defaultPage;
         this.getMovies(this.selectedPage);
       }
     },
     chosenPage(newValue) {
       this.selectedPage = newValue;
-      this.getMovies(newValue);
+      // if the component had already been loaded in a lifecycle hook, don't load it again
+      if (this.hasLoadedFromHook && this.selectedPage === this.defaultPage)
+        return;
+
+      // if there's a new page value from within the component, reset the hasLoadedFromHook prop
+      if (newValue) this.hasLoadedFromHook = false;
+      this.getMovies(this.selectedPage);
     },
   },
   beforeMount() {
@@ -245,6 +252,7 @@ export default {
 
     // if we are on the top rated category, don't make a new fetch request
     if (newCategory === "top_rated") return;
+    this.hasLoadedFromHook = true;
     this.getMovies(this.selectedPage);
   },
   mounted() {
