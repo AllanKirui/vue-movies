@@ -37,6 +37,7 @@ export default {
       isShowCloseBtn: false,
       selectedSide: null,
       defaultCategory: "popular",
+      defaultSide: "movies",
       category: null, // can either get 'popular' or 'top_rated' movies
       isError404: false,
     };
@@ -220,7 +221,28 @@ export default {
     };
   },
   beforeMount() {
-    this.getCategory();
+    // get stored app states from local storage
+    const retrievedState = JSON.parse(localStorage.getItem("appState"));
+    // if there's no stored app states
+    if (!retrievedState) {
+      this.getCategory();
+      return;
+    }
+    // use the stored app states
+    const retrievedSide = retrievedState.lastActiveSide;
+    const retrievedCategory = retrievedState.lastActiveCategory;
+    this.selectedSide = retrievedSide ? retrievedSide : this.defaultSide;
+    this.category = retrievedCategory
+      ? retrievedCategory
+      : this.defaultCategory;
+  },
+  updated() {
+    // save app states to local storage
+    const appState = {
+      lastActiveSide: this.selectedSide,
+      lastActiveCategory: this.category,
+    };
+    localStorage.setItem("appState", JSON.stringify(appState));
   },
 };
 </script>
