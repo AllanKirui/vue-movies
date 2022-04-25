@@ -1,8 +1,8 @@
 <template>
-  <div class="not-found-wrapper wrapper flex flex-jc-sb flex-ai-c">
+  <div class="not-found-wrapper wrapper flex flex-ai-c">
     <div class="not-found-text">
       <h1 class="error-code">404</h1>
-      <h2 class="error-alert">OOPS!... ERROR</h2>
+      <h2 class="error-alert">OOPS!... Error</h2>
       <p class="error-description">
         Looks like the page you are looking for was not found.
       </p>
@@ -58,8 +58,8 @@ export default {
 .not-found-wrapper {
   position: relative;
   height: 100vh;
-  padding: 0 6.25rem;
   color: var(--color-clouds);
+  justify-content: space-evenly;
 }
 
 .not-found-text {
@@ -82,14 +82,12 @@ export default {
 }
 
 .error-alert {
-  margin-bottom: 1rem;
-  font-weight: normal;
-  font-size: var(--font-size-28);
+  margin-bottom: 1.5rem;
 }
 
 .error-description {
   margin-bottom: 2.5rem;
-  font-size: var(--font-size-22);
+  font-size: var(--font-size-18);
 }
 
 .home-link {
@@ -99,7 +97,7 @@ export default {
   background-color: var(--color-clouds);
   color: var(--color-smokey-black);
   font-family: inherit;
-  font-size: var(--font-size-20);
+  font-size: var(--font-size-16);
   cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
@@ -132,18 +130,6 @@ export default {
 
   .error-code {
     font-size: 5rem;
-  }
-
-  .error-alert {
-    font-size: var(--font-size-22);
-  }
-
-  .error-description {
-    font-size: var(--font-size-18);
-  }
-
-  .home-link {
-    font-size: var(--font-size-18);
   }
 
   .not-found-img-pc img {
