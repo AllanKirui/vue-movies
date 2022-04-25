@@ -141,4 +141,21 @@ export default {
     display: none;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .not-found-wrapper {
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .error-description {
+    font-size: var(--font-size-16);
+  }
+
+  .not-found-img-pc img {
+    width: 160px;
+    height: 138px;
+  }
+}
 </style>
