@@ -30,6 +30,7 @@ export default {
     return {
       chosenPage: null,
       activeCategory: this.chosenCategory,
+      defaultCategory: "popular",
       isShowcaseLoaded: null,
       showcasePage: null,
     };
@@ -53,11 +54,25 @@ export default {
     },
   },
   beforeMount() {
-    // get the value of the category prop from the active route and emit the value
-    const newCategory = this.$route.query.category;
-    this.activeCategory = newCategory;
+    // get stored app states from local storage
+    const retrievedState = JSON.parse(localStorage.getItem("appState"));
+    // if there's no stored app states
+    if (!retrievedState) {
+      // get the value of the category prop from the active route and emit the value
+      const newCategory = this.$route.query.category;
+      this.activeCategory = newCategory;
+      // emit custom events to carry the category and active side data
+      this.$emit("update-category", this.activeCategory);
+      this.$emit("activated-side", "shows");
+      return;
+    }
+    // use the stored app states
+    const retrievedCategory = retrievedState.lastActiveCategory;
+    this.activeCategory = retrievedCategory
+      ? retrievedCategory
+      : this.defaultCategory;
+    // emit custom events to carry the category and active side data
     this.$emit("update-category", this.activeCategory);
-    // emit a custom event that sets active styling on the header links
     this.$emit("activated-side", "shows");
   },
   updated() {

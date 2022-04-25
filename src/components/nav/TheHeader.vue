@@ -342,6 +342,7 @@ export default {
       isShowSearchButton: false,
       screenSize: null,
       defaultCategory: "popular",
+      defaultSide: "movies",
       category: null,
     };
   },
@@ -525,6 +526,7 @@ export default {
       this.isHidden = newValue;
     },
     selectedSide(side) {
+      console.log("THe cat: ", side);
       // watch the selectedSide prop and set active styles to the active side
       this.activeSide = side;
     },
@@ -548,7 +550,21 @@ export default {
   },
   beforeMount() {
     this.screenSize = window.innerWidth;
-    this.getCategory();
+
+    // get stored app states from local storage
+    const retrievedState = JSON.parse(localStorage.getItem("appState"));
+    // if there's no stored app states
+    if (!retrievedState) {
+      this.getCategory();
+      return;
+    }
+    // use the stored app states
+    const retrievedSide = retrievedState.lastActiveSide;
+    const retrievedCategory = retrievedState.lastActiveCategory;
+    this.activeSide = retrievedSide ? retrievedSide : this.defaultSide;
+    this.category = retrievedCategory
+      ? retrievedCategory
+      : this.defaultCategory;
   },
   mounted() {
     // call the method after data has been loaded to the screen
