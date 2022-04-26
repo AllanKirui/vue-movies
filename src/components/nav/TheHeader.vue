@@ -560,6 +560,16 @@ export default {
       // watch the selectedSide prop and set active styles to the active category
       this.category = category;
     },
+    isHidden(newValue) {
+      // watch the isHidden prop
+      if (newValue) {
+        // if it has a newValue of true, then the expanded search is active
+        this.isExpandedSearch = true;
+      } else {
+        // otherwise, it's closed
+        this.isExpandedSearch = false;
+      }
+    },
   },
   beforeMount() {
     this.screenSize = window.innerWidth;
