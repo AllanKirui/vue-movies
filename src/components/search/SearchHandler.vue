@@ -35,13 +35,17 @@
                 class="placeholder-img"
               />
             </div>
-            <div class="result__info flex flex-fd-c">
-              <h3 class="result__info-title">{{ movie.title }}</h3>
-              <p v-if="movie.overview" class="result__info-overview">
-                {{ setOverviewLength(movie.overview, overviewLength) }}
-              </p>
-              <p v-else class="result__info-overview">n/a</p>
-              <div class="flex">
+            <div class="result__info flex flex-fd-c flex-jc-sb">
+              <!-- top half -->
+              <div class="top">
+                <h3 class="result__info-title">{{ movie.title }}</h3>
+                <p v-if="movie.overview" class="result__info-overview">
+                  {{ setOverviewLength(movie.overview, overviewLength) }}
+                </p>
+                <p v-else class="result__info-overview">n/a</p>
+              </div>
+              <!-- bottom half -->
+              <div class="bottom flex">
                 <p v-if="movie.release_date" class="result__info-date">
                   {{ movie.release_date }}
                 </p>
@@ -107,12 +111,16 @@
               />
             </div>
             <div class="result__info flex flex-fd-c">
-              <h3 class="result__info-title">{{ show.name }}</h3>
-              <p v-if="show.overview" class="result__info-overview">
-                {{ setOverviewLength(show.overview, overviewLength) }}
-              </p>
-              <p v-else class="result__info-overview">n/a</p>
-              <div class="flex">
+              <!-- top half -->
+              <div class="top">
+                <h3 class="result__info-title">{{ show.name }}</h3>
+                <p v-if="show.overview" class="result__info-overview">
+                  {{ setOverviewLength(show.overview, overviewLength) }}
+                </p>
+                <p v-else class="result__info-overview">n/a</p>
+              </div>
+              <!-- bottom half -->
+              <div class="bottom flex">
                 <p v-if="show.first_air_date" class="result__info-date">
                   {{ show.first_air_date }}
                 </p>
@@ -264,25 +272,24 @@ export default {
   width: 100%;
 }
 
-.result__info > div {
-  position: absolute;
-  bottom: 8px;
-  gap: 15px;
+.result__info .bottom {
+  gap: 1rem;
 }
-.result__info > div p > img {
+
+.result__info .bottom p > img {
   margin-right: 3px;
 }
 
-.result__info-date,
-.result__info-rating {
+.result__info .bottom .result__info-date,
+.result__info .bottom .result__info-rating {
   color: var(--color-clouds);
 }
 
-.result__info-title {
+.result__info .top .result__info-title {
   font-size: var(--font-size-18);
 }
 
-.result__info-overview {
+.result__info .top .result__info-overview {
   font-size: var(--font-size-16);
   margin-bottom: 0.625rem;
 }
