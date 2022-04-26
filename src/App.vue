@@ -212,7 +212,7 @@ export default {
         this.isError404 = status;
         return;
       }
-      this.isError404 = !this.isError404;
+      this.isError404 = status;
     },
     showNetError(status) {
       this.isNetError = status;

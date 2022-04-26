@@ -6,7 +6,11 @@
       <p class="error-description">
         Looks like the page you are looking for was not found.
       </p>
-      <router-link :to="moviesRoute" class="home-link" title="Go Home"
+      <router-link
+        :to="moviesRoute"
+        @click="removeError"
+        class="home-link"
+        title="Go Home"
         >Return to Homepage</router-link
       >
     </div>
@@ -48,8 +52,13 @@ export default {
       return route;
     },
   },
+  methods: {
+    removeError() {
+      this.$emit("error-404", false);
+    },
+  },
   beforeMount() {
-    this.$emit("error-404");
+    this.$emit("error-404", true);
   },
 };
 </script>
