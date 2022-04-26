@@ -136,7 +136,7 @@
 
     <!-- mobile search activator button -->
     <div
-      v-if="isShowSearchButton"
+      v-if="isShowSearchButton && !isExpandedSearch"
       class="mobile-search-activator flex flex-ai-c"
     >
       <button @click="activateMobileSearch" :title="searchButtonText">
@@ -344,6 +344,7 @@ export default {
       defaultCategory: "popular",
       defaultSide: "movies",
       category: null,
+      isExpandedSearch: false,
     };
   },
   computed: {
@@ -484,6 +485,7 @@ export default {
       this.searchResults[0] = false;
       this.searchTerm = "";
       this.isShowMobileSearch = false;
+      this.isExpandedSearch = false;
     },
     removeMenuOverlay() {
       this.isMenuOpen = false;
@@ -492,8 +494,10 @@ export default {
       // hide the mini-search, SearchHandler component
       this.isHidden = true;
       this.removeOverlay();
+      this.isExpandedSearch = true;
     },
     removeExpandedSearchResults() {
+      this.isExpandedSearch = false;
       this.isHidden = false;
       if (this.isSearchActive) {
         this.removeOverlay();
