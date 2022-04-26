@@ -186,6 +186,17 @@ Gif of the **Placeholders**.
 
 <br/>
 
+![](./src/assets/markdown_images/16-404-error.png)
+![](./src/assets/markdown_images/17-net-error.png)
+
+Screenshots of the **Error** pages.
+
+- They show how the **Not Found** and the **Net Error** pages look on mobile devices.
+
+---
+
+<br/>
+
 ![](./src/assets/markdown_images/app-tree-1.png)
 ![](./src/assets/markdown_images/app-tree-2.png)
 ![](./src/assets/markdown_images/app-tree-3.png)
@@ -193,7 +204,7 @@ Gif of the **Placeholders**.
 
 Screenshots of the **App tree**.
 
-- It's shows an overview of the components, how they relate to each other and also describes the attached functionality.
+- They show an overview of the components, how they relate to each other and also describes the attached functionality. I'm sorry if I partially _blinded_ you there. I'll be sure to add dark themed images on my next project. 😉
 
 <br/>
 
@@ -319,6 +330,52 @@ setTrailerLink(videoLinks) {
   return links;
 },
 ```
+
+---
+
+While I was finishing up the project, I thought it would be a great idea if I stored the **app's states** to the browser's **Local Storage**.
+
+The reason behind this was mainly to enhance the user experience i.e., if a user last visited the **TV Shows** side of the site, then revisited the site later, they would be directed to the _last active side_ they were on. Not only would they get redirected to the _last active side_, but also to the category they last viewed.
+
+Here's a snippet of the code from `main.js`, where I've set the App's routing configuration. I retrieve the stored **app states** from **Local Storage** and set the path to load if the user enters something like _vue-movies/_ in the URL with nothing after the backslash.
+
+```javascript
+const setRedirectPath = () => {
+  // get stored app states from local storage
+  const retrievedState = JSON.parse(localStorage.getItem("appState"));
+  // if there's no stored app states, return movies as the path to use
+  if (!retrievedState) return "movies";
+  // otherwise use the stored app states
+  const retrievedPath = retrievedState.lastActiveSide;
+  return retrievedPath ? retrievedPath : "movies";
+};
+
+// create the router
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: "/", redirect: setRedirectPath },
+    // ...
+  ],
+});
+```
+
+---
+
+The `App.vue` component is where I store the **app states** to **Local Storage** once the component has been updated with data from the active components.
+
+```javascript
+updated() {
+  // save app states to local storage
+    const appState = {
+      lastActiveSide: this.selectedSide,
+      lastActiveCategory: this.category,
+    };
+    localStorage.setItem("appState", JSON.stringify(appState));
+  },
+```
+
+I also retrieve the stored **app states** in the `beforeMount()` hook of the various components that need it.
 
 ---
 
