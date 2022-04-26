@@ -144,12 +144,12 @@ export default {
   methods: {
     async getShows(page) {
       this.updateRoute(page);
-      this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/tv/${this.chosenCategory}?api_key=${apiKey}&page=${page}`;
-      // perform resets before a new fetch request
-      this.searchResults = [];
-
       try {
+        this.isLoading = true;
+        const url = `https://api.themoviedb.org/3/tv/${this.chosenCategory}?api_key=${apiKey}&page=${page}`;
+        // perform resets before a new fetch request
+        this.searchResults = [];
+
         // fetch data
         const response = await fetch(url);
         const data = await response.json();

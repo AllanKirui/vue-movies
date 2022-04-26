@@ -169,14 +169,14 @@ export default {
   },
   methods: {
     async getShows(page) {
-      this.isLoaded = false;
-      this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/tv/${this.chosenCategory}?api_key=${apiKey}&language=en-US&page=${page}`;
-
-      // perform resets before a new fetch request
-      this.results = [];
-
       try {
+        this.isLoaded = false;
+        this.isLoading = true;
+        const url = `https://api.themoviedb.org/3/tv/${this.chosenCategory}?api_key=${apiKey}&language=en-US&page=${page}`;
+
+        // perform resets before a new fetch request
+        this.results = [];
+
         // fetch data
         const response = await fetch(url);
         const data = await response.json();
