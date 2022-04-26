@@ -255,7 +255,13 @@ export default {
     ContentPlaceholder,
   },
   props: ["chosen-category"],
-  emits: ["show-button", "activated-side", "update-category"],
+  emits: [
+    "show-button",
+    "activated-side",
+    "update-category",
+    "connection-error",
+    "error404",
+  ],
   inject: [
     "setPath",
     "setBackdropPath",
@@ -278,17 +284,22 @@ export default {
   methods: {
     async getShows(id) {
       this.scrollToTop();
-      this.isLoaded = false;
-      this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`;
+      try {
+        this.isLoaded = false;
+        this.isLoading = true;
+        const url = `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`;
 
-      // fetch data
-      const response = await fetch(url);
-      const data = await response.json();
+        // fetch data
+        const response = await fetch(url);
+        const data = await response.json();
 
-      this.result = data;
-      this.isLoaded = true;
-      this.isLoading = false;
+        this.result = data;
+        this.isLoaded = true;
+        this.isLoading = false;
+        this.$emit("connection-error", false);
+      } catch (error) {
+        this.$emit("connection-error", true);
+      }
     },
     async getVideos(id) {
       const videos_url = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${apiKey}`;
@@ -336,6 +347,8 @@ export default {
     this.$emit("activated-side", "shows");
     // emit a custom event to carry the chosenCategory prop to remove Vue warnings
     this.$emit("update-category", this.chosenCategory);
+    // emit this custom event to remove vue warnings
+    this.$emit("error404", false);
   },
   updated() {
     // get the id which has been updated from outside the component
