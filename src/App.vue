@@ -1,28 +1,34 @@
 <template>
   <TheHeader
-    v-if="!isError404"
+    v-if="!isError404 && !isNetError"
     :close-button="isShowCloseBtn"
     :selected-side="selectedSide"
     :selected-category="category"
     @no-scroll="setScrollBehaviour"
     @set-category="setActiveCategory"
+    @connection-error="showNetError"
   />
 
   <!-- listen to a custom event that hides the close button on the header -->
   <router-view
+    v-if="!isNetError"
     :chosen-category="category"
     @show-button="showCloseButton"
     @activated-side="setActivatedSide"
     @update-category="setActiveCategory"
     @error-404="showNotFoundError"
+    @connection-error="showNetError"
   ></router-view>
 
-  <TheFooter v-if="!isError404" />
+  <TheFooter v-if="!isError404 && !isNetError" />
+
+  <NetError v-if="isNetError" />
 </template>
 
 <script>
 import TheHeader from "./components/nav/TheHeader.vue";
 import TheFooter from "./components/footer/TheFooter.vue";
+import NetError from "./components/ui/NetError.vue";
 const imgPath = "https://image.tmdb.org/t/p/w500";
 const backdropImgPath = "https://image.tmdb.org/t/p/w1280";
 
@@ -31,6 +37,7 @@ export default {
   components: {
     TheHeader,
     TheFooter,
+    NetError,
   },
   data() {
     return {
@@ -40,6 +47,7 @@ export default {
       defaultSide: "movies",
       category: null, // can either get 'popular' or 'top_rated' movies
       isError404: false,
+      isNetError: false,
     };
   },
   methods: {
@@ -198,8 +206,16 @@ export default {
       // check if there is a chosen category, or use the default instead
       this.category = this.category ? this.category : this.defaultCategory;
     },
-    showNotFoundError() {
+    showNotFoundError(status) {
+      // run this code if an emitted event carries a value of false
+      if (!status) {
+        this.isError404 = status;
+        return;
+      }
       this.isError404 = !this.isError404;
+    },
+    showNetError(status) {
+      this.isNetError = status;
     },
   },
   provide() {

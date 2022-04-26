@@ -323,7 +323,7 @@ export default {
     "search-placeholder": SearchPlaceholder,
   },
   props: ["closeButton", "selectedSide", "selectedCategory"],
-  emits: ["no-scroll", "set-category"],
+  emits: ["no-scroll", "set-category", "connection-error"],
   data() {
     return {
       isMenuOpen: false,
@@ -421,10 +421,15 @@ export default {
         return;
       }
 
-      const response = await fetch(url + this.searchTerm);
-      const data = await response.json();
-      this.isLoading = false;
-      this.checkResults(data.results);
+      try {
+        const response = await fetch(url + this.searchTerm);
+        const data = await response.json();
+        this.isLoading = false;
+        this.checkResults(data.results);
+        this.$emit("connection-error", false);
+      } catch (error) {
+        this.$emit("connection-error", true);
+      }
     },
     async getShows(url) {
       this.isSearchActive = true;
@@ -443,10 +448,15 @@ export default {
         return;
       }
 
-      const response = await fetch(url + this.searchTerm);
-      const data = await response.json();
-      this.isLoading = false;
-      this.checkResults(data.results);
+      try {
+        const response = await fetch(url + this.searchTerm);
+        const data = await response.json();
+        this.isLoading = false;
+        this.checkResults(data.results);
+        this.$emit("connection-error", false);
+      } catch (error) {
+        this.$emit("connection-error", true);
+      }
     },
     checkResults(results) {
       // check if search results are more or less than five
@@ -526,7 +536,6 @@ export default {
       this.isHidden = newValue;
     },
     selectedSide(side) {
-      console.log("THe cat: ", side);
       // watch the selectedSide prop and set active styles to the active side
       this.activeSide = side;
     },

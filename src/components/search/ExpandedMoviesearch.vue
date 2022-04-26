@@ -191,9 +191,17 @@ import ThePagination from "../ui/ThePagination.vue";
 const searchAPI = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 
 export default {
-  name: "ExpandedSearch",
+  name: "ExpandedMoviesearch",
   components: { ContentPlaceholder, ThePagination },
-  emits: ["show-button", "activated-side"],
+  // the chosenCategory prop is only here to remove vue warnings
+  props: ["chosenCategory"],
+  emits: [
+    "show-button",
+    "activated-side",
+    "connection-error",
+    "updateCategory",
+    "error404",
+  ],
   inject: [
     "setPath",
     "setTitleLength",
@@ -222,25 +230,29 @@ export default {
   methods: {
     async getMovies(url, page) {
       this.updateRoute(this.searchTerm, page);
-      this.isLoading = true;
-      // if there's a new searchTerm, emit a custom event to make fetch() get the first page
-      if (page === this.defaultPage) {
-        this.selectedPage = 1;
+      try {
+        this.isLoading = true;
+        // if there's a new searchTerm, emit a custom event to make fetch() get the first page
+        if (page === this.defaultPage) {
+          this.selectedPage = 1;
+        }
+        this.userInput = this.searchTerm;
+        this.queryParam = `&page=${page}&query="${this.searchTerm}`;
+        // perform resets before a new fetch request
+        this.searchResults = [];
+        // fetch data
+        const response = await fetch(url + this.queryParam);
+        const data = await response.json();
+
+        this.isResults = true;
+        this.isLoading = false;
+        this.totalPages = this.getFiftyPages(data.total_pages);
+        this.isNoResults = this.checkDataLength(data.results);
+        this.searchResults = data.results;
+        this.$emit("connection-error", false);
+      } catch (error) {
+        this.$emit("connection-error", true);
       }
-      this.userInput = this.searchTerm;
-      this.queryParam = `&page=${page}&query="${this.searchTerm}`;
-      // perform resets before a new fetch request
-      this.searchResults = [];
-
-      // fetch data
-      const response = await fetch(url + this.queryParam);
-      const data = await response.json();
-
-      this.isResults = true;
-      this.isLoading = false;
-      this.totalPages = this.getFiftyPages(data.total_pages);
-      this.isNoResults = this.checkDataLength(data.results);
-      this.searchResults = data.results;
     },
     switchPages(newPage) {
       this.getMovies(this.searchLink, newPage);
@@ -307,6 +319,9 @@ export default {
     }
     // emit a custom event that sets active styling on the header links
     this.$emit("activated-side", "movies");
+    // emit these two custom events to remove vue warnings
+    this.$emit("updateCategory");
+    this.$emit("error404", false);
   },
   created() {
     // get the search term from the keyword prop on the query parameter

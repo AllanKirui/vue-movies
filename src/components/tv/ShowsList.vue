@@ -107,7 +107,7 @@ export default {
   name: "ShowsList",
   components: { ContentPlaceholder, ThePagination },
   props: ["chosenPage", "chosenCategory", "isLoaded"],
-  emits: ["show-button"],
+  emits: ["show-button", "connection-error"],
   inject: [
     "setPath",
     "setTitleLength",
@@ -149,18 +149,23 @@ export default {
       // perform resets before a new fetch request
       this.searchResults = [];
 
-      // fetch data
-      const response = await fetch(url);
-      const data = await response.json();
-      this.isLoading = false;
+      try {
+        // fetch data
+        const response = await fetch(url);
+        const data = await response.json();
+        this.isLoading = false;
 
-      // only get the first 40 pages
-      if (data.total_pages > 40) {
-        this.totalPages = 40;
-      } else {
-        this.totalPages = data.total_pages;
+        // only get the first 40 pages
+        if (data.total_pages > 40) {
+          this.totalPages = 40;
+        } else {
+          this.totalPages = data.total_pages;
+        }
+        this.searchResults = data.results;
+        this.$emit("connection-error", false);
+      } catch (error) {
+        this.$emit("connection-error", true);
       }
-      this.searchResults = data.results;
     },
     switchPages(newPage) {
       this.getShows(newPage);

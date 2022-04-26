@@ -135,7 +135,7 @@ export default {
   name: "MovieShowcase",
   components: { Carousel, Pagination, Slide, ShowcasePlaceholder },
   props: ["chosenCategory", "chosenPage"],
-  emits: ["loading-status"],
+  emits: ["loading-status", "connection-error"],
   inject: [
     "setBackdropPath",
     "setDate",
@@ -169,22 +169,27 @@ export default {
   },
   methods: {
     async getMovies(page) {
-      this.isLoaded = false;
-      this.isLoading = true;
-      const url = `https://api.themoviedb.org/3/movie/${this.category}?api_key=${apiKey}&language=en-US&page=${page}`;
+      try {
+        this.isLoaded = false;
+        this.isLoading = true;
+        const url = `https://api.themoviedb.org/3/movie/${this.category}?api_key=${apiKey}&language=en-US&page=${page}`;
 
-      // perform resets before a new fetch request
-      this.results = [];
+        // perform resets before a new fetch request
+        this.results = [];
 
-      // fetch data
-      const response = await fetch(url);
-      const data = await response.json();
+        // fetch data
+        const response = await fetch(url);
+        const data = await response.json();
 
-      this.isLoading = false;
-      this.isLoaded = true;
-      // emit a custom event to carry the loading status
-      this.$emit("loading-status", this.isLoaded);
-      this.checkResults(data.results);
+        this.isLoading = false;
+        this.isLoaded = true;
+        // emit a custom event to carry the loading status
+        this.$emit("loading-status", this.isLoaded);
+        this.checkResults(data.results);
+        this.$emit("connection-error", false);
+      } catch (error) {
+        this.$emit("connection-error", true);
+      }
     },
     checkResults(results) {
       // only get the first 8 movies

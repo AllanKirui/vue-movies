@@ -1,15 +1,17 @@
 <template>
-  <div class="movies-list-wrapper flex flex-fd-c">
+  <div v-if="!isConnectionError" class="movies-list-wrapper flex flex-fd-c">
     <MovieShowcase
       :chosen-page="showcasePage"
       :chosen-category="activeCategory"
       @loading-status="setLoadingStatus"
+      @connection-error="setConnectionStatus"
     />
     <MoviesList
       :is-loaded="isShowcaseLoaded"
       :chosen-page="chosenPage"
       :chosen-category="activeCategory"
       @show-button="$emit('show-button', false)"
+      @connection-error="setConnectionStatus"
     />
   </div>
 </template>
@@ -20,7 +22,12 @@ import MoviesList from "./MoviesList.vue";
 
 export default {
   name: "TheMovies",
-  emits: ["activated-side", "show-button", "update-category"],
+  emits: [
+    "activated-side",
+    "show-button",
+    "update-category",
+    "connection-error",
+  ],
   props: ["chosenCategory"],
   components: {
     MovieShowcase,
@@ -33,11 +40,16 @@ export default {
       defaultCategory: "popular",
       isShowcaseLoaded: null,
       showcasePage: null,
+      isConnectionError: false,
     };
   },
   methods: {
     setLoadingStatus(status) {
       this.isShowcaseLoaded = status;
+    },
+    setConnectionStatus(status) {
+      this.isConnectionError = status;
+      this.$emit("connection-error", status);
     },
   },
   watch: {
