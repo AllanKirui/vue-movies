@@ -469,6 +469,7 @@ html::-webkit-scrollbar-track,
 }
 
 .carousel .carousel__pagination {
+  padding: 0;
   margin-top: -2rem;
   position: relative;
   top: 0;
