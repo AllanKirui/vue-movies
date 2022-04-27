@@ -1,20 +1,20 @@
 # Vue Movies
 
-This is a challenge I designed to help me practice my skills with the **[Vue.js](https://v3.vuejs.org)** framework.
+This is a challenge I designed to help me practice my skills with the [Vue.js](https://v3.vuejs.org) framework.
 
 ## Table of contents 📖
 
-- [Overview](#overview)
-  - [About the challenge](#about-the-challenge)
-  - [Screenshots](#screenshots)
-  - [Links](#links)
-  - [How to use](#how-to-use)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
+- [Overview](#overview-)
+  - [About the challenge](#about-the-challenge-)
+  - [Screenshots](#screenshots-)
+  - [Links](#links-)
+  - [Quickstart guide](#quickstart-guide)
+- [My process](#my-process-)
+  - [Built with](#built-with-)
+  - [What I learned](#what-i-learned-)
+  - [Continued development](#continued-development-)
+  - [Useful resources](#useful-resources-)
+- [Author](#author-)
 
 ## Overview 🔎
 
@@ -49,7 +49,7 @@ Screenshot of the **included** design file.
 
 Screenshot of the **included** design file.
 
-- It's shows a closer look at one of the designs and the process I use to figure out things like the **positioning** and **spacing** of elements. You can learn more about that here: [Designing and Coding Layouts](https://github.com/AllanKirui/designing-and-coding-layouts)
+- It's shows a closer look at one of the design pages and the process I use to figure out things like the **positioning** and **spacing** of elements. You can learn more about that here: [Designing and Coding Layouts](https://github.com/AllanKirui/designing-and-coding-layouts)
 
 ---
 
@@ -59,13 +59,13 @@ Screenshot of the **included** design file.
 
 Screenshot of the **Homepage** running on my **Local Development Server**.
 
-- When you first visit the site, you get directed to the **Homepage** which holds content for **Movies**.
-- At the very top, there's the **Nav** which contains:
-  - a **Burger** to open the **Menu**
-  - navigation links to switch between the different sides of the site. The Movies side being the default active side.
+- When you first visit the site, you get directed to the Homepage which holds content for Movies.
+- At the very top, there's the nav which contains:
+  - a burger to open the menu.
+  - navigation links to switch between the different sides of the site. The Movies side being the default side.
   - a mini search bar which can be used to search for Movies/TV Shows depending on the active side of the site. It returns a limited number of search results, providing the option to view more results.
-- Below the Nav, you can see a showcase of Movies comprised of a select number of Movies and below it is a list of Movies.
-- By default, the category showing is the **Popular** category.
+- Below the nav, you can see a showcase of Movies comprised of a select number of Movies and below it is a list of Movies.
+- By default, the category shown is the popular category.
 
 ---
 
@@ -73,7 +73,7 @@ Screenshot of the **Homepage** running on my **Local Development Server**.
 
 ![](./src/assets/markdown_images/4.png)
 
-Screenshot of the **Homepage**.
+Screenshot of the **Homepage** scrolled down.
 
 - It shows the list of Movies that is below the showcase.
 
@@ -85,8 +85,8 @@ Screenshot of the **Homepage**.
 
 Screenshot of the **Hover Popup** on a Movie item.
 
-- **Hovering** on a Movie item shows a popup containing additional information about the Movie item being hovered.
-- The **overview** of a Movie item gets trimmed if it's too long and the position of the popup is calculated whenever the page is resized so that it doesn't overflow to the right of the screen.
+- Hovering on a Movie shows a popup containing additional information about the Movie.
+- The overview of a Movie gets trimmed if it's too long and the position of the popup is calculated whenever the page is resized so that it doesn't overflow to the right of the screen.
 
 ---
 
@@ -96,9 +96,9 @@ Screenshot of the **Hover Popup** on a Movie item.
 
 #### Screenshot of the **Movie Info** component.
 
-- Clicking on a Movie item takes you to a page containing more information about the clicked Movie.
-- Note that the url also gets updated to reflect the changes.
-- In this page, you can view the **full overview** and other important details such as **genres**.
+- Clicking on a Movie takes you to a page containing more information about the Movie.
+- Note that the URL also gets updated to reflect the changes.
+- In this page, you can view the full overview and other important details such as genres and country of production.
 
 ---
 
@@ -106,10 +106,10 @@ Screenshot of the **Hover Popup** on a Movie item.
 
 ![](./src/assets/markdown_images/7.png)
 
-Screenshot of the **Movie Info** component scrolled down.
+Screenshot of the **Movie Info** page scrolled down.
 
-- Scrolling down, there's a **trailer card**. I decided not to build a video player for this part, so what I did is that I set the **backdrop poster** of a Movie as the background for the trailer card.
-- **Hovering** on the trailer card shows a **play icon** which links to the trailer for the Movie on **YouTube**.
+- Scrolling down, you'll find a trailer card. I decided not to build a video player for this part, so what I did is that I set the backdrop poster of the Movie being shown as the background for the trailer card.
+- Hovering on the trailer card shows a play icon which links to the trailer for the Movie on YouTube.
 
 ---
 
@@ -117,9 +117,9 @@ Screenshot of the **Movie Info** component scrolled down.
 
 ![](./src/assets/markdown_images/8.png)
 
-Screenshot of the **Movie Info** component scrolled further down.
+Screenshot of the **Movie Info** page scrolled further down.
 
-- Scrolling down further, below the **trailer card**, you get suggestions for similar Movies based on the Movie item whose details are shown above.
+- Scrolling further down, below the trailer card, you get suggestions for Similar Movies based on the Movie whose details are shown above.
 
 ---
 
@@ -127,9 +127,9 @@ Screenshot of the **Movie Info** component scrolled further down.
 
 ![](./src/assets/markdown_images/9.png)
 
-Screenshot of the **Nav Search Bar**.
+Screenshot of the **Nav Search Bar** in action.
 
-- It shows a limited number of search results, but if there are more results for the **search term** provided, you get access to the **View More Results** button.
+- It shows a limited number of search results, but if there are more results for the search term provided, you get access to the _View More Results_ button.
 
 ---
 
@@ -137,9 +137,9 @@ Screenshot of the **Nav Search Bar**.
 
 ![](./src/assets/markdown_images/10.png)
 
-Screenshot of the **Expanded Search Bar**.
+Screenshot of the **Expanded Search Results**.
 
-- **Clicking** on the **View More Results** button will open up a new page with more results for the **search term** you had provided on the Nav Search Bar.
+- Clicking on the _View More Results_ button will open up a new page with more results for the search term you had provided on the Nav Search Bar.
 
 ---
 
@@ -149,7 +149,7 @@ Screenshot of the **Expanded Search Bar**.
 
 Screenshot of the **TV Shows** side of the site.
 
-- **Clicking** on the **TV Shows** link in the Nav will load TV Shows.
+- Clicking on the TV Shows link in the nav will load TV Shows.
 - As with the Movies side, you get showcased items and a TV Shows list.
 
 ---
@@ -160,7 +160,7 @@ Screenshot of the **TV Shows** side of the site.
 
 Screenshot of the **Pagination**.
 
-- It shows the **Pagination** that's used to navigate between the various pages of loaded Movies/TV Shows.
+- It shows the page buttons used to navigate between the various pages of loaded Movies, TV Shows, and search results.
 
 ---
 
@@ -170,7 +170,7 @@ Screenshot of the **Pagination**.
 
 Gif of the **Burger Menu**.
 
-- The **Menu** has options to switch between Movies and TV Shows, as well as options to switch between the **Popular** and **Top Rated** categories.
+- The menu has options to switch between Movies and TV Shows, as well as options to switch between the Popular and Top Rated categories.
 
 ---
 
@@ -180,7 +180,7 @@ Gif of the **Burger Menu**.
 
 Gif of the **Placeholders**.
 
-- The gif above shows the content placeholders for the Movie showcase and Movie lists.
+- The gif above shows the content placeholders for the showcase and list items.
 
 ---
 
@@ -191,7 +191,7 @@ Gif of the **Placeholders**.
 
 Screenshots of the **Error** pages.
 
-- They show how the **Not Found** and the **Net Error** pages look on mobile devices.
+- They show how the Not Found and the Net Error pages look on mobile devices.
 
 ---
 
@@ -202,28 +202,31 @@ Screenshots of the **Error** pages.
 ![](./src/assets/markdown_images/app-tree-3.png)
 ![](./src/assets/markdown_images/app-tree-4.png)
 
-Screenshots of the **App tree**.
+Screenshots of the **App Tree**.
 
-- They show an overview of the components, how they relate to each other and also describes the attached functionality. I'm sorry if I partially _blinded_ you there. I'll be sure to add dark themed images on my next project. 😉
+- They show an overview of the components, how they relate to each other and also describes some of the attached functionality.
+
+  _I'm sorry if I partially blinded you there. I'll be sure to add dark themed images on my next project._ 😉
 
 <br/>
 
 ### Links 🔗
 
-- Live Site URL: **[Change]** [Vue Movies](https://allankirui.github.io/vue-movies/)
+- Live Site URL: [Vue Movies](https://allankirui.github.io/vue-movies/)
 
 <br/>
 
-### How to use 📜
+### Quickstart guide 📜
 
 To run the code, you need to follow these steps:
 
-1. **Clone** the repository into a folder (Or if you chose to download a **zip** file, extract it's contents).
-2. Open a **terminal** window and navigate to the directory containing the extracted project folder.
-3. **Run** `npm install` in the **terminal** to install **required dependencies** (This will create a **node_modules** folder).
-4. Next, **run** `npm install --save vue-router@next` to install the **routing package**.
-5. Finally, **run** `npm run serve` to bring up the **development server**. You can view the app at **localhost:8080**
-   (or whichever **port** is shown in your **terminal**).
+1. Clone or downlod the repository to your computer.
+2. You might need to install [Node.js](https://nodejs.org/) for the following steps.
+3. Open a terminal window and navigate to the directory containing the repository.
+4. Run `npm install` in the terminal to install required dependencies (This will create a **node_modules** folder.)
+5. Next, run `npm install --save vue-router@next` to install the routing package.
+6. Finally, run `npm run serve` to bring up the development server. You can view the app at localhost:8080
+   (or whichever port is shown in your terminal).
 
 <br/>
 
@@ -231,11 +234,11 @@ To run the code, you need to follow these steps:
 
 ---
 
-It all started with the API. I went through the documentation for the [TMDB API](https://themoviedb.org/documentation/api) and learned how I could make requests for the **poster** and **backdrop images**, hence how I got the images for the designs.
+It all started with the API. I went through the documentation for the [TMDB API](https://themoviedb.org/documentation/api) and learned how I could make requests for the poster and backdrop images, hence how I got the images for the designs.
 
-With the images downloaded, I chose a suitable layout for displaying the various parts of the app such as the **showcase**, **search results**, **similar movies** etc. I proceeded to add more details to the designs such as **colors** and **typography** etc.
+With the images downloaded, I begun the design process and after some trial and error, I chose a suitable layout for the various parts of the app such as the showcase, search results, similar movies etc. I then proceeded to add more details to the designs such as colors, typography etc.
 
-Having captured all my ideas about the app in the design, I initialized the **Vue** app and started meeting the design requirements one line of code at a time. 🏁
+Having captured all my ideas about the app in the design, I initialized the Vue app and started meeting the design requirements one line of code at a time. 🏁
 
 <br/>
 
@@ -252,28 +255,28 @@ Having captured all my ideas about the app in the design, I initialized the **Vu
 
 ### What I learned 🎓
 
-The time I spent working on the project was a great way for me to practice my **Vue** skills - A great way for me to work with **Vue's** _reactivity_ and to get better at:
+The time I spent working on the project was a great way for me to practice my Vue skills - A great way for me to work with Vue's _reactivity_ and to get better at:
 
 - **component communication** 📡
-  - This involves sending data from a _parent component_ to a _child component_ using a special **Vue** feature known as **[props](https://v3.vuejs.org/guide/component-props.html#prop-types)**.
-  - The communication also works in the opposite her direction i.e from a _child component_ to a _parent component_ using the built in **[custom events](https://v3.vuejs.org/guide/component-custom-events.html#event-names)** feature.
-  - And if you want a sort of _long range_ communication between an _ancestor_ and a _descendant_, you have **[provide and inject](https://v3.vuejs.org/guide/component-provide-inject.html#working-with-reactivity)**. Another **Vue** provided feature.
+  - This involves sending data from a _parent component_ to a _child component_ using a special Vue feature known as [props](https://v3.vuejs.org/guide/component-props.html#prop-types).
+  - The communication also works in the opposite her direction i.e from a _child component_ to a _parent component_ using the built in [custom events](https://v3.vuejs.org/guide/component-custom-events.html#event-names) feature.
+  - And if you want a sort of _long range_ communication between an _ancestor_ and a _descendant_, you have [provide and inject](https://v3.vuejs.org/guide/component-provide-inject.html#working-with-reactivity). Another Vue provided feature.
 
 <br/>
 
-- **using lifecycle hooks** 🔁
-  - Knowing when to use which **lifecycle hook** has made me understand more about how Vue works behind the scenes. I've also been able to achieve some functionality that I don't think would be possible otherwise. 😅
+- **using lifecycle hooks/methods** 🔁
+  - Knowing when to use which lifecycle hook has made me understand more about how Vue works behind the scenes. I've also been able to achieve some functionality that I don't think would have been possible otherwise. 😅
 
 <br/>
 
 - **setting up routing with Vue Router** ↩️
-  - This involves creating various **routes** for the different components of the app.
+  - This involves creating various routes for the different components of the app.
 
 <br/>
 
 **Here's some of the code that I'm proud of** 😎
 
-Using **[Vue's lifecycle methods](https://v3.vuejs.org/guide/composition-api-lifecycle-hooks.html)** i.e., the `beforeUpdate()` and `Updated()` lifecycle hooks was very instrumental in creating the **Hover Popup** that appears when hovering over a Movie/TV Show item.
+Using [Vue's lifecycle methods](https://v3.vuejs.org/guide/composition-api-lifecycle-hooks.html) i.e., the `beforeUpdate()` and `Updated()` lifecycle hooks was very instrumental in creating the **Hover Popup** that appears when hovering over a Movie/TV Show item.
 
 The `checkWindowSize()` method listens to the `resize` event on the `Window` and calls the `setInfoCardPosition()` method that does most of the heavy lifting.
 
@@ -298,9 +301,9 @@ Here's a gif showing how it works.
 
 ---
 
-As for setting the **[Trailer link](#screenshot-of-the-movie-info-component)**, I use the `setTrailerLink()` method which takes in a list of video links and returns a list of valid links. The list of links passed to the method is from the `data` received after making a `fetch` request for videos.
+As for showing the [trailer card](#screenshot-of-the-movie-info-component), I use the `setTrailerLink()` method which takes in a list of video links and returns a list of valid links. The list of links passed to the method is from the data received after making a `fetch` request for videos.
 
-Inside the `setTrailerLink()` method, I check if the links received have a valid trailer **_type_** and if the **_source_** of the Trailer is YouTube.
+Inside the `setTrailerLink()` method, I check if the links received have a valid trailer _type_ and if the _source_ of the trailer is YouTube.
 
 ```javascript
 setTrailerLink(videoLinks) {
@@ -333,11 +336,11 @@ setTrailerLink(videoLinks) {
 
 ---
 
-While I was finishing up the project, I thought it would be a great idea if I stored the **app's states** to the browser's **Local Storage**.
+While I was finishing up the project, I thought it would be a great idea if I stored the app's states to the browser's local storage.
 
-The reason behind this was mainly to enhance the user experience i.e., if a user last visited the **TV Shows** side of the site, then revisited the site later, they would be directed to the _last active side_ they were on. Not only would they get redirected to the _last active side_, but also to the category they last viewed.
+The reason behind this was mainly to enhance the user experience i.e., if a user last visited the TV Shows side of the site, then revisited the site later, they would be directed to the _last active side_ they were on. Not only would they get redirected to the _last active side_, but also to the category they last viewed.
 
-Here's a snippet of the code from `main.js`, where I've set the App's routing configuration. I retrieve the stored **app states** from **Local Storage** and set the path to load if the user enters something like _vue-movies/_ in the URL with nothing after the backslash.
+Here's a snippet of the code from `main.js`, where I've set the app's routing configuration. I retrieve the stored app states from local storage and set the path to load if the user enters something like _/vue-movies/_ in the URL with nothing after the backslash.
 
 ```javascript
 const setRedirectPath = () => {
@@ -362,7 +365,7 @@ const router = createRouter({
 
 ---
 
-The `App.vue` component is where I store the **app states** to **Local Storage** once the component has been updated with data from the active components.
+The `App.vue` component is where I store the app's states to local storage once the component has been updated with data from the active components.
 
 ```javascript
 updated() {
@@ -375,7 +378,7 @@ updated() {
   },
 ```
 
-I also retrieve the stored **app states** in the `beforeMount()` hook of the various components that need it.
+I also retrieve the stored app states in the `beforeMount()` hook of the various components that need it.
 
 ---
 
@@ -383,15 +386,19 @@ I also retrieve the stored **app states** in the `beforeMount()` hook of the var
 
 ### Continued development ⏱️
 
-Going forward, I want continue learning more about **Frontend development** and to practice what I already know by tackling more projects built with **Vue**. Applying the features and best practices that I've learnt from working on this project.
+Going forward, I want continue learning more about frontend development and to practice what I already know by tackling more projects built with **Vue**. Applying the features and best practices that I've learnt from working on this project.
 
 <br>
 
 ### Useful resources 💎
 
-- [Inkscape](https://inkscape.org) - Inkscape SVG Editor. I use it all the time when I'm working on any web project. After designing the project, I used **Inkscape's** in-built tools to help me figure out the **spacing**, **sizing** and **positioning** of elements throughout the project. To better understand how I approached coding the project using Inkscape, have a look at this repository I made - [Designing and Coding Layouts](https://github.com/AllanKirui/designing-and-coding-layouts)
+- [Inkscape](https://inkscape.org) - Inkscape SVG Editor. I use it all the time when I'm working on any web project. After designing the project, I used Inkscape's in-built tools to help me figure out the _spacing_, _sizing_ and _positioning_ of elements throughout the project. To better understand how I approached coding the project using Inkscape, have a look at this repository I made - [Designing and Coding Layouts](https://github.com/AllanKirui/designing-and-coding-layouts)
 
 - [Vue Presentation](https://allankirui.github.io/A-Vuejs-Presentation/) - A while back after I had started learning **Vue**, I made a presentation on the framework. Do take a look, it might give you a better understanding of what the framework is about.
+
+- [Vue3 Carousel](https://ismail9k.github.io/vue3-carousel/) - Vue.js 3 carousel component.
+
+- [unDraw](https://undraw.co/) - Open-source illustrations for any idea you can imagine and create.
 
 <br>
 
@@ -403,7 +410,7 @@ Going forward, I want continue learning more about **Frontend development** and 
 - Instagram - [@nallawilljr](https://www.instagram.com/nallawilljr)
 - Email - <allan.kirui@outlook.com>
 
-Thank you for taking your time to go through this readme and I hope you'll remember to use **[Vue Movies](#links)** the next time you're browsing for Movies or TV Shows. 😉
+Thank you for taking your time to go through this readme and I hope you'll remember to use [Vue Movies](#links) the next time you're browsing for Movies or TV Shows. 😉
 
 If you do encounter any _undocumented features_ a.k.a bugs, kindly let me know.
 
