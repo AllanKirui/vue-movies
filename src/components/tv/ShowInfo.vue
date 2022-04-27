@@ -25,12 +25,14 @@
           :title="result.name"
           :alt="`poster image for ${result.name}`"
           width="320"
+          height="480"
           class="poster-img"
         />
         <img
           v-else
           src="../../assets/poster-placeholder.png"
           width="320"
+          height="480"
           alt="no poster image"
           class="no-poster-img"
         />
@@ -39,6 +41,7 @@
           v-if="result.poster_path"
           src="../../assets/poster-placeholder.png"
           width="320"
+          height="480"
           alt="placeholder image"
           class="placeholder-img"
         />
@@ -54,7 +57,7 @@
 
         <div class="meta">
           <!-- tv show rating and runtime -->
-          <div class="meta-section-1 flex">
+          <div class="meta-section-1 flex flex-fw-w">
             <p class="content-rating">
               <img
                 src="../../assets/rating-icon.svg"
@@ -90,7 +93,7 @@
           <div class="meta-section-3 flex flex-fd-c">
             <div
               v-if="result.production_countries.length > 0"
-              class="content-country comma-separated spaced flex"
+              class="content-country comma-separated spaced flex flex-fw-w"
             >
               <p>Countries:</p>
               <div
@@ -117,7 +120,7 @@
             <!-- tv show genre -->
             <div
               v-if="result.genres.length > 0"
-              class="content-genre comma-separated spaced flex"
+              class="content-genre comma-separated spaced flex flex-fw-w"
             >
               <p>Genres:</p>
               <div
@@ -160,7 +163,7 @@
             <!-- tv show creators -->
             <div
               v-if="result.created_by.length > 0"
-              class="content-creators comma-separated spaced flex"
+              class="content-creators comma-separated spaced flex flex-fw-w"
             >
               <p>Created by:</p>
               <div
@@ -402,11 +405,6 @@ export default {
   left: 0;
 }
 
-.content-poster img.no-poster-img {
-  padding: 7.5rem 1.25rem;
-  object-fit: cover;
-}
-
 .content-text {
   grid-column: 2/3;
   text-shadow: 1px 1px 2px var(--color-jet-black);
@@ -526,10 +524,15 @@ export default {
   }
 
   .info-wrapper .content-poster {
-    width: 31.3333333333%;
+    max-width: 180px;
+    max-height: 270px;
     margin: 0 auto;
     grid-column: span 1;
     grid-row: 1/2;
+  }
+
+  .info-wrapper .content-poster img {
+    max-width: 100%;
   }
 
   .info-wrapper .content-text {
@@ -543,13 +546,18 @@ export default {
 }
 
 @media screen and (max-width: 576px) {
+  .meta .meta-section-1 {
+    gap: 1rem;
+  }
+
+  .meta .meta-section-3 .spaced > p:first-child {
+    width: fit-content;
+    margin-right: 1rem;
+  }
+
   .trailer-wrapper .trailer-card img.play-icon {
     visibility: visible;
     opacity: 1;
-  }
-
-  .content-poster img.no-poster-img {
-    padding: 5.5rem 1.25rem;
   }
 }
 </style>

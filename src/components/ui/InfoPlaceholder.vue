@@ -137,9 +137,12 @@
   margin-left: 0.9375rem;
 }
 
-.trailer-wrapper,
-.title-placeholder {
+.trailer-wrapper {
   margin-bottom: 4.1875rem;
+}
+
+.title-placeholder {
+  margin-bottom: 2.1875rem;
 }
 
 .trailer-wrapper .heading {
@@ -149,17 +152,31 @@
 }
 
 .trailer-wrapper .trailer-card {
-  width: 31.5rem;
+  width: 37.5rem;
   max-width: 100%;
   height: 21.875rem;
   max-height: 100%;
 }
 
 @media screen and (max-width: 939px) {
+  .info-wrapper {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr auto !important;
+  }
+
   .content-poster {
-    min-width: 11.25rem;
-    height: 80%;
-    min-height: 15.625rem;
+    width: 180px;
+    height: 270px;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    grid-column: span 1;
+    grid-row: 1/2;
+  }
+
+  .content-text {
+    grid-column: span 1;
+    grid-row: 2/3;
   }
 
   .meta .meta-section-2 .content-overview:not(:last-child) {
@@ -175,7 +192,7 @@
 @media screen and (max-width: 639px) {
   .trailer-wrapper .trailer-card {
     width: 100%;
-    height: 40vh;
+    height: 36vh;
   }
 }
 </style>
