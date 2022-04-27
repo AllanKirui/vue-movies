@@ -545,11 +545,11 @@ export default {
     },
     screenSize(newValue) {
       // show the mobile search form and search buttons based on screen size
-      if (newValue && newValue > 939) {
+      if (newValue && newValue >= 939) {
         this.isShowMobileSearch = false;
         this.isShowSearchButton = false;
       }
-      if (newValue && newValue < 939) {
+      if (newValue && newValue <= 938) {
         this.isShowSearchButton = true;
         if (this.isSearchActive) {
           this.isShowMobileSearch = true;
