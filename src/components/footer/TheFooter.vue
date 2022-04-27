@@ -31,7 +31,9 @@
               />
             </svg>
             by
-            <a href="https://google.com" target="_blank">Allan Kirui</a>
+            <a href="https://github.com/AllanKirui" target="_blank"
+              >Allan Kirui</a
+            >
           </p>
         </div>
       </div>
@@ -48,7 +50,9 @@
         <div class="footer__center-text">
           <p>
             View source code on
-            <a href="https://google.com" target="_blank">GitHub</a>
+            <a href="https://allankirui.github.io/vue-movies/" target="_blank"
+              >GitHub</a
+            >
           </p>
         </div>
       </div>
@@ -66,8 +70,10 @@
         </div>
         <div class="footer__right-text">
           <p>
-            Powered by VueJS using the
-            <a href="https://google.com" target="_blank">TMDB API</a>
+            Powered by <a href="https://v3.vuejs.org">VueJS</a> using the
+            <a href="https://themoviedb.org/documentation/api" target="_blank"
+              >TMDB API</a
+            >
           </p>
         </div>
       </div>
