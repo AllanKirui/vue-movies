@@ -8,11 +8,11 @@ This is a challenge I designed to help me practice my skills with the [Vue.js](h
   - [About the challenge](#about-the-challenge-)
   - [Screenshots](#screenshots-)
   - [Links](#links-)
-  - [Quickstart guide](#quickstart-guide)
-- [My process](#my-process-)
-  - [Built with](#built-with-)
+  - [Quickstart guide](#quickstart-guide-)
+- [My process](#my-process-gear)
+  - [Built with](#built-with-hammer_and_wrench-pencil-triangular_ruler)
   - [What I learned](#what-i-learned-)
-  - [Continued development](#continued-development-)
+  - [Continued development](#continued-development-stopwatch)
   - [Useful resources](#useful-resources-)
 - [Author](#author-)
 
@@ -220,17 +220,18 @@ Screenshots of the **App Tree**.
 
 To run the code, you need to follow these steps:
 
-1. Clone or downlod the repository to your computer.
+1. Clone or download the repository to your computer.
 2. You might need to install [Node.js](https://nodejs.org/) for the following steps.
 3. Open a terminal window and navigate to the directory containing the repository.
 4. Run `npm install` in the terminal to install required dependencies (This will create a **node_modules** folder.)
-5. Next, run `npm install --save vue-router@next` to install the routing package.
-6. Finally, run `npm run serve` to bring up the development server. You can view the app at localhost:8080
+5. Run `npm install --save vue-router@next` to install the routing package.
+6. Next, run `npm install vue3-carousel`
+7. Finally, run `npm run serve` to bring up the development server. You can view the app at localhost:8080
    (or whichever port is shown in your terminal).
 
 <br/>
 
-## My process ⚙️
+## My process :gear:
 
 ---
 
@@ -242,7 +243,7 @@ Having captured all my ideas about the app in the design, I initialized the Vue 
 
 <br/>
 
-### Built with 🛠️📏📐
+### Built with :hammer_and_wrench: :pencil: :triangular_ruler:
 
 - HTML5
 - CSS Flexbox
@@ -384,7 +385,7 @@ I also retrieve the stored app states in the `beforeMount()` hook of the various
 
 <br/>
 
-### Continued development ⏱️
+### Continued development :stopwatch:
 
 Going forward, I want continue learning more about frontend development and to practice what I already know by tackling more projects built with **Vue**. Applying the features and best practices that I've learnt from working on this project.
 
