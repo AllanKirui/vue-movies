@@ -1,7 +1,7 @@
 <template>
   <div v-if="!isLoading" class="showcase-wrapper">
-    <!-- show the data once we're done loading -->
-    <Carousel :settings="carouselSettings">
+    <!-- show the data once we're done loading and we have results -->
+    <Carousel v-if="results.length !== 0" :settings="carouselSettings">
       <Slide v-for="movie in results" :key="movie.id">
         <div class="carousel__item">
           <!-- movie poster -->
@@ -247,16 +247,13 @@ export default {
   beforeMount() {
     // get the window's width before data is shown on the screen
     this.screenSize = window.innerWidth;
-    // get the value of the category and page from the route
-    const newCategory = this.$route.query.category;
     // Add 1 so that movie showcase is showing 1 page ahead of the movie list below
     const newPage = +this.$route.query.page + 1;
 
     this.getPage(newPage);
     this.getCategory();
 
-    // if we are on the top rated category, don't make a new fetch request
-    if (newCategory === "top_rated") return;
+    // set the hasLoadedFromHook prop to true so we don't make multiple fetch requests
     this.hasLoadedFromHook = true;
     this.getMovies(this.selectedPage);
   },
