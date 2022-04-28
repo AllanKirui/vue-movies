@@ -14,10 +14,10 @@ const setRedirectPath = () => {
   // get stored app states from local storage
   const retrievedState = JSON.parse(localStorage.getItem("appState"));
   // if there's no stored app states, return movies as the path to use
-  if (!retrievedState) return "movies";
+  if (!retrievedState) return "/vue-movies/movies";
   // otherwise use the stored app states
   const retrievedPath = retrievedState.lastActiveSide;
-  return retrievedPath ? retrievedPath : "movies";
+  return retrievedPath ? "/vue-movies/" + retrievedPath : "/vue-movies/movies";
 };
 
 // create the router
@@ -25,13 +25,13 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", redirect: setRedirectPath },
-    { path: "/movies", component: TheMovies },
-    { path: "/shows", component: TheShows },
-    { path: "/movies/info", component: MovieInfo },
-    { path: "/movies/search", component: ExpandedMoviesearch },
-    { path: "/shows/info", component: ShowInfo },
-    { path: "/shows/search", component: ExpandedTvsearch },
-    { path: "/:notFound(.*)", component: NotFound },
+    { path: "/vue-movies/movies", component: TheMovies },
+    { path: "/vue-movies/shows", component: TheShows },
+    { path: "/vue-movies/movies/info", component: MovieInfo },
+    { path: "/vue-movies/movies/search", component: ExpandedMoviesearch },
+    { path: "/vue-movies/shows/info", component: ShowInfo },
+    { path: "/vue-movies/shows/search", component: ExpandedTvsearch },
+    { path: "/vue-movies/:notFound(.*)", component: NotFound },
   ],
 });
 
