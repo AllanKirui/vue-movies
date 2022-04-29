@@ -411,7 +411,7 @@ Going forward, I want continue learning more about frontend development and to p
 - Instagram - [@nallawilljr](https://www.instagram.com/nallawilljr)
 - Email - <allan.kirui@outlook.com>
 
-Thank you for taking your time to go through this readme and I hope you'll remember to use [Vue Movies](#links) the next time you're browsing for Movies or TV Shows. 😉
+Thank you for taking your time to go through this readme and I hope you'll remember to use [Vue Movies](#links- the next time you're browsing for Movies or TV Shows. 😉
 
 If you do encounter any _undocumented features_ a.k.a bugs, kindly let me know.
 
