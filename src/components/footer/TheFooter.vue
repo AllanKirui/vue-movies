@@ -70,7 +70,8 @@
         </div>
         <div class="footer__right-text">
           <p>
-            Powered by <a href="https://v3.vuejs.org">VueJS</a> using the
+            Powered by
+            <a href="https://v3.vuejs.org" target="_blank">VueJS</a> using the
             <a href="https://themoviedb.org/documentation/api" target="_blank"
               >TMDB API</a
             >
