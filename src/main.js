@@ -24,7 +24,7 @@ const setRedirectPath = () => {
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/", redirect: setRedirectPath },
+    { path: "/vue-movies/", redirect: setRedirectPath },
     { path: "/vue-movies/movies", component: TheMovies },
     { path: "/vue-movies/shows", component: TheShows },
     { path: "/vue-movies/movies/info", component: MovieInfo },
