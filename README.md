@@ -224,9 +224,7 @@ To run the code, you need to follow these steps:
 2. You might need to install [Node.js](https://nodejs.org/) for the following steps.
 3. Open a terminal window and navigate to the directory containing the repository.
 4. Run `npm install` in the terminal to install required dependencies (This will create a **node_modules** folder.)
-5. Run `npm install --save vue-router@next` to install the routing package.
-6. Next, run `npm install vue3-carousel`
-7. Finally, run `npm run serve` to bring up the development server. You can view the app at localhost:8080
+5. Run `npm run serve` to bring up the development server. You can view the app at **localhost:8080**
    (or whichever port is shown in your terminal).
 
 <br/>
@@ -400,6 +398,8 @@ Going forward, I want continue learning more about frontend development and to p
 - [Vue3 Carousel](https://ismail9k.github.io/vue3-carousel/) - Vue.js 3 carousel component.
 
 - [unDraw](https://undraw.co/) - Open-source illustrations for any idea you can imagine and create.
+
+- [Medium](https://huishun.medium.com/how-to-deploy-a-vue-js-application-with-dynamic-routing-on-github-pages-3d36f4644e54) - How to Deploy a Vue.js Application with Dynamic Routing on GitHub Pages by **Hui Shun Chua**
 
 <br>
 
