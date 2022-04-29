@@ -72,7 +72,7 @@ export default {
     if (!retrievedState) {
       // get the value of the category prop from the active route
       const newCategory = this.$route.query.category;
-      this.activeCategory = newCategory;
+      this.activeCategory = newCategory ? newCategory : this.defaultCategory;
       // emit custom events to carry the category and active side data
       this.$emit("update-category", this.activeCategory);
       this.$emit("activated-side", "movies");
