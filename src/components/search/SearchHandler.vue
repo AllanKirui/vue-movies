@@ -193,12 +193,12 @@ export default {
       // conditionally set a route to ExpandedSearch component showing either movie or tv show results
       if (this.activatedSide === "movies") {
         route = {
-          path: "/movies/search",
+          path: "/vue-movies/movies/search",
           query: { keyword: this.searchTerm, page: 1 },
         };
       } else {
         route = {
-          path: "/shows/search",
+          path: "/vue-movies/shows/search",
           query: { keyword: this.searchTerm, page: 1 },
         };
       }

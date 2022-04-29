@@ -270,7 +270,7 @@ export default {
     updateRoute(searchTerm, activePage) {
       // update the query parameter on the route link
       this.$router.push({
-        path: "/movies/search",
+        path: "/vue-movies/movies/search",
         query: { keyword: searchTerm, page: activePage },
       });
     },
@@ -331,7 +331,7 @@ export default {
 
     // check if the active path is /movies/search then show the close button
     const activePath = this.$route.path;
-    if (activePath === "/movies/search") {
+    if (activePath === "/vue-movies/movies/search") {
       this.$emit("show-button", true);
     }
   },

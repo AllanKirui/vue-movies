@@ -46,7 +46,7 @@ export default {
   computed: {
     moviesRoute() {
       const route = {
-        path: "/movies",
+        path: "/vue-movies/movies",
         query: { category: this.category, page: this.defaultPage },
       };
       return route;

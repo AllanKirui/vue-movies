@@ -115,14 +115,14 @@ export default {
     },
     setMovieInfoRoute(movieTitle, movieId) {
       const route = {
-        path: "/movies/info",
+        path: "/vue-movies/movies/info",
         query: { name: movieTitle, id: movieId },
       };
       return route;
     },
     setShowsInfoRoute(showTitle, showId) {
       const route = {
-        path: "/shows/info",
+        path: "/vue-movies/shows/info",
         query: { name: showTitle, id: showId },
       };
       return route;
@@ -216,6 +216,12 @@ export default {
     },
     showNetError(status) {
       this.isNetError = status;
+    },
+  },
+  watch: {
+    $route(newValue) {
+      // watch the $route object for changes and retrieve the category from it
+      this.category = newValue.query.category;
     },
   },
   provide() {
@@ -827,7 +833,7 @@ html::-webkit-scrollbar-track,
 }
 
 .heading-wrapper {
-  color: var(--color-spanish-gray);
+  color: var(--colsor-spanish-gray);
   margin-bottom: 2.5rem;
 }
 
@@ -837,11 +843,6 @@ html::-webkit-scrollbar-track,
 
 .search-term .text-white {
   margin-left: 0.3125rem;
-}
-
-.content__poster img.no-poster-img {
-  padding: 50% 0;
-  object-fit: cover;
 }
 
 .no-results.expanded-search {

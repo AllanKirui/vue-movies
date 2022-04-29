@@ -350,42 +350,42 @@ export default {
   computed: {
     moviesRoute() {
       const route = {
-        path: "/movies",
-        query: { category: this.defaultCategory, page: this.defaultPage },
+        path: "/vue-movies/movies",
+        query: { category: this.category, page: this.defaultPage },
       };
       return route;
     },
     showsRoute() {
       const route = {
-        path: "/shows",
-        query: { category: this.defaultCategory, page: this.defaultPage },
+        path: "/vue-movies/shows",
+        query: { category: this.category, page: this.defaultPage },
       };
       return route;
     },
     popularMoviesRoute() {
       const route = {
-        path: "/movies",
+        path: "/vue-movies/movies",
         query: { category: "popular", page: this.defaultPage },
       };
       return route;
     },
     topRatedMoviesRoute() {
       const route = {
-        path: "/movies",
+        path: "/vue-movies/movies",
         query: { category: "top_rated", page: this.defaultPage },
       };
       return route;
     },
     popularShowsRoute() {
       const route = {
-        path: "/shows",
+        path: "/vue-movies/shows",
         query: { category: "popular", page: this.defaultPage },
       };
       return route;
     },
     topRatedShowsRoute() {
       const route = {
-        path: "/shows",
+        path: "/vue-movies/shows",
         query: { category: "top_rated", page: this.defaultPage },
       };
       return route;

@@ -205,7 +205,7 @@ export default {
     updateRoute(activePage) {
       // update the query parameter on the route link
       this.$router.push({
-        path: "/movies",
+        path: "/vue-movies/movies",
         query: { category: this.category, page: activePage },
       });
     },
