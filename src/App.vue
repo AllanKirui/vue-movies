@@ -48,6 +48,7 @@ export default {
       category: null, // can either get 'popular' or 'top_rated' movies
       isError404: false,
       isNetError: false,
+      hasLoadedFromHook: false,
     };
   },
   methods: {
@@ -201,6 +202,8 @@ export default {
         this.category = category;
         this.defaultCategory = category;
       }
+      // reset the hasLoadedFromHook prop
+      this.hasLoadedFromHook = false;
     },
     getCategory() {
       // check if there is a chosen category, or use the default instead
@@ -220,6 +223,9 @@ export default {
   },
   watch: {
     $route(newValue) {
+      // if the app has loaded from a lifecycle hook, don't load it again by updating
+      // the value of the category prop
+      if (this.hasLoadedFromHook) return;
       // watch the $route object for changes and retrieve the category from it
       this.category = newValue.query.category;
     },
@@ -247,6 +253,8 @@ export default {
     const retrievedState = JSON.parse(localStorage.getItem("appState"));
     // if there's no stored app states
     if (!retrievedState) {
+      // set the hasLoadedFromHook prop to true
+      this.hasLoadedFromHook = true;
       this.getCategory();
       return;
     }
@@ -257,6 +265,9 @@ export default {
     this.category = retrievedCategory
       ? retrievedCategory
       : this.defaultCategory;
+
+    // set the hasLoadedFromHook prop to true
+    this.hasLoadedFromHook = true;
   },
   updated() {
     // save app states to local storage
