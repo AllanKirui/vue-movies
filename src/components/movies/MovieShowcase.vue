@@ -156,7 +156,8 @@ export default {
       isLoaded: null,
       selectedPage: null,
       defaultPage: 2,
-      hasLoadedFromHook: false,
+      hasLoadedFromHook: false, // holds a Boolean if component has been loaded in beforeMount hook
+      canReload: false,
     };
   },
   computed: {
@@ -223,11 +224,28 @@ export default {
     },
   },
   watch: {
+    $route(newRoute) {
+      const newPage = +newRoute.query.page;
+      const newCategory = newRoute.query.category;
+
+      // only allow a fetch request to be made for the first page of any
+      // of the categories if the page number from the route is one.
+      // This avoids inappropriate requests made when navigating with the
+      // back and forward buttons between the various categories
+      if (
+        (newPage === 1 && newCategory === "popular") ||
+        (newPage === 1 && newCategory === "top_rated")
+      ) {
+        this.canReload = true;
+      } else {
+        this.canReload = false;
+      }
+    },
     chosenCategory(newValue) {
       this.getCategory();
       // only run this fetch request if the chosen page from the pagination is less
-      // than 3 and if there's a new category
-      if (this.chosenPage < 3 && newValue) {
+      // than 3, if there's a new category and if the canReload prop holds true
+      if (this.chosenPage < 3 && newValue && this.canReload) {
         // reset the selected page when switching categories
         this.selectedPage = this.defaultPage;
         this.getMovies(this.selectedPage);

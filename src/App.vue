@@ -222,12 +222,12 @@ export default {
     },
   },
   watch: {
-    $route(newValue) {
+    $route(newRoute) {
       // if the app has loaded from a lifecycle hook, don't load it again by updating
       // the value of the category prop
       if (this.hasLoadedFromHook) return;
       // watch the $route object for changes and retrieve the category from it
-      this.category = newValue.query.category;
+      this.category = newRoute.query.category;
     },
   },
   provide() {
