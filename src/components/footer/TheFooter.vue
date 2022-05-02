@@ -50,7 +50,7 @@
         <div class="footer__center-text">
           <p>
             View source code on
-            <a href="https://allankirui.github.io/vue-movies/" target="_blank"
+            <a href="https://github.com/AllanKirui/vue-movies" target="_blank"
               >GitHub</a
             >
           </p>
