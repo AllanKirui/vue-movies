@@ -158,6 +158,8 @@ export default {
       defaultPage: 2,
       hasLoadedFromHook: false, // holds a Boolean if component has been loaded in beforeMount hook
       canReload: false,
+      routePage: null,
+      routeCategory: null,
     };
   },
   computed: {
@@ -225,16 +227,16 @@ export default {
   },
   watch: {
     $route(newRoute) {
-      const newPage = +newRoute.query.page;
-      const newCategory = newRoute.query.category;
+      this.routePage = +newRoute.query.page;
+      this.routeCategory = newRoute.query.category;
 
       // only allow a fetch request to be made for the first page of any
       // of the categories if the page number from the route is one.
-      // This avoids inappropriate requests made when navigating with the
+      // This avoids duplicate requests made when navigating with the
       // back and forward buttons between the various categories
       if (
-        (newPage === 1 && newCategory === "popular") ||
-        (newPage === 1 && newCategory === "top_rated")
+        (this.routePage === 1 && this.routeCategory === "popular") ||
+        (this.routePage === 1 && this.routeCategory === "top_rated")
       ) {
         this.canReload = true;
       } else {
@@ -265,10 +267,20 @@ export default {
   beforeMount() {
     // get the window's width before data is shown on the screen
     this.screenSize = window.innerWidth;
-    // Add 1 so that movie showcase is showing 1 page ahead of the movie list below
-    const newPage = +this.$route.query.page + 1;
+    // get the page and category from the route
+    const newPage = +this.$route.query.page;
+    const newCategory = this.$route.query.category;
 
-    this.getPage(newPage);
+    // when the site is first loaded set the canReload prop to true
+    if (
+      (newPage === 1 && newCategory === "popular") ||
+      (newPage === 1 && newCategory === "top_rated")
+    ) {
+      this.canReload = true;
+    }
+
+    // Add 1 so that show showcase is showing 1 page ahead of the shows list below
+    this.getPage(newPage + 1);
     this.getCategory();
 
     // set the hasLoadedFromHook prop to true so we don't make multiple fetch requests
