@@ -945,10 +945,6 @@ html::-webkit-scrollbar-track,
   .search-form.nav {
     display: none;
   }
-
-  .overlay.active-overlay {
-    top: 158px;
-  }
 }
 
 @media screen and (min-width: 769px) {
