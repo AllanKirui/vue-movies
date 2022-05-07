@@ -139,44 +139,13 @@
       v-if="isShowSearchButton && !isExpandedSearch"
       class="mobile-search-activator flex flex-ai-c"
     >
-      <button @click="activateMobileSearch" :title="searchButtonText">
-        {{ searchButtonText }}
-      </button>
-    </div>
-
-    <search-handler
-      v-if="!isLoading && isSearchActive"
-      :search-results="resultsData"
-      :search-term="searchTerm"
-      :active-side="activeSide"
-      @more-results="showExpandedSearchResults"
-      @clear-results="removeOverlay"
-    ></search-handler>
-    <search-placeholder v-else-if="isLoading"></search-placeholder>
-  </nav>
-
-  <!-- search bar for small screens -->
-  <div
-    class="mobile-search-wrapper"
-    :class="isShowMobileSearch ? 'search-active' : ''"
-  >
-    <form
-      class="search-form mobile-search"
-      @submit.prevent="
-        activeSide === 'movies'
-          ? getMovies(movieSearchLink)
-          : getShows(tvSearchLink)
-      "
-    >
-      <label for="search">Search</label>
-      <input
-        name="search"
-        type="text"
-        placeholder="Search for movies or TV shows..."
-        v-model.trim="searchTerm"
-        :class="searchTerm ? 'active-search' : ''"
-      />
-      <button title="search" class="search-btn">
+      <!-- show search icon -->
+      <button
+        v-if="!isShowMobileSearch"
+        class="search-btn"
+        @click="activateMobileSearch"
+        :title="searchButtonText"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="21"
@@ -218,8 +187,86 @@
           </g>
         </svg>
       </button>
-    </form>
-  </div>
+
+      <!-- show close icon -->
+      <button
+        v-else
+        class="search-btn"
+        @click="activateMobileSearch"
+        :title="searchButtonText"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 5.2916666 5.2916669"
+        >
+          <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+            <g id="g839">
+              <path
+                style="
+                  fill: none;
+                  stroke: #ececec;
+                  stroke-width: 0.416228;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-opacity: 1;
+                "
+                d="M 0.14665203,0.15512577 5.1440068,5.1522917"
+                id="path4553"
+              />
+              <path
+                style="
+                  fill: none;
+                  stroke: #ececec;
+                  stroke-width: 0.416228;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-opacity: 1;
+                "
+                d="M 5.1439019,0.15506284 0.1467569,5.1523442"
+                id="path4555"
+              />
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+
+    <div
+      class="mobile-search-wrapper"
+      :class="isShowMobileSearch ? 'search-active' : ''"
+    >
+      <form
+        class="mobile-search-form"
+        :class="isShowMobileSearch ? 'active' : ''"
+        @submit.prevent="
+          activeSide === 'movies'
+            ? getMovies(movieSearchLink)
+            : getShows(tvSearchLink)
+        "
+      >
+        <label for="search">Search</label>
+        <input
+          name="search"
+          type="text"
+          placeholder="Search for movies or TV shows..."
+          v-model.trim="searchTerm"
+          :class="searchTerm ? 'active-search' : ''"
+        />
+      </form>
+    </div>
+
+    <search-handler
+      v-if="!isLoading && isSearchActive"
+      :search-results="resultsData"
+      :search-term="searchTerm"
+      :active-side="activeSide"
+      @more-results="showExpandedSearchResults"
+      @clear-results="removeOverlay"
+    ></search-handler>
+    <search-placeholder v-else-if="isLoading"></search-placeholder>
+  </nav>
 
   <!-- options menu -->
   <div :class="[isMenuOpen ? 'open' : '', 'menu-wrapper']">
@@ -729,7 +776,6 @@ nav {
   padding: 0;
 }
 
-.mobile-search-activator button,
 .nav-options a {
   padding: 8px 12px;
   border: none;
@@ -742,12 +788,6 @@ nav {
   transition: all 0.15s ease-in-out;
 }
 
-.mobile-search-activator button {
-  font-weight: normal;
-  font-size: var(--font-size-16);
-}
-
-.mobile-search-activator button:hover,
 .nav-options a:hover {
   color: var(--color-smokey-black);
   background-color: var(--color-clouds);
@@ -864,18 +904,73 @@ nav {
 }
 
 /* start of mobile search styles */
+.mobile-search-activator {
+  z-index: 5;
+}
+
 .mobile-search-wrapper {
-  display: none;
-  padding: 0.9375rem;
-  background-color: var(--color-jet-black);
+  position: absolute;
+  top: 50%;
+  right: -2px;
+  transform: translateY(-50%);
+  width: 0%;
+  height: 100%;
+  background-image: linear-gradient(120deg, #090909 0%, #212429 100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  z-index: 4;
 }
 
 .mobile-search-wrapper.search-active {
-  display: block;
+  width: calc(100vw + 2px);
+  opacity: 1;
+  visibility: visible;
 }
 
 .search-form.mobile-search input {
   width: 100%;
+}
+
+.mobile-search-form label {
+  display: none;
+}
+
+.mobile-search-form input {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  height: 101%;
+  transform: translateY(-50%);
+  width: 50px;
+  padding: 1.375rem 3.75rem 1.375rem 1.5rem;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(120deg, #000000 0%, #111111 100%);
+  color: var(--color-clouds);
+  font-family: "PT Sans", sans-serif;
+  font-size: var(--font-size-16);
+  opacity: 0;
+  transition: width 0.4s ease-in-out, opacity 0.6s ease-in-out;
+  z-index: 3;
+}
+
+.mobile-search-form input::placeholder {
+  color: var(--color-clouds);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in-out;
+}
+
+.mobile-search-form.active input {
+  opacity: 1;
+  /* width: calc(100vw - 30px); */
+  width: 100%;
+}
+
+.mobile-search-form.active input::placeholder {
+  opacity: 1;
+  visibility: visible;
 }
 /* end of mobile search styles */
 
