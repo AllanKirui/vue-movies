@@ -617,6 +617,12 @@ export default {
         this.isExpandedSearch = false;
       }
     },
+    isShowMobileSearch(newValue) {
+      // close the menu when mobile search is active
+      if (newValue) {
+        this.isMenuOpen = false;
+      }
+    },
   },
   beforeMount() {
     this.screenSize = window.innerWidth;
