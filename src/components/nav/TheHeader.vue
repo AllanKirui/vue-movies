@@ -191,7 +191,7 @@
       <!-- show close icon -->
       <button
         v-else
-        class="search-btn"
+        class="search-btn close"
         @click="activateMobileSearch"
         :title="searchButtonText"
       >
@@ -233,6 +233,7 @@
       </button>
     </div>
 
+    <!-- mobile search form -->
     <div
       class="mobile-search-wrapper"
       :class="isShowMobileSearch ? 'search-active' : ''"
@@ -621,6 +622,8 @@ export default {
       // close the menu when mobile search is active
       if (newValue) {
         this.isMenuOpen = false;
+      } else {
+        this.searchTerm = "";
       }
     },
   },
@@ -914,6 +917,11 @@ nav {
   z-index: 5;
 }
 
+.mobile-search-activator button.close {
+  border-radius: 50px;
+  background-color: var(--color-smokey-black);
+}
+
 .mobile-search-wrapper {
   position: absolute;
   top: 50%;
@@ -949,7 +957,7 @@ nav {
   height: 101%;
   transform: translateY(-50%);
   width: 50px;
-  padding: 1.375rem 3.75rem 1.375rem 1.5rem;
+  padding: 1.375rem 3.75rem 1.375rem 1.875rem;
   outline: none;
   border: none;
   background-image: linear-gradient(120deg, #000000 0%, #111111 100%);
@@ -1024,13 +1032,6 @@ ul {
   height: 7.5rem;
   margin-right: 0.625rem;
   background-color: var(--color-jet-black);
-}
-
-@media screen and (max-width: 939px) {
-  .results-wrapper,
-  .placeholder-wrapper {
-    top: calc(100% + 78px);
-  }
 }
 
 @media screen and (max-width: 678px) {
