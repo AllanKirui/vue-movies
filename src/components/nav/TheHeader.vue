@@ -999,18 +999,22 @@ nav {
   height: 29.375rem;
   padding: 0.8125rem 0.625rem;
   background-color: var(--color-jet-black);
-  opacity: 0.95;
-  visibility: hidden;
   z-index: 3;
+}
+
+.placeholder-wrapper {
+  top: -29.375rem;
+  animation: slide 0.6s forwards;
 }
 
 .results-wrapper {
   overflow-y: auto;
 }
 
-.placeholder-wrapper,
-.results-wrapper.active {
-  visibility: visible;
+@keyframes slide {
+  100% {
+    top: 100%;
+  }
 }
 
 ul {
@@ -1041,8 +1045,7 @@ ul {
 
   .results-wrapper,
   .placeholder-wrapper {
-    top: calc(100% + 78px);
-    height: calc(100vh - 158px);
+    height: calc(100vh - 78px);
   }
 
   .result__info > div {
