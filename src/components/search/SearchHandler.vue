@@ -299,7 +299,7 @@ export default {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  margin: 1.25rem 0;
+  margin: 1.25rem 0 2.5rem 0;
   padding: 8px 12px;
   border: none;
   border-radius: 5px;
