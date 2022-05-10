@@ -2,6 +2,12 @@
 
 This is a challenge I designed to help me practice my skills with the [Vue.js](https://v3.vuejs.org) framework.
 
+<!-- Note that the Table of contents links don't work offline because
+    of the use of emojis. They do however work online on GitHub
+
+    https://github.com/thlorenz/anchor-markdown-header/issues/36
+-->
+
 ## Table of contents 📖
 
 - [Overview](#overview-)
