@@ -391,7 +391,7 @@ I also retrieve the stored app states in the `beforeMount()` hook of the various
 
 ### Continued development :stopwatch:
 
-Going forward, I want continue learning more about frontend development and to practice what I already know by tackling more projects built with **Vue**. Applying the features and best practices that I've learnt from working on this project.
+Going forward, I want to continue learning more about frontend development and to practice what I already know by tackling more projects built with **Vue**. Applying the features and best practices that I've learnt from working on this project.
 
 <br>
 
