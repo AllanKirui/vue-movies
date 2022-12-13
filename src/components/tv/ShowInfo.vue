@@ -64,7 +64,7 @@
                 width="15"
                 height="14.4"
                 alt="star icon"
-              />{{ result.vote_average }}
+              />{{ result.vote_average.toFixed(1) }}
             </p>
             <p
               v-if="result.episode_run_time.length !== 0"
