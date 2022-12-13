@@ -414,7 +414,6 @@ Going forward, I want to continue learning more about frontend development and t
 ## Author ✍🏾
 
 - Github - [Allan Kirui](https://www.github.com/AllanKirui)
-- Instagram - [@nallawilljr](https://www.instagram.com/nallawilljr)
 - Email - <allan.kirui@outlook.com>
 
 Thank you for taking your time to go through this readme and I hope you'll remember to use [Vue Movies](#links-) the next time you're browsing for Movies or TV Shows. 😉
