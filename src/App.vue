@@ -844,7 +844,7 @@ html::-webkit-scrollbar-track,
 }
 
 .heading-wrapper {
-  color: var(--colsor-spanish-gray);
+  color: var(--color-spanish-gray);
   margin-bottom: 2.5rem;
 }
 
